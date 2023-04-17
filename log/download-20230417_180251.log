@@ -1,0 +1,23 @@
+srun: job 1146619 queued and waiting for resources
+srun: job 1146619 has been allocated resources
+srun: Job 1146619 scheduled successfully!
+Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
+Current PHX_PRIORITY is normal
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:10<00:21, 10.51s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:21<00:10, 10.55s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:30<00:00, 10.04s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:30<00:00, 10.18s/it]
+INFO:     Started server process [231046]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:6001 (Press CTRL+C to quit)
+original output:有这样一个故事：“我：“爸在干嘛呢？最近家里生意还好吧。”爸：“已汇””，请问这个故事的笑点在哪儿？
+我：爸在干嘛呢？最近家里生意还好吧。”爸：“已汇””，请问这个故事的笑点在哪儿？ 答：笑点在爸的语气上，“已汇”，是已经汇了，而不是已经汇完了。 笑点在爸的语气上，“已汇”，是已经汇了，而不是已经汇完了。 笑点在爸的语气上，“已汇”，是已经汇了，而不是已经汇完了。 笑点在爸的语气上，“已汇”，是已经汇了，而不是已经汇完了。 笑点在爸的语气上，“已汇”，是已经汇了，而不是已经汇完了。 笑点在爸的语气上，“已汇”，是已经汇了，而不是已经汇完了。 笑点在爸的语气上，“已汇”，是已经汇了，而不是已经汇完了。 笑点在爸的语气上，“已汇”，是已经汇了，而不是已经汇完了。 笑点在爸的语气上，“已汇”，是已经汇了，而不是已经汇完了。 
+INFO:     10.1.8.5:47472 - "POST /generate HTTP/1.1" 200 OK
+srun: Force Terminated job 1146619
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+srun: Easily find out why your job was killed by following the link below:
+	https://docs.phoenix.sensetime.com/FAQ/SlurmFAQ/Find-out-why-my-job-was-killed/
+slurmstepd: error: *** STEP 1146619.0 ON SH-IDC1-10-140-24-72 CANCELLED AT 2023-04-17T18:06:33 ***
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [231046]

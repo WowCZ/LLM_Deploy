@@ -1,0 +1,16 @@
+srun: job 1132930 queued and waiting for resources
+srun: job 1132930 has been allocated resources
+srun: Job 1132930 scheduled successfully!
+Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
+Current PHX_PRIORITY is normal
+
+Traceback (most recent call last):
+  File "api_server.py", line 3, in <module>
+    from llm_api import ChatGLMAPI
+  File "/mnt/petrelfs/chenzhi/workspace/LLM/llm_api/__init__.py", line 4, in <module>
+    from .davinci import DavinciAPI
+  File "/mnt/petrelfs/chenzhi/workspace/LLM/llm_api/davinci.py", line 10, in <module>
+    assert openai_key, "No OpenAI API key detected in the environment"
+AssertionError: No OpenAI API key detected in the environment
+srun: error: SH-IDC1-10-140-24-22: task 0: Exited with exit code 1
+srun: launch/slurm: _step_signal: Terminating StepId=1132930.0

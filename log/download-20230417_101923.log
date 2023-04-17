@@ -1,0 +1,24 @@
+srun: job 1144116 queued and waiting for resources
+srun: job 1144116 has been allocated resources
+srun: Job 1144116 scheduled successfully!
+Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
+Current PHX_PRIORITY is normal
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:09<00:38,  9.71s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:20<00:30, 10.14s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:30<00:20, 10.07s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:40<00:10, 10.23s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:47<00:00,  8.94s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:47<00:00,  9.45s/it]
+INFO:     Started server process [123074]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:5001 (Press CTRL+C to quit)
+INFO:     10.1.8.5:51632 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:35674 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:35032 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:51014 - "POST /generate HTTP/1.1" 200 OK
+srun: Force Terminated job 1144116
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+srun: Easily find out why your job was killed by following the link below:
+	https://docs.phoenix.sensetime.com/FAQ/SlurmFAQ/Find-out-why-my-job-was-killed/
+slurmstepd: error: *** STEP 1144116.0 ON SH-IDC1-10-140-24-72 CANCELLED AT 2023-04-17T10:59:40 ***
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [123074]
