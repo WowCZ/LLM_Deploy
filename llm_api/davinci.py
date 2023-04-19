@@ -9,9 +9,8 @@ logger.setLevel(logging.DEBUG)
 
 openai_key = os.environ['OPENAI_KEY1'] if 'OPENAI_KEY1' in os.environ else None
 assert openai_key, "No OpenAI API key detected in the environment"
-openai.api_key = openai_key
 
-params = {"temperature": 0.0, "top_p": 1.0, "num_generations": 1, "max_tokens": 1024}
+params = {"temperature": 1.0, "top_p": 1.0, "num_generations": 1, "max_tokens": 512}
 
 class DavinciAPI(LLMAPI):
     def __init__(self, model_name='text-davinci-003', model_path=None):
@@ -23,6 +22,7 @@ class DavinciAPI(LLMAPI):
 
         # Testcase
         example_prompt = "中国有多少省份？"
+        openai.api_key = openai_key
         completion = openai.Completion.create(model="text-davinci-003",
                                                 prompt=example_prompt,
                                                 temperature=params["temperature"],
@@ -35,6 +35,7 @@ class DavinciAPI(LLMAPI):
         return model, tokenizer
         
     def generate(self, instance: Union[str, list]) -> List[str]:
+        openai.api_key = openai_key
         completion = openai.Completion.create(model="text-davinci-003",
                                                 prompt=instance,
                                                 temperature=params["temperature"],

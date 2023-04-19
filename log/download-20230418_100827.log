@@ -1,0 +1,25 @@
+srun: job 1149340 queued and waiting for resources
+srun: job 1149340 has been allocated resources
+srun: Job 1149340 scheduled successfully!
+Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
+Current PHX_PRIORITY is normal
+
+Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
+Explicitly passing a `revision` is encouraged when loading a configuration with custom code to ensure no malicious code has been contributed in a newer revision.
+Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
+>>> openai_key:  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
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:11<00:11, 11.13s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:15<00:00,  6.89s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:15<00:00,  7.53s/it]
+The dtype of attention mask (torch.int64) is not bool
+INFO:     Started server process [215231]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:5001 (Press CTRL+C to quit)
+srun: Force Terminated job 1149340
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+srun: Easily find out why your job was killed by following the link below:
+	https://docs.phoenix.sensetime.com/FAQ/SlurmFAQ/Find-out-why-my-job-was-killed/
+slurmstepd: error: *** STEP 1149340.0 ON SH-IDC1-10-140-24-72 CANCELLED AT 2023-04-18T10:12:54 ***
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [215231]

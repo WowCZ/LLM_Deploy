@@ -99,3 +99,12 @@ INFO:     10.1.8.5:45306 - "POST /generate HTTP/1.1" 200 OK
 INFO:     10.1.8.5:45318 - "POST /generate HTTP/1.1" 200 OK
 INFO:     10.1.8.5:45326 - "POST /generate HTTP/1.1" 200 OK
 INFO:     10.1.8.5:45334 - "POST /generate HTTP/1.1" 200 OK
+srun: Force Terminated job 1144384
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+srun: Easily find out why your job was killed by following the link below:
+	https://docs.phoenix.sensetime.com/FAQ/SlurmFAQ/Find-out-why-my-job-was-killed/
+slurmstepd: error: *** STEP 1144384.0 ON SH-IDC1-10-140-24-72 CANCELLED AT 2023-04-18T10:03:08 ***
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [129328]

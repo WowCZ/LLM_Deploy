@@ -31,8 +31,8 @@ def visit_llm(url_ip, header, port, data):
 
 if __name__ == '__main__':
     # Single Thread
-    url_ip = '10.140.24.72'
-    port = '6001'
+    url_ip = '43.130.133.215'
+    port = '6501'
     header = {'Content-Type': 'application/json'}
     data = {
         "prompt": "有这样一个故事：“我：“爸在干嘛呢？最近家里生意还好吧。”爸：“已汇””，请问这个故事的笑点在哪儿？"

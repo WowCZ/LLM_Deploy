@@ -1,0 +1,152 @@
+srun: job 1150837 queued and waiting for resources
+srun: job 1150837 has been allocated resources
+srun: Job 1150837 scheduled successfully!
+Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
+Current PHX_PRIORITY is normal
+
+>>> openai_key:  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
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:10<00:21, 10.88s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:21<00:10, 10.74s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:31<00:00, 10.42s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:31<00:00, 10.52s/it]
+INFO:     Started server process [19076]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:6002 (Press CTRL+C to quit)
+api IP = Host:Port =  10.140.24.72 : 6002
+INFO:     10.1.8.5:48056 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:36536 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:36550 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:37106 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:37118 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:58028 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:59662 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:59670 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:45442 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:45456 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:39390 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:43590 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:43592 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:42932 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:45388 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:45390 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:42922 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:42934 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:36200 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:48832 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:48846 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:32776 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:32782 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:44646 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:53026 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:53032 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:57984 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:58000 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:46188 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:46202 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:49798 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:45874 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:45886 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:51200 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:56254 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:56262 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:34000 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:34012 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:42680 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:32898 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:32908 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:47706 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:47714 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:38410 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:40670 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:40680 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:37598 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:37600 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:49678 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:55902 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:55916 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:34554 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:34564 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:34206 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:41114 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:41120 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:33690 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:33706 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:37284 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:41020 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:41030 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:59050 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:59064 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:44842 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:43850 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:43856 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:35540 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:35544 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:57226 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:42046 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:42060 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:42096 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:42106 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:43424 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:57176 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:57188 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:50792 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:50798 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:53066 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:38258 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:38264 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:39042 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:39046 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:45486 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:53616 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:53632 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:59384 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:42552 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:42556 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:41312 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:41322 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:44546 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:36350 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:36366 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:37226 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:37238 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:60548 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:46470 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:46478 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:50250 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:50258 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:51460 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:51856 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:51870 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:49272 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:49288 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:34594 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:38070 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:38078 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:46556 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:46570 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:34036 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:49894 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:49902 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:55174 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:55190 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:45510 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:50382 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:50390 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:52832 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:52836 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:40650 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:47264 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:47274 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:53512 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.140.52.82:37970 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+INFO:     10.140.52.82:42346 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+INFO:     10.140.52.82:42422 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+INFO:     10.140.52.82:53970 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+srun: Force Terminated job 1150837
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+srun: Easily find out why your job was killed by following the link below:
+	https://docs.phoenix.sensetime.com/FAQ/SlurmFAQ/Find-out-why-my-job-was-killed/
+slurmstepd: error: *** STEP 1150837.0 ON SH-IDC1-10-140-24-72 CANCELLED AT 2023-04-19T15:43:39 ***
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [19076]
+srun: error: Timed out waiting for job step to complete

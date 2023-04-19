@@ -1,0 +1,12 @@
+srun: job 1149920 queued and waiting for resources
+srun: job 1149920 has been allocated resources
+srun: Job 1149920 scheduled successfully!
+Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
+Current PHX_PRIORITY is normal
+
+Traceback (most recent call last):
+  File "api_server.py", line 1, in <module>
+    import uvicorn
+ModuleNotFoundError: No module named 'uvicorn'
+srun: error: SH-IDC1-10-140-24-72: task 0: Exited with exit code 1
+srun: launch/slurm: _step_signal: Terminating StepId=1149920.0

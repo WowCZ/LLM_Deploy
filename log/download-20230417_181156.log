@@ -94,3 +94,19 @@ INFO:     10.1.8.5:59882 - "POST /generate HTTP/1.1" 200 OK
 INFO:     10.1.8.5:34506 - "POST /generate HTTP/1.1" 200 OK
 INFO:     10.1.8.5:34508 - "POST /generate HTTP/1.1" 200 OK
 INFO:     10.1.8.5:59360 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.140.52.82:48562 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+INFO:     10.140.52.82:48572 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+INFO:     10.140.52.82:48608 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+INFO:     10.140.52.82:48616 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+INFO:     10.140.52.82:48822 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+INFO:     10.140.52.82:48832 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+INFO:     10.140.52.82:48862 - "POST /algorithms/bigmodel/startEvaluate HTTP/1.1" 404 Not Found
+srun: Force Terminated job 1146734
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+srun: Easily find out why your job was killed by following the link below:
+	https://docs.phoenix.sensetime.com/FAQ/SlurmFAQ/Find-out-why-my-job-was-killed/
+slurmstepd: error: *** STEP 1146734.0 ON SH-IDC1-10-140-24-72 CANCELLED AT 2023-04-18T10:02:59 ***
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [238901]

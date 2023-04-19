@@ -1,0 +1,68 @@
+srun: job 1149271 queued and waiting for resources
+srun: job 1149271 has been allocated resources
+srun: Job 1149271 scheduled successfully!
+Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
+Current PHX_PRIORITY is normal
+
+>>> openai_key:  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
+Traceback (most recent call last):
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/urllib3/connectionpool.py", line 700, in urlopen
+    self._prepare_proxy(conn)
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/urllib3/connectionpool.py", line 996, in _prepare_proxy
+    conn.connect()
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/urllib3/connection.py", line 472, in connect
+    _match_hostname(cert, self.assert_hostname or server_hostname)
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/urllib3/connection.py", line 545, in _match_hostname
+    match_hostname(cert, asserted_hostname)
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/urllib3/util/ssl_match_hostname.py", line 150, in match_hostname
+    raise CertificateError(
+urllib3.util.ssl_match_hostname.CertificateError: hostname 'api.openai.com' doesn't match either of '*.facebook.com', '*.facebook.net', '*.fbcdn.net', '*.fbsbx.com', '*.m.facebook.com', '*.messenger.com', '*.xx.fbcdn.net', '*.xy.fbcdn.net', '*.xz.fbcdn.net', 'facebook.com', 'messenger.com'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/urllib3/connectionpool.py", line 815, in urlopen
+    return self.urlopen(
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/urllib3/connectionpool.py", line 815, in urlopen
+    return self.urlopen(
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.openai.com', port=443): Max retries exceeded with url: /v1/completions (Caused by SSLError(CertificateError("hostname 'api.openai.com' doesn't match either of '*.facebook.com', '*.facebook.net', '*.fbcdn.net', '*.fbsbx.com', '*.m.facebook.com', '*.messenger.com', '*.xx.fbcdn.net', '*.xy.fbcdn.net', '*.xz.fbcdn.net', 'facebook.com', 'messenger.com'")))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/openai/api_requestor.py", line 516, in request_raw
+    result = _thread_context.session.request(
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/requests/adapters.py", line 563, in send
+    raise SSLError(e, request=request)
+requests.exceptions.SSLError: HTTPSConnectionPool(host='api.openai.com', port=443): Max retries exceeded with url: /v1/completions (Caused by SSLError(CertificateError("hostname 'api.openai.com' doesn't match either of '*.facebook.com', '*.facebook.net', '*.fbcdn.net', '*.fbsbx.com', '*.m.facebook.com', '*.messenger.com', '*.xx.fbcdn.net', '*.xy.fbcdn.net', '*.xz.fbcdn.net', 'facebook.com', 'messenger.com'")))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "api_server.py", line 3, in <module>
+    from llm_api import ChatGLMAPI, T5API, DavinciAPI, TurboAPI, BloomAPI
+  File "/mnt/petrelfs/chenzhi/workspace/LLM/llm_api/__init__.py", line 4, in <module>
+    from .davinci import DavinciAPI
+  File "/mnt/petrelfs/chenzhi/workspace/LLM/llm_api/davinci.py", line 20, in <module>
+    completion = openai.Completion.create(model="text-davinci-003",
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/openai/api_resources/completion.py", line 25, in create
+    return super().create(*args, **kwargs)
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/openai/api_resources/abstract/engine_api_resource.py", line 153, in create
+    response, _, api_key = requestor.request(
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/openai/api_requestor.py", line 216, in request
+    result = self.request_raw(
+  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/openai/api_requestor.py", line 529, in request_raw
+    raise error.APIConnectionError(
+openai.error.APIConnectionError: Error communicating with OpenAI: HTTPSConnectionPool(host='api.openai.com', port=443): Max retries exceeded with url: /v1/completions (Caused by SSLError(CertificateError("hostname 'api.openai.com' doesn't match either of '*.facebook.com', '*.facebook.net', '*.fbcdn.net', '*.fbsbx.com', '*.m.facebook.com', '*.messenger.com', '*.xx.fbcdn.net', '*.xy.fbcdn.net', '*.xz.fbcdn.net', 'facebook.com', 'messenger.com'")))
+srun: error: SH-IDC1-10-140-24-72: task 0: Exited with exit code 1
+srun: launch/slurm: _step_signal: Terminating StepId=1149271.0

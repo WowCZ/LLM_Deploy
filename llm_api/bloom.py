@@ -44,7 +44,7 @@ class BloomAPI(LLMAPI):
             instance = ' '.join(instance)
             
         inputs = self.tokenizer(instance, return_tensors="pt").to("cuda")
-        outputs = self.model.generate(**inputs, max_new_tokens=256)
+        outputs = self.model.generate(**inputs, max_new_tokens=1024)
         response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
         # print(f'original output:{response}')
         response = response[len(instance):]

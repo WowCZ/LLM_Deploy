@@ -7,11 +7,11 @@ from pydantic import BaseModel
 import logging
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+
 
 model_api = BloomAPI()
 # output = model_api.generate(['有这样一个故事：“我：“爸在干嘛呢？最近家里生意还好吧。”爸：“已汇””，请问这个故事的笑点在哪儿？'])
-# logger.info(output)
+# print(output)
 
 class Item(BaseModel):
     prompt: str
@@ -27,11 +27,12 @@ app = FastAPI()
 @app.post('/generate')
 async def generate(item: Item) -> Dict:
     output = model_api.generate(item.prompt)
-    return {"output": output}
+    return {"outputs": [output]}
 
 
 host_ip = socket.gethostbyname(socket.gethostname())
-port=6002
+port=6004
+print("api IP = Host:Port = ", host_ip,":",port)
 logger.info("api IP = Host:Port = ", host_ip,":",port)
 uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
 

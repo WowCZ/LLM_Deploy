@@ -1,0 +1,25 @@
+srun: job 1154554 queued and waiting for resources
+srun: job 1154554 has been allocated resources
+srun: Job 1154554 scheduled successfully!
+Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
+Current PHX_PRIORITY is normal
+
+Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
+Explicitly passing a `revision` is encouraged when loading a configuration with custom code to ensure no malicious code has been contributed in a newer revision.
+Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:13<00:13, 13.23s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:17<00:00,  8.15s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:17<00:00,  8.91s/it]
+The dtype of attention mask (torch.int64) is not bool
+INFO:     Started server process [237344]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:5002 (Press CTRL+C to quit)
+api IP = Host:Port =  10.140.24.70 : 5002
+INFO:     10.1.8.5:41594 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:38914 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:38918 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:47076 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:37142 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:51638 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:44760 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:59124 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.1.8.5:45020 - "POST /generate HTTP/1.1" 200 OK
