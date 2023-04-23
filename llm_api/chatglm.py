@@ -1,9 +1,9 @@
 from transformers import AutoTokenizer, AutoModel
 import os
-import torch
 from llm_api import LLMAPI
 import logging
-from typing import Union, List
+from typing import List
+from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -11,8 +11,7 @@ logger.setLevel(logging.DEBUG)
 custom_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
 model_name = 'ChatGLM-6B'
 model_local_path = os.path.join(custom_path, model_name)
-
-params = {"temperature": 0.95, "top_p": 0.7, "max_tokens": 2048}
+# defualt params = {"temperature": 0.95, "top_p": 0.7, "max_tokens": 2048}
 
 class ChatGLMAPI(LLMAPI):
     def __init__(self, model_name='THUDM/chatglm-6b', model_path=model_local_path):
@@ -23,7 +22,7 @@ class ChatGLMAPI(LLMAPI):
             if not os.path.exists(model_path):
                 os.makedirs(model_path)
 
-                tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+                tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True, truncation_side='left')
                 model = AutoModel.from_pretrained(model_name, trust_remote_code=True).half().cuda()
 
                 tokenizer.save_pretrained(model_path)
@@ -34,39 +33,35 @@ class ChatGLMAPI(LLMAPI):
             return False
     
     def _initialize_llm(self):
-        tokenizer = AutoTokenizer.from_pretrained(self.model_path, trust_remote_code=True)
+        tokenizer = AutoTokenizer.from_pretrained(self.model_path, trust_remote_code=True, truncation_side='left')
         model = AutoModel.from_pretrained(self.model_path, trust_remote_code=True).half().cuda()
-
-        # Test Case
-        example_prompt = "中国有多少省份？"
-        response, history = model.chat(tokenizer, 
-                                       example_prompt, 
-                                       history=[],
-                                       max_length=params['max_tokens'],
-                                       temperature=params['temperature'],
-                                       top_p=params['top_p'])
-        
-        logger.info(f'{example_prompt} \n {self.model_name} : {response}')
-
         return model, tokenizer
         
-    def generate(self, instance: Union[str, list]) -> List[str]:
-        history = []
+    def generate(self, item:BaseModel) -> List[str]:
+        instance = item.prompt
+
         if type(instance) is list:
-            for i in instance:
-                response, history = self.model.chat(self.tokenizer, 
-                                                    i, 
-                                                    history=history,
-                                                    max_length=params['max_tokens'],
-                                                    temperature=params['temperature'],
-                                                    top_p=params['top_p'])
+            # print('>>> truncation_side: ', self.tokenizer.truncation_side)
+            inputs = self.tokenizer(instance, 
+                                    return_tensors="pt",
+                                    padding=True, 
+                                    truncation=True,
+                                    max_length=item.max_new_tokens).to("cuda")
+            
+            outputs = self.model.generate(**inputs, 
+                                          max_new_tokens=item.max_new_tokens, 
+                                          do_sample=item.do_sample, 
+                                          top_p=item.top_p, 
+                                          temperature=item.temperature)
+            response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
+            response = [r[len(i):].strip() for i, r in zip(instance, response)]
         else:
-            response, history = self.model.chat(self.tokenizer, 
+            response, _ = self.model.chat(self.tokenizer, 
                                                 instance, 
-                                                history=history,
-                                                max_length=params['max_tokens'],
-                                                temperature=params['temperature'],
-                                                top_p=params['top_p'])
+                                                history=[],
+                                                max_length=item.max_new_tokens,
+                                                temperature=item.temperature,
+                                                top_p=item.top_p)
 
         return response
     

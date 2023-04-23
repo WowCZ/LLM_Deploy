@@ -1,34 +1,0 @@
-srun: job 1144335 queued and waiting for resources
-srun: job 1144335 has been allocated resources
-srun: Job 1144335 scheduled successfully!
-Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
-Current PHX_PRIORITY is normal
-
-Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
-Explicitly passing a `revision` is encouraged when loading a configuration with custom code to ensure no malicious code has been contributed in a newer revision.
-Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:11<00:11, 11.01s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:14<00:00,  6.72s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:14<00:00,  7.36s/it]
-Traceback (most recent call last):
-  File "api_server.py", line 12, in <module>
-    model_api = ChatGLMAPI()
-  File "/mnt/petrelfs/chenzhi/workspace/LLM/llm_api/chatglm.py", line 19, in __init__
-    super(ChatGLMAPI, self).__init__(model_name, model_path)
-  File "/mnt/petrelfs/chenzhi/workspace/LLM/llm_api/base_api.py", line 11, in __init__
-    self.model, self.tokenizer = self._initialize_llm()
-  File "/mnt/petrelfs/chenzhi/workspace/LLM/llm_api/chatglm.py", line 42, in _initialize_llm
-    response, history = model.chat(tokenizer, 
-  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
-    return func(*args, **kwargs)
-  File "/mnt/lustre/chenzhi/.cache/huggingface/modules/transformers_modules/ChatGLM-6B/modeling_chatglm.py", line 1253, in chat
-    outputs = self.generate(**inputs, **gen_kwargs)
-  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
-    return func(*args, **kwargs)
-  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/transformers/generation/utils.py", line 1441, in generate
-    logits_warper = self._get_logits_warper(generation_config)
-  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/transformers/generation/utils.py", line 768, in _get_logits_warper
-    warpers.append(TemperatureLogitsWarper(generation_config.temperature))
-  File "/mnt/petrelfs/chenzhi/miniconda3/envs/llm/lib/python3.8/site-packages/transformers/generation/logits_process.py", line 177, in __init__
-    raise ValueError(f"`temperature` has to be a strictly positive float, but is {temperature}")
-ValueError: `temperature` has to be a strictly positive float, but is 0.0
-srun: error: SH-IDC1-10-140-24-72: task 0: Exited with exit code 1
-srun: launch/slurm: _step_signal: Terminating StepId=1144335.0

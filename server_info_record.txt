@@ -1,0 +1,8 @@
+http://10.140.24.62:8074/generate
+http://10.140.24.51:7715/generate
+http://10.140.24.50:8081/generate
+http://10.140.24.50:7233/generate
+http://10.140.24.54:5773/generate
+http://10.140.24.56:7982/generate
+http://10.140.24.54:8288/generate
+http://10.140.24.62:9969/generate
