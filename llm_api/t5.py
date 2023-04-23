@@ -2,7 +2,8 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import os
 from llm_api import LLMAPI
 import logging
-from typing import Union, List
+from typing import List
+from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -39,15 +40,24 @@ class T5API(LLMAPI):
 
         return model, tokenizer
         
-    def generate(self, instance: Union[str, list]) -> List[str]:
-        if type(instance) is list:
-            inputs = self.tokenizer(' '.join(instance), return_tensors="pt").to("cuda")
-            outputs = self.model.generate(**inputs, max_new_tokens=256)
-            response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
-        else:
-            inputs = self.tokenizer(' '.join(instance), return_tensors="pt").to("cuda")
-            outputs = self.model.generate(**inputs, max_new_tokens=256)
-            response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
+    def generate(self, item:BaseModel) -> List[str]:
+        instance = item.prompt
+        if type(instance) is not list:
+            instance = [instance]
+        
+        inputs = self.tokenizer(instance, 
+                                return_tensors="pt",
+                                padding=True, 
+                                truncation=True,
+                                max_length=item.max_new_tokens).to("cuda")
+        
+        outputs = self.model.generate(**inputs, 
+                                    max_new_tokens=item.max_new_tokens, 
+                                    do_sample=item.do_sample, 
+                                    top_p=item.top_p, 
+                                    temperature=item.temperature)
+        response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
+        response = [r[len(i):].strip() for i, r in zip(instance, response)]
 
         return response
     

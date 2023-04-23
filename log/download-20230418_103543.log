@@ -1,20 +1,0 @@
-srun: job 1149946 queued and waiting for resources
-srun: job 1149946 has been allocated resources
-srun: Job 1149946 scheduled successfully!
-Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
-Current PHX_PRIORITY is normal
-
-Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
-Explicitly passing a `revision` is encouraged when loading a configuration with custom code to ensure no malicious code has been contributed in a newer revision.
-Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
->>> openai_key:  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
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:10<00:10, 10.18s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:13<00:00,  6.40s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:13<00:00,  6.97s/it]
-The dtype of attention mask (torch.int64) is not bool
-这个故事的笑点在于爸爸的回答非常简洁和直接，没有任何幽默或有趣的解释。这种回答通常被视为无聊或笨拙，但实际上却引发了人们的幽默感。在这个故事中，这个回答实在是太“已汇”了，就像一个人告诉你他们已把工资全部汇到银行账户一样，这让人们感到惊讶和好笑。
-api IP = Host:Port =  10.140.24.72 : 5001
-Traceback (most recent call last):
-  File "api_server.py", line 37, in <module>
-    app.run(host="0.0.0.0", port=port, log_level="info")
-AttributeError: 'FastAPI' object has no attribute 'run'
-srun: error: SH-IDC1-10-140-24-72: task 0: Exited with exit code 1
-srun: launch/slurm: _step_signal: Terminating StepId=1149946.0

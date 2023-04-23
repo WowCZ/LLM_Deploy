@@ -1,3 +1,5 @@
 models/
 */__pycache__
 copywrite/
+log/
+*.txt

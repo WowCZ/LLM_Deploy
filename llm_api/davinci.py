@@ -2,7 +2,8 @@ import os
 import openai
 from llm_api import LLMAPI
 import logging
-from typing import Union, List
+from typing import List
+from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -15,35 +16,26 @@ params = {"temperature": 1.0, "top_p": 1.0, "num_generations": 1, "max_tokens": 
 class DavinciAPI(LLMAPI):
     def __init__(self, model_name='text-davinci-003', model_path=None):
         super(DavinciAPI, self).__init__(model_name, model_path)
-    
-    def _initialize_llm(self):
-        tokenizer = None
-        model = None
-
-        # Testcase
-        example_prompt = "中国有多少省份？"
-        openai.api_key = openai_key
-        completion = openai.Completion.create(model="text-davinci-003",
-                                                prompt=example_prompt,
-                                                temperature=params["temperature"],
-                                                top_p=params["top_p"],
-                                                max_tokens=params["max_tokens"],
-                                                n=params["num_generations"])
-        response = completion.choices[0].text.strip()
-        logger.info(f'{example_prompt} \n {self.model_name} : {response}')
-
-        return model, tokenizer
         
-    def generate(self, instance: Union[str, list]) -> List[str]:
+    def generate(self, item: BaseModel) -> List[str]:
         openai.api_key = openai_key
-        completion = openai.Completion.create(model="text-davinci-003",
-                                                prompt=instance,
-                                                temperature=params["temperature"],
-                                                top_p=params["top_p"],
-                                                max_tokens=params["max_tokens"],
-                                                n=params["num_generations"])
-        davinci_reply = completion.choices[0].text.strip()
-        return davinci_reply
+
+        prompt = item.prompt
+        if prompt is not list:
+            prompt = [prompt]
+        
+        davinci_replies = []
+        for p in prompt:
+            completion = openai.Completion.create(model="text-davinci-003",
+                                                    prompt=p,
+                                                    temperature=item.temperature,
+                                                    top_p=item.top_p,
+                                                    max_tokens=item.max_new_tokens,
+                                                    n=item.num_return)
+            davinci_reply = completion.choices[0].text.strip()
+            davinci_replies.append(davinci_reply)
+        
+        return davinci_replies
     
 if __name__ == '__main__':
     model_api = DavinciAPI()

@@ -1,21 +1,0 @@
-srun: job 1150051 queued and waiting for resources
-srun: job 1150051 has been allocated resources
-srun: Job 1150051 scheduled successfully!
-Current QUOTA_TYPE is [reserved], which means the job has occupied quota in RESERVED_TOTAL under your partition.
-Current PHX_PRIORITY is normal
-
-Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
-Explicitly passing a `revision` is encouraged when loading a configuration with custom code to ensure no malicious code has been contributed in a newer revision.
-Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
->>> openai_key:  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
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:10<00:10, 10.45s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:14<00:00,  6.44s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:14<00:00,  7.04s/it]
-The dtype of attention mask (torch.int64) is not bool
-INFO:     Started server process [252674]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-ERROR:    [Errno 98] error while attempting to bind on address ('0.0.0.0', 5002): address already in use
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-api IP = Host:Port =  10.140.24.72 : 5002
-srun: error: SH-IDC1-10-140-24-72: task 0: Exited with exit code 1
-srun: launch/slurm: _step_signal: Terminating StepId=1150051.0
