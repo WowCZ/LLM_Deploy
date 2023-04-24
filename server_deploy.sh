@@ -7,7 +7,7 @@ do
         echo ">>> Number of api servers:$2"
         SNUM=$2
         shift
-        ;;  
+        ;; 
     *)  
         echo "$1 is not an option"  
         ;;  

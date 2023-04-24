@@ -7,4 +7,4 @@
 #SBATCH --partition=OpenDialogLab_S2
 #SBATCH --ntasks-per-node=1
 
-python api_server.py --api=ChatGLMAPI
+python api_server.py --api=ChatGLMAPI --server=Flask
