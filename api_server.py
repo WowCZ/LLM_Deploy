@@ -8,9 +8,12 @@ import logging
 import os
 import argparse
 import random
+from flask import Flask, request
+from waitress import serve
 
 parser = argparse.ArgumentParser(description='llm api server')
 parser.add_argument('--api', type=str, default='ChatGLMAPI', help='Supported API: [ChatGLMAPI, T5API, DavinciAPI, TurboAPI, BloomAPI]')
+parser.add_argument('--server', type=str, default='Flask', help='Supported Server: [Flask, FastAPI]')
 args = parser.parse_args()
 
 logger = logging.getLogger(__name__)
@@ -46,20 +49,36 @@ class Item(BaseModel):
     seed: Optional[int]=None
 
 model_api = eval(args.api)()
-app = FastAPI()
-@app.post('/generate')
-async def generate(item: Item) -> Dict:
-    try:
-        output = model_api.generate(item)
-        output = [output] if output is str else output
-        return {"outputs": output}
-    except:
-        output = item.prompt
-        return {"outputs": output}
+
+if args.server == 'Flask':
+    ### Flask Server
+    app = Flask(__name__)
+    @app.route('/generate', methods=['POST'])
+    def generate() -> Dict:
+        # item = json.dumps(json.loads(request.data), ensure_ascii=False)
+        item = Item.parse_raw(request.data)
+        try:
+            output = model_api.generate(item)
+            output = [output] if output is str else output
+            return {"outputs": output}
+        except:
+            output = item.prompt
+            return {"outputs": output}
+else:
+    ### FastAPI Server
+    app = FastAPI()
+    @app.post('/generate')
+    async def generate(item: Item) -> Dict:
+        try:
+            output = model_api.generate(item)
+            output = [output] if output is str else output
+            return {"outputs": output}
+        except:
+            output = item.prompt
+            return {"outputs": output}
 
 
 if __name__ == '__main__':
-    # host_ip = socket.gethostbyname(socket.gethostname())
     host_ip = get_host_ip()
     port = random.randint(5000, 10000)
     while isInuseLinux(port):
@@ -74,6 +93,12 @@ if __name__ == '__main__':
 
     print("api IP = Host:Port = ", host_ip,":",port)
     logger.info("api IP = Host:Port = ", host_ip,":",port)
-    uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
+    if args.server == 'Flask':
+        ### Flask Server
+        app.config['JSON_AS_ASCII'] = False
+        serve(app, host='0.0.0.0', port=port)
+    else:
+        ### FastAPI Server
+        uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
 
     # curl -H "Content-Type: application/json" -X POST http://10.140.24.72:5001/generate -d "@cn_gen.json"
