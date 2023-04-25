@@ -1,2 +1,15 @@
 http://10.140.24.48:5562/generate
 http://10.140.24.56:7647/generate
+http://10.140.24.45:7014/generate
+http://10.140.24.45:5531/generate
+http://10.140.24.48:9232/generate
+http://10.140.24.56:9685/generate
+http://10.140.24.45:7601/generate
+http://10.140.24.45:5377/generate
+http://10.140.24.70:6488/generate
+http://10.140.24.70:5354/generate
+http://10.140.24.70:8577/generate
+http://10.140.24.70:7320/generate
+http://10.140.24.70:5170/generate
+http://10.140.24.70:5956/generate
+http://10.140.24.70:7483/generate
