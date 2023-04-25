@@ -10,6 +10,7 @@ import argparse
 import random
 from flask import Flask, request
 from waitress import serve
+import json
 
 parser = argparse.ArgumentParser(description='llm api server')
 parser.add_argument('--api', type=str, default='ChatGLMAPI', help='Supported API: [ChatGLMAPI, T5API, DavinciAPI, TurboAPI, BloomAPI]')

@@ -45,8 +45,7 @@ class ChatGLMAPI(LLMAPI):
             inputs = self.tokenizer(instance, 
                                     return_tensors="pt",
                                     padding=True, 
-                                    truncation=True,
-                                    max_length=item.max_new_tokens).to("cuda")
+                                    truncation=True).to("cuda")
             
             outputs = self.model.generate(**inputs, 
                                           max_new_tokens=item.max_new_tokens, 
