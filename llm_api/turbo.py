@@ -21,7 +21,7 @@ class TurboAPI(LLMAPI):
         openai.api_key = openai_key
 
         prompt = item.prompt
-        if prompt is not list:
+        if type(prompt) is not list:
             prompt = [prompt]
         
         turbo_replies = []

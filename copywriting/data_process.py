@@ -1,4 +1,5 @@
 import json
+import tqdm
 from typing import Union, List
 from visit_api import visit_llm
 
@@ -42,33 +43,23 @@ def process_default_task(data_file: str) -> list:
     
     return poetry_instruction
 
-
-def visit_llm_api(data_file: str, url_ip: Union[str, List[str]], llm_name: str, port: Union[str, List[str]]):
+def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str, batch_size: int):
     with open(data_file, 'r') as fr:
         prompts = json.load(fr)
 
-    if type(port) is str:
-        batch_size = 1
-    else:
-        batch_size = len(port)
-
+    if type(llm_url) is str:
+        llm_url = [llm_url]
+    
     batch_nums = len(prompts) // batch_size + 1 if len(prompts) % batch_size != 0 else len(prompts) // batch_size
-    for i in range(batch_nums):
-        if batch_size == 1:
-            data = prompts[i]
-        else:
-            data = prompts[i*batch_size: (i+1)*batch_size]
+    for i in tqdm.tqdm(range(batch_nums)):
+        data = prompts[i*batch_size: (i+1)*batch_size]
 
-        response = visit_llm(url_ip, header, port, data)
+        response = visit_llm(llm_url, header, data)
 
-        if type(response) is dict:
-            prompts[i][f'{llm_name}_output'] = response['outputs'][0]
-        else:
-            assert type(response) is list
-            left = i*batch_size
-            right = min((i+1)*batch_size, len(prompts))
-            for j in range(left, right):
-                prompts[j][f'{llm_name}_output'] = response[j-left]['outputs'][0]
+        left = i*batch_size
+        right = min((i+1)*batch_size, len(prompts))
+        for j in range(left, right):
+            prompts[j][f'{llm_name}_output'] = response['outputs'][j-left]
 
     out_data_file = data_file.replace('.json', f'_{llm_name}.json')
     with open(out_data_file, 'w') as fw:
@@ -96,24 +87,46 @@ if __name__ == '__main__':
     # print(poetries[-1])
     # print(len(poetries))
 
-    data_file = '/mnt/lustre/chenzhi/workspace/LLM/copywriting/data/story.json'
-    llm_name = 'turbo'
+    data_file = '/mnt/lustre/chenzhi/workspace/LLM/copywriting/data/reading.json'
+    llm_name = 'moss'
     api_info = {
         'bloom': {
-            'url_ip': '10.140.24.70',
-            'port': ['6001', '6002', '6003', '6004']
+            'urls': [
+                
+            ]
         },
         'chatglm': {
-            'url_ip': '10.140.24.70',
-            'port': ['5001', '5002', '5003', '5004']
+            'urls': [
+
+            ]
         },
         'davinci': {
-            'url_ip': '43.130.133.215',
-            'port': ['6501', '6502', '6503', '6504']
+            'urls': [
+                'http://43.130.133.215:6501/generate', 
+                'http://43.130.133.215:6502/generate', 
+                'http://43.130.133.215:6503/generate', 
+                'http://43.130.133.215:6504/generate'
+            ]
         },
         'turbo': {
-            'url_ip': '43.130.133.215',
-            'port': ['6505', '6506', '6507', '6508']
+            'urls': [
+                'http://43.130.133.215:6505/generate', 
+                'http://43.130.133.215:6506/generate', 
+                'http://43.130.133.215:6507/generate', 
+                'http://43.130.133.215:6508/generate'
+            ]
+        },
+        'moss': {
+            'urls': [
+                'http://10.140.24.70:7097/generate',
+                'http://10.140.24.30:5542/generate',
+                'http://10.140.24.30:8602/generate',
+                'http://10.140.24.61:7817/generate',
+                'http://10.140.24.61:7815/generate',
+                'http://10.140.24.61:7629/generate'
+            ]
         }
     }
-    visit_llm_api(data_file, api_info[llm_name]['url_ip'], llm_name, api_info[llm_name]['port'])
+
+    urls = api_info[llm_name]['urls']
+    visit_llm_api(data_file, urls, llm_name, len(urls))

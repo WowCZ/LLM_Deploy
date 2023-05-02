@@ -4,36 +4,31 @@ from llm_api import LLMAPI
 import logging
 from typing import List
 from pydantic import BaseModel
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import LlamaForCausalLM, LlamaTokenizer
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-pretrained_name = 'google/flan-t5-xxl'
 model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
-model_name = 'FLAN-T5-11B'
+model_name = 'Vicuna-7B'
 
 model_local_path = os.path.join(model_path, model_name)
 
 
-class T5API(LLMAPI):
-    def __init__(self, model_name='google/flan-t5-xxl', model_path=model_local_path):
-        super(T5API, self).__init__(model_name, model_path)
+class VicunaAPI(LLMAPI):
+    def __init__(self, model_name='lmsys/vicuna-7b-delta-v1.1', model_path=model_local_path):
+        super(VicunaAPI, self).__init__(model_name, model_path)
         self.supported_types = ['generate', 'score']
 
     def _download_llm(self, model_name: str, model_path: str):
-        if not os.path.exists(model_path):
-            os.makedirs(model_path)
-
-            tokenizer = AutoTokenizer.from_pretrained(model_name)
-            model = AutoModelForSeq2SeqLM.from_pretrained(model_name).to("cuda")
-
-            tokenizer.save_pretrained(model_path)
-            model.save_pretrained(model_path)
+        # manual operation referred on https://github.com/lm-sys/FastChat
+        # download from https://zhuanlan.zhihu.com/p/620801429
+        pass
     
     def _initialize_llm(self):
-        tokenizer = AutoTokenizer.from_pretrained(self.model_path)
-        model = AutoModelForSeq2SeqLM.from_pretrained(self.model_path).to("cuda")
+        tokenizer = LlamaTokenizer.from_pretrained(self.model_path, use_fast=False)
+        model = LlamaForCausalLM.from_pretrained(self.model_path).to("cuda")
+        tokenizer.pad_token='[PAD]'
 
         return model, tokenizer
         
@@ -45,7 +40,9 @@ class T5API(LLMAPI):
         inputs = self.tokenizer(instance, 
                                 return_tensors="pt",
                                 padding=True, 
-                                truncation=True).to("cuda")
+                                truncation=True,
+                                padding_side='left',
+                                max_length=2048).to("cuda")
         
         outputs = self.model.generate(**inputs, 
                                     max_new_tokens=item.max_new_tokens, 
@@ -56,7 +53,7 @@ class T5API(LLMAPI):
         response = [r[len(i):].strip() for i, r in zip(instance, response)]
 
         return response
-
+    
     def score(self, item:BaseModel) -> List[List[float]]:
         prompt = item.prompt
         target = item.target
@@ -89,7 +86,7 @@ class T5API(LLMAPI):
         return log_prob_list
     
 if __name__ == '__main__':
-    model_api = T5API()
+    model_api = VicunaAPI()
 
     # Test Case
     example_prompt = "中国有多少省份？"
