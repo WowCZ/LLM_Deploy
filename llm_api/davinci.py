@@ -8,8 +8,8 @@ from pydantic import BaseModel
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-openai_key = os.environ['OPENAI_KEY1'] if 'OPENAI_KEY1' in os.environ else None
-assert openai_key, "No OpenAI API key detected in the environment"
+openai_key = os.environ['OPENAI_KEY'] if 'OPENAI_KEY' in os.environ else None
+# assert openai_key, "No OpenAI API key detected in the environment"
 
 params = {"temperature": 1.0, "top_p": 1.0, "num_generations": 1, "max_tokens": 512}
 
@@ -21,7 +21,7 @@ class DavinciAPI(LLMAPI):
         openai.api_key = openai_key
 
         prompt = item.prompt
-        if prompt is not list:
+        if type(prompt) is not list:
             prompt = [prompt]
         
         davinci_replies = []

@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI # for local api
-from llm_api import * # ChatGLMAPI, T5API, DavinciAPI, TurboAPI, BloomAPI
+from llm_api import * # ChatGLMAPI, T5API, DavinciAPI, TurboAPI, BloomAPI, LLaMAAPI
 import socket
 from typing import Optional, Dict, Union
 from pydantic import BaseModel
@@ -10,7 +10,6 @@ import argparse
 import random
 from flask import Flask, request
 from waitress import serve
-import json
 
 parser = argparse.ArgumentParser(description='llm api server')
 parser.add_argument('--api', type=str, default='ChatGLMAPI', help='Supported API: [ChatGLMAPI, T5API, DavinciAPI, TurboAPI, BloomAPI]')
@@ -40,14 +39,18 @@ def get_host_ip():
         s.close()
         return ip
 
-class Item(BaseModel):
+class GenItem(BaseModel):
     prompt: Union[str, list]
     temperature: float=0.95
-    max_new_tokens: int=2048
+    max_new_tokens: int=256
     top_p: float=0.7
     num_return: int=1
     do_sample: bool=True
     seed: Optional[int]=None
+
+class ScoreItem(BaseModel):
+    prompt: Union[str, list]
+    target: Union[str, list]
 
 model_api = eval(args.api)()
 
@@ -56,20 +59,23 @@ if args.server == 'Flask':
     app = Flask(__name__)
     @app.route('/generate', methods=['POST'])
     def generate() -> Dict:
-        # item = json.dumps(json.loads(request.data), ensure_ascii=False)
-        item = Item.parse_raw(request.data)
-        try:
-            output = model_api.generate(item)
-            output = [output] if output is str else output
-            return {"outputs": output}
-        except:
-            output = item.prompt
-            return {"outputs": output}
+        item = GenItem.parse_raw(request.data)
+        output = model_api.generate(item)
+        output = [output] if output is str else output
+        return {"output": output}
+    
+    if 'score' in model_api.supported_types:
+        @app.route('/score', methods=['POST'])
+        def score() -> Dict:
+            item = ScoreItem.parse_raw(request.data)
+            output = model_api.score(item)
+            return {"log_prob": output}
+    
 else:
     ### FastAPI Server
     app = FastAPI()
     @app.post('/generate')
-    async def generate(item: Item) -> Dict:
+    async def generate(item: GenItem) -> Dict:
         try:
             output = model_api.generate(item)
             output = [output] if output is str else output
@@ -77,6 +83,12 @@ else:
         except:
             output = item.prompt
             return {"outputs": output}
+    
+    if 'score' in model_api.supported_types:
+        @app.post('/generate')
+        def score(item: ScoreItem) -> Dict:
+            output = model_api.score(item)
+            return {"log_prob": output}
 
 
 if __name__ == '__main__':
@@ -89,6 +101,9 @@ if __name__ == '__main__':
     fw = open(server_info_record, 'a')
     server_url = f'http://{host_ip}:{port}/generate\n'
     fw.write(server_url)
+    if 'score' in model_api.supported_types:
+        server_url = f'http://{host_ip}:{port}/score\n'
+        fw.write(server_url)
     fw.flush()
     fw.close()
 
@@ -103,3 +118,4 @@ if __name__ == '__main__':
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
 
     # curl -H "Content-Type: application/json" -X POST http://10.140.24.72:5001/generate -d "@cn_gen.json"
+    # curl -H "Content-Type: application/json" -X POST http://10.140.24.45:7811/score -d "@cn_score.json"

@@ -1,21 +1,9 @@
-chatglm = {
-    'url_ip': '10.140.24.70',
-    'port': ['5001', '5002', '5003', '5004']
-}
-
-bloom = {
-    'url_ip': '10.140.24.70',
-    'port': ['6001', '6002', '6003', '6004']
-}
-
-tubor = {
-    'url_ip': '43.130.133.215',
-    'port': ['6505', '6506', '6507', '6508']
-}
-
-davinci = {
-    'url_ip': '43.130.133.215',
-    'port': ['6501', '6502', '6503', '6504']
-}
-
 SERVER = 'Flask'
+
+# Copy from https://github.com/tloen/alpaca-lora/tree/main/templates
+ALPACA_PROMPT = {
+    "description": "Template used by Alpaca-LoRA.",
+    "prompt_input": "Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.\n\n### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response:\n",
+    "prompt_no_input": "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n{instruction}\n\n### Response:\n",
+    "response_split": "### Response:"    
+}

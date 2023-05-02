@@ -4,41 +4,46 @@ from llm_api import LLMAPI
 import logging
 from typing import List
 from pydantic import BaseModel
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-pretrained_name = 'google/flan-t5-xxl'
+pretrained_name = 'fnlp/moss-moon-003-sft'
 model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
-model_name = 'FLAN-T5-11B'
+model_name = 'MOSS-16B-U'
 
 model_local_path = os.path.join(model_path, model_name)
 
 
-class T5API(LLMAPI):
-    def __init__(self, model_name='google/flan-t5-xxl', model_path=model_local_path):
-        super(T5API, self).__init__(model_name, model_path)
+class MOSSAPI(LLMAPI):
+    def __init__(self, model_name='fnlp/moss-moon-003-sft', model_path=model_local_path):
+        super(MOSSAPI, self).__init__(model_name, model_path)
         self.supported_types = ['generate', 'score']
 
     def _download_llm(self, model_name: str, model_path: str):
         if not os.path.exists(model_path):
             os.makedirs(model_path)
 
-            tokenizer = AutoTokenizer.from_pretrained(model_name)
-            model = AutoModelForSeq2SeqLM.from_pretrained(model_name).to("cuda")
+            tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+            model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True).to("cuda")
 
             tokenizer.save_pretrained(model_path)
             model.save_pretrained(model_path)
     
     def _initialize_llm(self):
-        tokenizer = AutoTokenizer.from_pretrained(self.model_path)
-        model = AutoModelForSeq2SeqLM.from_pretrained(self.model_path).to("cuda")
+        tokenizer = AutoTokenizer.from_pretrained(self.model_path, trust_remote_code=True)
+        model = AutoModelForCausalLM.from_pretrained(self.model_path, trust_remote_code=True).to("cuda")
+        tokenizer.pad_token='[PAD]'
 
         return model, tokenizer
         
     def generate(self, item:BaseModel) -> List[str]:
         instance = item.prompt
+
+        if not instance:
+            return []
+        
         if type(instance) is not list:
             instance = [instance]
         
@@ -56,7 +61,7 @@ class T5API(LLMAPI):
         response = [r[len(i):].strip() for i, r in zip(instance, response)]
 
         return response
-
+    
     def score(self, item:BaseModel) -> List[List[float]]:
         prompt = item.prompt
         target = item.target
@@ -89,7 +94,7 @@ class T5API(LLMAPI):
         return log_prob_list
     
 if __name__ == '__main__':
-    model_api = T5API()
+    model_api = MOSSAPI()
 
     # Test Case
     example_prompt = "中国有多少省份？"

@@ -2,4 +2,4 @@
   
 mkdir -p log
 now=$(date +"%Y%m%d_%H%M%S")
-srun --partition=OpenDialogLab_S2 --gpus-per-task=1 --mpi=pmi2 --ntasks-per-node=1 --job-name=ChatGLM-6B --kill-on-bad-exit=1 -w SH-IDC1-10-140-24-70 python api_server.py --api=ChatGLMAPI --server=Flask 2>&1|tee log/download-$now.log &
+srun --partition=OpenDialogLab_S2 --gpus-per-task=1 --mpi=pmi2 --ntasks-per-node=1 --job-name=LLaMA-7B --kill-on-bad-exit=1 python api_server.py --api=LLaMAAPI --server=Flask 2>&1|tee log/download-$now.log &
