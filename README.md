@@ -12,3 +12,8 @@ python api_visit.py --model_name davinci --batch_size 2 --max_length 1024
 ```
 
 Note: make sure that the api servers in 'copywriting/urls/{model_name}_server_info.txt' is already existed.
+
+### Step Three: simulate as the human evaluation server.
+```
+python simulator.py --model_name davinci --task empathy --api_port 6566
+```
