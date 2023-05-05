@@ -39,6 +39,10 @@ class T5API(LLMAPI):
         
     def generate(self, item:BaseModel) -> List[str]:
         instance = item.prompt
+
+        if not instance:
+            return []
+
         if type(instance) is not list:
             instance = [instance]
         
@@ -70,9 +74,7 @@ class T5API(LLMAPI):
         inputs = self.tokenizer(instance, 
                                 return_tensors="pt",
                                 padding=True,
-                                padding_side='left',
                                 truncation=True,
-                                truncation_side='left',
                                 max_length=2048).to("cuda")
         
         target_lens = [len(self.tokenizer.encode(t, add_special_tokens=False)) for t in target]

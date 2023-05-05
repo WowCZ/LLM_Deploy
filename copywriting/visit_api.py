@@ -1,7 +1,12 @@
-import requests
 import json
 import copy
+import tqdm
+import requests
+from typing import Union, List
 from multiprocessing import Pool
+from copywriting import get_logger
+
+logger = get_logger(__name__, 'INFO')
 
 def post_data(url, header, data):
     reqs = requests.post(url=url, headers=header, data=json.dumps(data))
@@ -29,13 +34,13 @@ def multiprocess_post(urls, header, datas):
 
     return batch_pr_map
 
-def load_as_batchs(data, api_size):
+def load_as_batches(data, api_size):
     assert len(data) >= api_size, f'The size of API {api_size} is greater than the number of data {len(data)}.'
     per_api_batch = len(data) // api_size + 1 if len(data) % api_size != 0 else len(data) // api_size
     
     batch_data = []
     prompt_temp = copy.deepcopy(data[0])
-    # prompt_temp['max_new_tokens'] = 1024
+    prompt_temp['max_new_tokens'] = 1024
     for i in range(api_size-1):
         prompt_temp['prompt'] = [p['prompt'] for p in data[i*per_api_batch:(i+1)*per_api_batch]]
         batch_data.append(copy.deepcopy(prompt_temp))
@@ -49,9 +54,36 @@ def visit_llm(llm_url, header, data):
     # to make that the length of url is greater than the length of data
     llm_url = llm_url[: min(len(llm_url), len(data))]
 
-    batched_data = load_as_batchs(data, len(llm_url))
+    batched_data = load_as_batches(data, len(llm_url))
     batch_pr_map = multiprocess_post(llm_url, header, batched_data)
     return {'outputs': [batch_pr_map[d['prompt']] for d in data]}
+
+
+def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str, batch_size: int):
+    header = {'Content-Type': 'application/json'}
+    
+    with open(data_file, 'r') as fr:
+        prompts = json.load(fr)
+
+    if type(llm_url) is str:
+        llm_url = [llm_url]
+    
+    batch_nums = len(prompts) // batch_size + 1 if len(prompts) % batch_size != 0 else len(prompts) // batch_size
+    for i in tqdm.tqdm(range(batch_nums)):
+        data = prompts[i*batch_size: (i+1)*batch_size]
+
+        response = visit_llm(llm_url, header, data)
+
+        left = i*batch_size
+        right = min((i+1)*batch_size, len(prompts))
+        for j in range(left, right):
+            prompts[j][f'{llm_name}_output'] = response['outputs'][j-left]
+
+    out_data_file = data_file.replace('.json', f'_{llm_name}.json')
+    with open(out_data_file, 'w') as fw:
+        json.dump(prompts, fw, indent=4, ensure_ascii=False)
+
+    return prompts
 
 
 if __name__ == '__main__':
@@ -62,7 +94,7 @@ if __name__ == '__main__':
         "prompt": "有这样一个故事：“我：“爸在干嘛呢？最近家里生意还好吧。”爸：“已汇””，请问这个故事的笑点在哪儿？"
     }
 
-    print(post_data(url, header, data))
+    logger.info(post_data(url, header, data))
 
     # Multiprocessing
     urls = ['http://43.130.133.215:6501/generate', 'http://43.130.133.215:6502/generate']
@@ -74,4 +106,4 @@ if __name__ == '__main__':
         "prompt": "有这样一个故事，““爸，端午节我不回家，捎几个粽子给我吧。”“行，你要哪种？”“都行，能解馋就行。”“好！”晚上回宿舍，打开邮箱发现爸爸发了一封邮件，足足4个G，下面还留言：不知道你好哪口，就每种给你发了一个。”，请问这个故事的笑点在哪儿？"
         }
     ]
-    print(multiprocess_post(urls, header, datas))
+    logger.info(multiprocess_post(urls, header, datas))

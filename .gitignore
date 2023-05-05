@@ -1,4 +1,5 @@
 models/
 */__pycache__
-copywrite/
+copywriting/data/
+copywriting/urls/
 log/
