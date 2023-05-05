@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 
-openai_key = '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'
+openai_key = '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'
 
 params = {"temperature": 0.0, "top_p": 1.0, "num_generations": 1, "max_tokens": 512}
 
