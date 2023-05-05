@@ -1,7 +1,6 @@
 models/
 __pycache__/
 */__pycache__
-copywriting/data/
 copywriting/urls/
 log/
 .vscode/
