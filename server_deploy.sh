@@ -16,6 +16,6 @@ do
 done
 
 for ((i = 1 ; i <= $SNUM ; i++)); do
-  sbatch batch_api_server.slurm
+  sbatch scripts/batch_api_server.slurm
   sleep 1
 done
