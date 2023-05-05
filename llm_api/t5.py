@@ -1,13 +1,11 @@
 import torch
 import os
-from llm_api import LLMAPI
-import logging
+from llm_api import LLMAPI, get_logger
 from typing import List
 from pydantic import BaseModel
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger = get_logger(__name__, 'INFO') # DEBUG
 
 pretrained_name = 'google/flan-t5-xxl'
 model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'

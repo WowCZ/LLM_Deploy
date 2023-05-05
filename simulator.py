@@ -75,6 +75,8 @@ if __name__ == '__main__':
     fw = open(server_info_record, 'a')
     server_url = f'For \'{simulate_task}\' task: http://{host_ip}:{port}/generate\n'
     fw.write(server_url)
+    fw.flush()
+    fw.close()
 
     logger.info(f"API IP = Host:Port = {host_ip}:{port}")
     if args.server == 'Flask':

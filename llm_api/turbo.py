@@ -1,11 +1,10 @@
 import os
 import openai
-from llm_api import LLMAPI
-import logging
+from llm_api import LLMAPI, get_logger
 from typing import List
 from pydantic import BaseModel
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__, 'INFO')
 
 openai_key = os.environ['OPENAI_KEY'] if 'OPENAI_KEY' in os.environ else None
 # assert openai_key, "No OpenAI API key detected in the environment"

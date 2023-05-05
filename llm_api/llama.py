@@ -5,7 +5,6 @@ from pydantic import BaseModel
 from llm_api import LLMAPI, get_logger
 from transformers import LlamaForCausalLM, LlamaTokenizer
 
-
 logger = get_logger(__name__, 'INFO') # DEBUG
 
 # pjlab: /mnt/petrelfs/share_data/llm_llama/7B
