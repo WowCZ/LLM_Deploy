@@ -15,6 +15,8 @@ def get_logger(name, level='DEBUG'):
     logger.addHandler(ch)
     return logger
 
+logger = get_logger(__name__, level='INFO')
+
 from . import base_api
 from .base_api import LLMAPI
 from .chatglm import ChatGLMAPI
@@ -26,16 +28,17 @@ from .llama import LLaMAAPI
 from .vicuna import VicunaAPI
 from .alpaca import AlpacaAPI
 from .moss import MOSSAPI
-# from .gpt4 import GPT4API
+from .gpt4 import GPT4API
 
-__all__ = ['LLMAPI', 
-           'ChatGLMAPI', 
-           'T5API', 
-           'DavinciAPI', 
-           'TurboAPI', 
+__all__ = ['AlpacaAPI',
            'BloomAPI', 
+           'ChatGLMAPI', 
+           'DavinciAPI', 
+           'GPT4API',
            'LLaMAAPI', 
-           'VicunaAPI',
-           'AlpacaAPI',
            'MOSSAPI',
-           'get_logger']
+           'T5API', 
+           'TurboAPI', 
+           'VicunaAPI']
+
+logger.info(f'Now we support to deploy {len(__all__)} large language models as APIs, listed as {__all__}')

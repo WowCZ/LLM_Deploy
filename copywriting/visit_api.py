@@ -15,8 +15,13 @@ def post_data(url, header, data):
 def _post_data(args):
     url, header, data = args
     response = post_data(url, header, data)
+    if 'output' in response:
+        output_key = 'output'
+    else:
+        assert 'outputs' in response, 'output key error from llm api!'
+        output_key = 'outputs'
     pr_map = dict()
-    for p, r in zip(data['prompt'], response['outputs']):
+    for p, r in zip(data['prompt'], response[output_key]):
         pr_map[p] = r
     return pr_map
 
@@ -59,11 +64,23 @@ def visit_llm(llm_url, header, data):
     return {'outputs': [batch_pr_map[d['prompt']] for d in data]}
 
 
-def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str, batch_size: int):
+def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str, batch_size: int, max_length: int):
     header = {'Content-Type': 'application/json'}
     
     with open(data_file, 'r') as fr:
         prompts = json.load(fr)
+
+    p_lens = []
+    for p in prompts:
+        p_len = len(p['prompt'])
+        p_lens.append(p_len)
+        left = max(0, p_len-max_length)
+        p['prompt'] = p['prompt'][left:]
+    
+    logger.info(f'Batch size: {batch_size}')
+    logger.info(f'Number of prompts: {len(prompts)}')
+    logger.info(f'Original maximum length of prompts: {max(p_lens)}')
+    logger.info(f'Maximum length of prompts: {max_length}')
 
     if type(llm_url) is str:
         llm_url = [llm_url]
