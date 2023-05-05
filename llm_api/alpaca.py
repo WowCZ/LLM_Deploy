@@ -3,7 +3,6 @@ import torch
 from typing import List
 from peft import PeftModel
 from pydantic import BaseModel
-from contants import ALPACA_PROMPT
 from llm_api import LLMAPI, get_logger
 from transformers import LlamaForCausalLM, LlamaTokenizer
 
@@ -17,6 +16,14 @@ lora_weights = 'tloen/alpaca-lora-7b'
 
 model_local_path = os.path.join(model_path, main_model_name)
 lora_local_path = os.path.join(model_path, lora_model_name)
+
+
+ALPACA_PROMPT = {
+    "description": "Template used by Alpaca-LoRA.",
+    "prompt_input": "Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.\n\n### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response:\n",
+    "prompt_no_input": "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n{instruction}\n\n### Response:\n",
+    "response_split": "### Response:"    
+}
 
 
 class AlpacaAPI(LLMAPI):
