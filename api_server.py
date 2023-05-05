@@ -105,8 +105,6 @@ if __name__ == '__main__':
     if 'score' in model_api.supported_types:
         server_url = f'http://{host_ip}:{port}/score\n'
         fw.write(server_url)
-    fw.flush()
-    fw.close()
 
     logger.info(f'#{llm_name.upper()}# has been deployed, API INFO as below:')
     logger.info(f"API IP = Host:Port = {host_ip}:{port}")

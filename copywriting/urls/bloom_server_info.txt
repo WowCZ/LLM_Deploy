@@ -1,0 +1,8 @@
+http://10.140.24.70:8607/generate
+http://10.140.24.70:8607/score
+http://10.140.24.30:5582/generate
+http://10.140.24.30:5582/score
+http://10.140.24.61:9359/generate
+http://10.140.24.61:9359/score
+http://10.140.24.38:7989/generate
+http://10.140.24.38:7989/score
