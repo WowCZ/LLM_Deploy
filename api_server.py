@@ -1,14 +1,15 @@
-import uvicorn
-from fastapi import FastAPI # for local api
-from llm_api import * # ChatGLMAPI, T5API, DavinciAPI, TurboAPI, BloomAPI, LLaMAAPI
-import socket
-from typing import Optional, Dict, Union
-from pydantic import BaseModel
 import os
 import argparse
 import random
-from flask import Flask, request
+import uvicorn
+import socket
+from llm_api import *
+from llm_api import get_logger
 from waitress import serve
+from fastapi import FastAPI
+from pydantic import BaseModel
+from flask import Flask, request
+from typing import Optional, Dict, Union
 
 parser = argparse.ArgumentParser(description='llm api server')
 parser.add_argument('--api', type=str, default='ChatGLMAPI', help='Supported API: [ChatGLMAPI, T5API, DavinciAPI, TurboAPI, BloomAPI]')
@@ -97,7 +98,6 @@ if __name__ == '__main__':
 
     llm_name = model_api.name
     server_info_record = f'copywriting/urls/{llm_name}_server_info.txt'
-    # server_info_record = 'server_info_record.txt'
 
     fw = open(server_info_record, 'a')
     server_url = f'http://{host_ip}:{port}/generate\n'
@@ -108,7 +108,8 @@ if __name__ == '__main__':
     fw.flush()
     fw.close()
 
-    logger.info(f"api IP = Host:Port = {host_ip}:{port}")
+    logger.info(f'#{llm_name.upper()}# has been deployed, API INFO as below:')
+    logger.info(f"API IP = Host:Port = {host_ip}:{port}")
     if args.server == 'Flask':
         ### Flask Server
         app.config['JSON_AS_ASCII'] = False
@@ -117,5 +118,5 @@ if __name__ == '__main__':
         ### FastAPI Server
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
 
-    # curl -H "Content-Type: application/json" -X POST http://10.140.24.30:9534/generate -d "@cn_gen.json"
-    # curl -H "Content-Type: application/json" -X POST http://10.140.24.61:8454/score -d "@cn_score.json"
+    # curl -H "Content-Type: application/json" -X POST http://10.140.24.70:7443/generate -d "@test/cn_gen.json"
+    # curl -H "Content-Type: application/json" -X POST http://10.140.24.61:8454/score -d "@test/cn_score.json"

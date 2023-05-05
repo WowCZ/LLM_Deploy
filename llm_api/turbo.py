@@ -16,11 +16,16 @@ params = {"temperature": 0.0, "top_p": 1.0, "num_generations": 1, "max_tokens": 
 class TurboAPI(LLMAPI):
     def __init__(self, model_name='gpt-3.5-turbo', model_path=None):
         super(TurboAPI, self).__init__(model_name, model_path)
+        self.name = 'turbo'
         
     def generate(self, item: BaseModel) -> List[str]:
         openai.api_key = openai_key
 
         prompt = item.prompt
+        
+        if not prompt:
+            return []
+
         if type(prompt) is not list:
             prompt = [prompt]
         

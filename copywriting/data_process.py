@@ -40,19 +40,19 @@ def process_default_task(data_file: str) -> list:
 
 
 if __name__ == '__main__':
-    humor_file = '/mnt/lustre/chenzhi/workspace/LLM/copywriting/data/humor_origin.txt'
+    humor_file = 'copywriting/data/humor_origin.txt'
     humor_sentences = process_humor(humor_file)
     print(humor_sentences[0])
     print(humor_sentences[-1])
     print(len(humor_sentences))
 
-    story_file = '/mnt/lustre/chenzhi/workspace/LLM/copywriting/data/story_instruction.txt'
+    story_file = 'copywriting/data/story_instruction.txt'
     stories = process_default_task(story_file)
     print(stories[0])
     print(stories[-1])
     print(len(stories))
 
-    poetry_file = '/mnt/lustre/chenzhi/workspace/LLM/copywriting/data/poetry_instruction.txt'
+    poetry_file = 'copywriting/data/poetry_instruction.txt'
     poetries = process_default_task(poetry_file)
     print(poetries[0])
     print(poetries[-1])

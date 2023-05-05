@@ -8,7 +8,7 @@ Note: the api server information will be recorded in 'copywriting/urls/{model_na
 
 ### Step Two: complete human evaluation tasks with the deployed large language model apis.
 ```
-python api_visit.py --model_name chatglm --batch_size 4
+python api_visit.py --model_name davinci --batch_size 2 --max_length 1024
 ```
 
-Note: make sure that the api servers in 'copywriting/urls/{model_name}_server_info.txt' is already.
+Note: make sure that the api servers in 'copywriting/urls/{model_name}_server_info.txt' is already existed.

@@ -16,11 +16,16 @@ params = {"temperature": 1.0, "top_p": 1.0, "num_generations": 1, "max_tokens": 
 class DavinciAPI(LLMAPI):
     def __init__(self, model_name='text-davinci-003', model_path=None):
         super(DavinciAPI, self).__init__(model_name, model_path)
+        self.name = 'davinci'
         
     def generate(self, item: BaseModel) -> List[str]:
         openai.api_key = openai_key
 
         prompt = item.prompt
+
+        if not prompt:
+            return []
+        
         if type(prompt) is not list:
             prompt = [prompt]
         
