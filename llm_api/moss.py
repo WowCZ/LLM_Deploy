@@ -1,17 +1,15 @@
-import torch
 import os
-from llm_api import LLMAPI
-import logging
+import torch
 from typing import List
 from pydantic import BaseModel
+from llm_api import LLMAPI, get_logger
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger = get_logger(__name__, 'INFO') # DEBUG
 
 pretrained_name = 'fnlp/moss-moon-003-sft'
 model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
-model_name = 'MOSS-16B-U'
+model_name = 'MOSS-16B'
 
 model_local_path = os.path.join(model_path, model_name)
 
@@ -20,6 +18,7 @@ class MOSSAPI(LLMAPI):
     def __init__(self, model_name='fnlp/moss-moon-003-sft', model_path=model_local_path):
         super(MOSSAPI, self).__init__(model_name, model_path)
         self.supported_types = ['generate', 'score']
+        self.name = 'moss'
 
     def _download_llm(self, model_name: str, model_path: str):
         if not os.path.exists(model_path):
@@ -34,7 +33,7 @@ class MOSSAPI(LLMAPI):
     def _initialize_llm(self):
         tokenizer = AutoTokenizer.from_pretrained(self.model_path, trust_remote_code=True)
         model = AutoModelForCausalLM.from_pretrained(self.model_path, trust_remote_code=True).to("cuda")
-        tokenizer.pad_token='[PAD]'
+        tokenizer.pad_token = '[PAD]'
 
         return model, tokenizer
         
@@ -44,19 +43,21 @@ class MOSSAPI(LLMAPI):
         if not instance:
             return []
         
-        if type(instance) is not list:
-            instance = [instance]
+        if item.temperature == 0.0:
+            item.temperature = 1e-6
+            item.do_sample = False
         
         inputs = self.tokenizer(instance, 
                                 return_tensors="pt",
                                 padding=True, 
                                 truncation=True).to("cuda")
         
-        outputs = self.model.generate(**inputs, 
-                                    max_new_tokens=item.max_new_tokens, 
-                                    do_sample=item.do_sample, 
-                                    top_p=item.top_p, 
-                                    temperature=item.temperature)
+        with torch.no_grad():
+            outputs = self.model.generate(**inputs, 
+                                        max_new_tokens=item.max_new_tokens, 
+                                        do_sample=item.do_sample, 
+                                        top_p=item.top_p, 
+                                        temperature=item.temperature)
         response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
         response = [r[len(i):].strip() for i, r in zip(instance, response)]
 
@@ -75,21 +76,24 @@ class MOSSAPI(LLMAPI):
         inputs = self.tokenizer(instance, 
                                 return_tensors="pt",
                                 padding=True,
-                                padding_side='left',
                                 truncation=True,
-                                truncation_side='left',
-                                max_length=2048).to("cuda")
-        
-        target_lens = [len(self.tokenizer.encode(t, add_special_tokens=False)) for t in target]
+                                max_length=2048,
+                                add_special_tokens=False).to("cuda")
+
+        tokenized_prompt =  self.tokenizer(prompt, padding=True, truncation=True, return_tensors="pt", add_special_tokens=False)
+        tokenized_target =  self.tokenizer(target, padding=True, truncation=True, return_tensors="pt", add_special_tokens=False)
+
+        prompt_lens = tokenized_prompt.attention_mask.sum(-1).int().tolist()
+        target_lens = tokenized_target.attention_mask.sum(-1).int().tolist()
         
         with torch.no_grad():
-            logits = self.model(inputs.input_ids).logits.float()
-            log_probs = torch.log_softmax(logits, dim=-1)
-            log_probs = torch.gather(input=log_probs, dim=-1, index=inputs.input_ids.unsqueeze(-1)).squeeze(-1)
+            logits = self.model(**inputs).logits.float()
+            log_probs = torch.log_softmax(logits, dim=-1)[:, :-1, :]
+            log_probs = torch.gather(input=log_probs, dim=-1, index=inputs.input_ids[:, 1:].unsqueeze(-1)).squeeze(-1)
 
         log_prob_list = []
-        for i, t_len in enumerate(target_lens):
-            log_prob_list.append(log_probs[i, -t_len-1: -1].detach().cpu().tolist())
+        for i, (p_len, t_len) in enumerate(zip(prompt_lens, target_lens)):
+            log_prob_list.append(log_probs[i, p_len-1:p_len-1+t_len].detach().cpu().tolist())
 
         return log_prob_list
     

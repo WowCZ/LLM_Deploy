@@ -4,7 +4,6 @@ from llm_api import * # ChatGLMAPI, T5API, DavinciAPI, TurboAPI, BloomAPI, LLaMA
 import socket
 from typing import Optional, Dict, Union
 from pydantic import BaseModel
-import logging
 import os
 import argparse
 import random
@@ -16,8 +15,7 @@ parser.add_argument('--api', type=str, default='ChatGLMAPI', help='Supported API
 parser.add_argument('--server', type=str, default='Flask', help='Supported Server: [Flask, FastAPI]')
 args = parser.parse_args()
 
-logger = logging.getLogger(__name__)
-
+logger = get_logger(__name__)
 
 def isInuseLinux(port):
     #lsof -i:8080
@@ -79,10 +77,10 @@ else:
         try:
             output = model_api.generate(item)
             output = [output] if output is str else output
-            return {"outputs": output}
+            return {"output": output}
         except:
             output = item.prompt
-            return {"outputs": output}
+            return {"output": output}
     
     if 'score' in model_api.supported_types:
         @app.post('/generate')
@@ -97,7 +95,10 @@ if __name__ == '__main__':
     while isInuseLinux(port):
         port = random.randint(5000, 10000)
 
-    server_info_record = 'server_info_record.txt'
+    llm_name = model_api.name
+    server_info_record = f'copywriting/urls/{llm_name}_server_info.txt'
+    # server_info_record = 'server_info_record.txt'
+
     fw = open(server_info_record, 'a')
     server_url = f'http://{host_ip}:{port}/generate\n'
     fw.write(server_url)
@@ -107,8 +108,7 @@ if __name__ == '__main__':
     fw.flush()
     fw.close()
 
-    print("api IP = Host:Port = ", host_ip,":",port)
-    logger.info("api IP = Host:Port = ", host_ip,":",port)
+    logger.info(f"api IP = Host:Port = {host_ip}:{port}")
     if args.server == 'Flask':
         ### Flask Server
         app.config['JSON_AS_ASCII'] = False
@@ -117,5 +117,5 @@ if __name__ == '__main__':
         ### FastAPI Server
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
 
-    # curl -H "Content-Type: application/json" -X POST http://10.140.24.72:5001/generate -d "@cn_gen.json"
-    # curl -H "Content-Type: application/json" -X POST http://10.140.24.45:7811/score -d "@cn_score.json"
+    # curl -H "Content-Type: application/json" -X POST http://10.140.24.30:9534/generate -d "@cn_gen.json"
+    # curl -H "Content-Type: application/json" -X POST http://10.140.24.61:8454/score -d "@cn_score.json"
