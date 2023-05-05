@@ -51,7 +51,7 @@ if args.server == 'Flask':
         if item.prompt in simulate_generator:
             output = simulate_generator[item.prompt]
         else:
-            print(f'>>> Bad Prompt {item.prompt}!')
+            print(f'>>> Bad Prompt\t{llm_name}\t{simulate_task}\t{item.prompt}!')
             output = item.prompt
         return {"outputs": [{"modelId": llm_name, "output": output}]}
 else:

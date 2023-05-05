@@ -4,3 +4,5 @@ __pycache__/
 copywriting/urls/
 log/
 .vscode/
+.idea/
+.DS_Store
