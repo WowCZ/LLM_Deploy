@@ -12,6 +12,8 @@ task = args.task
 prompt_folder = 'copywriting/data/'
 task_file = f'{prompt_folder}{task}.json'
 result_files = glob(f'{prompt_folder}{task}_*.json')
+if f'{prompt_folder}{task}_to_submit.json' in result_files:
+    result_files.remove(f'{prompt_folder}{task}_to_submit.json')
 
 with open(task_file) as f:
     original_prompts = json.load(f)
@@ -21,9 +23,7 @@ for i in range(len(original_prompts)):
 with open(task_file[: task_file.index(".json")] + "_to_submit.json", "w", encoding="utf-8") as f:
     json.dump(prompts_to_submit, f, indent=4, ensure_ascii=False)
 
-# for result_file in result_files:
-for result_file in ["copywriting/data/hinting_vicuna.json", "copywriting/data/hinting_moss.json", "copywriting/data/hinting_vicuna-13b.json", "copywriting/data/hinting_gpt4.json",
-                    "copywriting/data/hinting_chinese-vicuna.json", "copywriting/data/hinting_chinese-alpaca.json", "copywriting/data/hinting_chatglm.json"]:
+for result_file in result_files:
     with open(result_file) as f:
         result = json.load(f)
     assert len(original_prompts) == len(result), f"The number of prompts are not the same! {task_file} & {result_file}"
