@@ -30,17 +30,19 @@ from .alpaca import AlpacaAPI
 from .moss import MOSSAPI
 from .gpt4 import GPT4API
 from .chinese_alpaca import ChineseAlpacaAPI
-from .alpha import AlphaAPI
+from .stablelm import StablelmAPI
+from .chinese_vicuna import ChineseVicunaAPI
 
 __all__ = ['AlpacaAPI',
-           'AlphaAPI',
            'BloomAPI', 
            'ChatGLMAPI', 
            'ChineseAlpacaAPI',
+           'ChineseVicunaAPI',
            'DavinciAPI', 
            'GPT4API',
            'LLaMAAPI', 
            'MOSSAPI',
+           'StablelmAPI',
            'T5API', 
            'TurboAPI', 
            'VicunaAPI']
