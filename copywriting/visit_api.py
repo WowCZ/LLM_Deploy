@@ -45,7 +45,7 @@ def load_as_batches(data, api_size):
     
     batch_data = []
     prompt_temp = copy.deepcopy(data[0])
-    prompt_temp['max_new_tokens'] = 1024
+    prompt_temp['max_new_tokens'] = 256
     for i in range(api_size-1):
         prompt_temp['prompt'] = [p['prompt'] for p in data[i*per_api_batch:(i+1)*per_api_batch]]
         batch_data.append(copy.deepcopy(prompt_temp))

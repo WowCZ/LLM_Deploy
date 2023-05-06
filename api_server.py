@@ -16,17 +16,17 @@ parser.add_argument('--api', type=str, default='ChatGLMAPI', help='Supported API
 parser.add_argument('--server', type=str, default='Flask', help='Supported Server: [Flask, FastAPI]')
 args = parser.parse_args()
 
-logger = get_logger(__name__)
+logger = get_logger(__name__, 'INFO')
 
 def isInuseLinux(port):
     #lsof -i:8080
     #not show pid to avoid complex
     if os.popen('netstat -na | grep :' + str(port)).readlines():
         portIsUse = True
-        print('%d is inuse' % port)
+        logger.info('%d is inuse' % port)
     else:
         portIsUse = False
-        print('%d is free' % port)
+        logger.info('%d is free' % port)
     return portIsUse
 
 def get_host_ip():
@@ -44,7 +44,7 @@ class GenItem(BaseModel):
     max_new_tokens: int=1024
     top_p: float=1.0
     num_return: int=1
-    do_sample: bool=True
+    do_sample: bool=False
     seed: Optional[int]=None
 
 class ScoreItem(BaseModel):
@@ -119,5 +119,5 @@ if __name__ == '__main__':
         ### FastAPI Server
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
 
-    # curl -H "Content-Type: application/json" -X POST http://10.140.24.70:7443/generate -d "@test/cn_gen.json"
+    # curl -H "Content-Type: application/json" -X POST http://10.140.24.70:8197/generate -d "@test/cn_gen.json"
     # curl -H "Content-Type: application/json" -X POST http://10.140.24.61:8454/score -d "@test/cn_score.json"
