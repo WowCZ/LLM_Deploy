@@ -17,11 +17,13 @@ with open(task_file) as f:
     original_prompts = json.load(f)
 prompts_to_submit = dict()
 for i in range(len(original_prompts)):
-    prompts_to_submit[f"prompt{i}"] = original_prompts[i]["prompt"]
+    prompts_to_submit[f"prompt{i + 1}"] = original_prompts[i]["prompt"]
 with open(task_file[: task_file.index(".json")] + "_to_submit.json", "w", encoding="utf-8") as f:
     json.dump(prompts_to_submit, f, indent=4, ensure_ascii=False)
 
-for result_file in result_files:
+# for result_file in result_files:
+for result_file in ["copywriting/data/hinting_vicuna.json", "copywriting/data/hinting_moss.json", "copywriting/data/hinting_vicuna-13b.json", "copywriting/data/hinting_gpt4.json",
+                    "copywriting/data/hinting_chinese-vicuna.json", "copywriting/data/hinting_chinese-alpaca.json", "copywriting/data/hinting_chatglm.json"]:
     with open(result_file) as f:
         result = json.load(f)
     assert len(original_prompts) == len(result), f"The number of prompts are not the same! {task_file} & {result_file}"
