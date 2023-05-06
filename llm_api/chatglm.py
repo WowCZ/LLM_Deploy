@@ -12,6 +12,8 @@ model_name = 'ChatGLM-6B'
 model_local_path = os.path.join(custom_path, model_name)
 # defualt params = {"temperature": 0.95, "top_p": 0.7, "max_tokens": 2048}
 
+CHATGLM_PROMPT = "[Round 0]\n问：{instruction}\n答：\n"
+
 class ChatGLMAPI(LLMAPI):
     def __init__(self, model_name='THUDM/chatglm-6b', model_path=model_local_path):
         super(ChatGLMAPI, self).__init__(model_name, model_path)
@@ -42,6 +44,8 @@ class ChatGLMAPI(LLMAPI):
         if item.temperature == 0.0:
             item.temperature = 1e-6
             item.do_sample = False
+
+        instance = [CHATGLM_PROMPT.format(instruction=i) for i in instance]
 
         if type(instance) is list:
             inputs = self.tokenizer(instance, 

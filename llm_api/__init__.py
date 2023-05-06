@@ -29,10 +29,14 @@ from .vicuna import VicunaAPI
 from .alpaca import AlpacaAPI
 from .moss import MOSSAPI
 from .gpt4 import GPT4API
+from .chinese_alpaca import ChineseAlpacaAPI
+from .alpha import AlphaAPI
 
 __all__ = ['AlpacaAPI',
+           'AlphaAPI',
            'BloomAPI', 
            'ChatGLMAPI', 
+           'ChineseAlpacaAPI',
            'DavinciAPI', 
            'GPT4API',
            'LLaMAAPI', 

@@ -8,16 +8,18 @@ from transformers import LlamaForCausalLM, LlamaTokenizer
 logger = get_logger(__name__, 'INFO') # DEBUG
 
 model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
-model_name = 'Vicuna-7B'
+model_name = 'Vicuna-13B'
 
 model_local_path = os.path.join(model_path, model_name)
+
+EVAL_PROMPT = "system. Human: {instruction}. Assistant:"
 
 
 class VicunaAPI(LLMAPI):
     def __init__(self, model_name='lmsys/vicuna-7b-delta-v1.1', model_path=model_local_path):
         super(VicunaAPI, self).__init__(model_name, model_path)
         self.supported_types = ['generate', 'score']
-        self.name = 'vicuna'
+        self.name = 'vicuna-13b'
 
     def _download_llm(self, model_name: str, model_path: str):
         # manual operation referred on https://github.com/lm-sys/FastChat
@@ -25,7 +27,7 @@ class VicunaAPI(LLMAPI):
         pass
     
     def _initialize_llm(self):
-        tokenizer = LlamaTokenizer.from_pretrained(self.model_path, use_fast=False)
+        tokenizer = LlamaTokenizer.from_pretrained(self.model_path, use_fast=False, padding_side='left')
         model = LlamaForCausalLM.from_pretrained(self.model_path).to("cuda")
         tokenizer.pad_token='[PAD]'
 
@@ -43,6 +45,8 @@ class VicunaAPI(LLMAPI):
         if item.temperature == 0.0:
             item.temperature = 1e-6
             item.do_sample = False
+
+        instance = [EVAL_PROMPT.format(instruction=i) for i in instance]
         
         inputs = self.tokenizer(instance, 
                                 return_tensors="pt",
