@@ -119,5 +119,5 @@ if __name__ == '__main__':
         ### FastAPI Server
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
 
-    # curl -H "Content-Type: application/json" -X POST http://10.140.24.55:7978/generate -d "@test/cn_gen.json"
+    # curl -H "Content-Type: application/json" -X POST http://10.140.24.50:7396/generate -d "@test/cn_gen.json"
     # curl -H "Content-Type: application/json" -X POST http://10.140.24.61:8454/score -d "@test/cn_score.json"
