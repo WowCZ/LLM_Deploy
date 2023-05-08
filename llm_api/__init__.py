@@ -32,8 +32,10 @@ from .gpt4 import GPT4API
 from .chinese_alpaca import ChineseAlpacaAPI
 from .stablelm import StablelmAPI
 from .chinese_vicuna import ChineseVicunaAPI
+from .belle import BELLEAPI
 
 __all__ = ['AlpacaAPI',
+           'BELLEAPI', 
            'BloomAPI', 
            'ChatGLMAPI', 
            'ChineseAlpacaAPI',

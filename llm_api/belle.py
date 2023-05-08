@@ -3,33 +3,38 @@ import torch
 from typing import List
 from pydantic import BaseModel
 from llm_api import LLMAPI, get_logger
-from transformers import LlamaForCausalLM, LlamaTokenizer
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 logger = get_logger(__name__, 'INFO') # DEBUG
 
+pretrained_name = 'BelleGroup/BELLE-7B-2M'
 model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
-model_name = 'Vicuna-7B'
+model_name = 'BELLE-7B'
 
 model_local_path = os.path.join(model_path, model_name)
 
-EVAL_PROMPT = "system. Human: {instruction}. Assistant:"
+BELLE_PROMPT = "Human: {instruction} \n\nAssistant:"
 
 
-class VicunaAPI(LLMAPI):
-    def __init__(self, model_name='lmsys/vicuna-7b-delta-v1.1', model_path=model_local_path):
-        super(VicunaAPI, self).__init__(model_name, model_path)
+class BELLEAPI(LLMAPI):
+    def __init__(self, model_name='BelleGroup/BELLE-7B-2M', model_path=model_local_path):
+        super(BELLEAPI, self).__init__(model_name, model_path)
         self.supported_types = ['generate', 'score']
-        self.name = 'vicuna'
+        self.name = 'belle'
 
     def _download_llm(self, model_name: str, model_path: str):
-        # manual operation referred on https://github.com/lm-sys/FastChat
-        # download from https://zhuanlan.zhihu.com/p/620801429
-        pass
+        if not os.path.exists(model_path):
+            os.makedirs(model_path)
+
+            tokenizer = AutoTokenizer.from_pretrained(model_name)
+            model = AutoModelForCausalLM.from_pretrained(model_name).to("cuda")
+
+            tokenizer.save_pretrained(model_path)
+            model.save_pretrained(model_path)
     
     def _initialize_llm(self):
-        tokenizer = LlamaTokenizer.from_pretrained(self.model_path, use_fast=False, padding_side='left')
-        model = LlamaForCausalLM.from_pretrained(self.model_path).to("cuda")
-        tokenizer.pad_token='[PAD]'
+        tokenizer = AutoTokenizer.from_pretrained(self.model_path, padding_side='left')
+        model = AutoModelForCausalLM.from_pretrained(self.model_path).to("cuda")
 
         return model, tokenizer
         
@@ -42,23 +47,23 @@ class VicunaAPI(LLMAPI):
         if type(instance) is not list:
             instance = [instance]
 
+        instance = [BELLE_PROMPT.format(instruction=i) for i in instance]
+
         if item.temperature == 0.0:
             item.temperature = 1e-6
             item.do_sample = False
-
-        instance = [EVAL_PROMPT.format(instruction=i) for i in instance]
         
         inputs = self.tokenizer(instance, 
                                 return_tensors="pt",
                                 padding=True, 
-                                truncation=True,
-                                max_length=2048).to("cuda")
+                                truncation=True).to("cuda")
         
-        outputs = self.model.generate(**inputs, 
-                                    max_new_tokens=item.max_new_tokens, 
-                                    do_sample=item.do_sample, 
-                                    top_p=item.top_p, 
-                                    temperature=item.temperature)
+        with torch.no_grad():
+            outputs = self.model.generate(**inputs, 
+                                        max_new_tokens=item.max_new_tokens, 
+                                        do_sample=item.do_sample, 
+                                        top_p=item.top_p, 
+                                        temperature=item.temperature)
         response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
         response = [r[len(i):].strip() for i, r in zip(instance, response)]
 
@@ -81,16 +86,15 @@ class VicunaAPI(LLMAPI):
                                 max_length=2048,
                                 add_special_tokens=False).to("cuda")
 
+        prompt_lens = [len(self.tokenizer.encode(p, add_special_tokens=False)) for p in prompt]
+        target_lens = [len(self.tokenizer.encode(t, add_special_tokens=False)) for t in target]
+
         tokenized_prompt =  self.tokenizer(prompt, padding=True, truncation=True, return_tensors="pt", add_special_tokens=False)
         tokenized_target =  self.tokenizer(target, padding=True, truncation=True, return_tensors="pt", add_special_tokens=False)
-
-        prompt_lens = tokenized_prompt.attention_mask.sum(-1).int().tolist()
-        target_lens = tokenized_target.attention_mask.sum(-1).int().tolist()
-        target_lens = [t-1 for t in target_lens]
-
-        logger.debug(self.tokenizer.batch_decode(inputs.input_ids))
-        logger.debug(self.tokenizer.batch_decode(tokenized_prompt.input_ids))
-        logger.debug(self.tokenizer.batch_decode(tokenized_target.input_ids[:, 1:]))
+        logger.debug(self.tokenizer.batch_decode(tokenized_prompt.input_ids[:,0]))
+        logger.debug(self.tokenizer.batch_decode(tokenized_prompt.input_ids[:,-1]))
+        logger.debug(tokenized_prompt.input_ids.size())
+        logger.debug(tokenized_target.input_ids.size())
         logger.debug(prompt_lens)
         logger.debug(target_lens)
         logger.debug(inputs.input_ids.size())
@@ -102,15 +106,16 @@ class VicunaAPI(LLMAPI):
 
         log_prob_list = []
         for i, (p_len, t_len) in enumerate(zip(prompt_lens, target_lens)):
-            log_prob_list.append(log_probs[i, p_len-1:p_len-1+t_len].detach().cpu().tolist())
-            logger.debug(self.tokenizer.decode(inputs.input_ids[:, 1:][i, p_len-1:p_len-1+t_len]))
+            log_prob_list.append(log_probs[i, -t_len:].detach().cpu().tolist())
+            logger.debug(self.tokenizer.decode(inputs.input_ids[:, 1:][i, -t_len:]))
 
         return log_prob_list
     
 if __name__ == '__main__':
-    model_api = VicunaAPI()
+    model_api = BELLEAPI()
 
     # Test Case
     example_prompt = "中国有多少省份？"
     response = model_api.generate(example_prompt)
     logger.info(f'{example_prompt} \n {model_api.model_name} : {response}')
+

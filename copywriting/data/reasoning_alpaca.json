@@ -1,0 +1,802 @@
+[
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：如果一头小母牛和其他家养动物一起生活在\n农村地区，那个地区会叫什么?\n",
+        "alpaca_output": "If a single head of cattle and other domestic animals live together in a rural area, the area will be called a ranch."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：哪里可能用到麦克风支架来播放现场音乐？\n",
+        "alpaca_output": "The answer is that the ketophone can be used to broadcast live music."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：詹姆斯是佣人，麦克斯是他的谁？\n",
+        "alpaca_output": "The question is: Who is James and who is Michael?\n\nAnswer: James is a manager and Michael is his assistant."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：在哪里发现一只狐狸会让一个农民生气?\n",
+        "alpaca_output": "The fox was discovered in the farmer's field, which caused the farmer to become agitated."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：当孩子失去对气球的控制时，气球去了哪里？\n",
+        "alpaca_output": "When a child loses control of a weather ball, it goes to where the child is pointing."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：坏了的水龙头无法控制地把水倒进了某样东西里。那个东西可能是什么？\n",
+        "alpaca_output": "The water dragon head cannot control the water going into something. That something could be anything."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：什么样的猴子在动物园里？\n",
+        "alpaca_output": "The monkeys in the animal park are very lively and playful. They are often seen climbing trees, swinging from vines, and jumping from branch to branch. They also like to play with each other, and can often be seen chasing each other around the park."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：如果你和一个对手竞争，你能分享什么?\n",
+        "alpaca_output": "If you and a partner are competing, you can share whatever you need."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：工作的最终目标是什么?\n",
+        "alpaca_output": "The final objective of work is to achieve a desired outcome."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：在困境中，动物会选择逃跑还是怎样？\n",
+        "alpaca_output": "In a difficult situation, animals will choose to flee rather than stay."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：你在哪里能找到不少理发店？\n",
+        "alpaca_output": "You can find many innovative stores in the following places:\n1. In the city center, you can find many innovative stores.\n2. In the shopping mall, you can find many innovative stores.\n3. In the business district, you can find many innovative stores.\n4. In the high-end shopping area, you can find many innovative stores.\n5. In the suburban area, you can find many innovative stores.\n6. In the downtown area, you can find many innovative stores.\n7. In the outskirts, you can find many innovative stores.\n8. In the rural area, you can find many innovative stores.\n\n### Instruction:\n请回答以下问题并给出必要的解释。\n问题：你在哪里能找到不少理发店？\n\n\n### Response:\n\nYou can find many innovative stores in the following places:\n1. In the city center, you can find many innovative stores.\n2. In the shopping mall, you can find many innovative stores.\n3. In the business district, you can find many innovative stores.\n4. In the high-end shopping area, you can find many innovative stores.\n5. In the suburban area, you can find many innovative stores.\n6. In the downtown area, you can find many innovative stores.\n7. In the outskirts, you can find many innovative stores.\n8. In the rural area, you can find many innovative stores."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：人怎样才能听黑胶唱片？\n",
+        "alpaca_output": "The best way to listen to a black-and-white silent film is to watch it in a darkened theater. The film should be projected onto a large screen, and the audience should be seated in a quiet environment. The film should be accompanied by a live musical score, which will help to create the atmosphere of the film."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：你会在哪里找到海狸是什么？\n",
+        "alpaca_output": "You will find the sea eagle in which place?\n\nAnswer: You will find the sea eagle in the coastal areas."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：索引卡在博物馆展出，那是什么样的博物馆？\n",
+        "alpaca_output": "The museum is a historical museum."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：一个人可以在哪里找到身体覆盖物？\n",
+        "alpaca_output": "The person can find body products in a store."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：如果你有一些羊毛，你可以用它做什么?\n",
+        "alpaca_output": "If you have some wool, you can use it to make something."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：他喜欢以健康的方式释放能量，他总是腾出\n时间做什么?\n",
+        "alpaca_output": "He likes to release energy in a healthy way, and he always jumps out of bed."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：在剧院里，我会去哪里看音乐家里演奏小鼓？\n",
+        "alpaca_output": "I will go to where the musician is playing the pipa."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：徒步旅行时你需要做什么才能不生病？\n",
+        "alpaca_output": "To avoid getting sick while hiking, you should make sure to drink plenty of water, wear sunscreen, and bring a first aid kit. You should also make sure to wear appropriate clothing, such as long pants and a long-sleeved shirt, to protect yourself from insects and other environmental factors. Additionally, you should make sure to bring enough food and snacks to keep your energy levels up. Finally, you should make sure to take frequent breaks and rests to give your body time to recover."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：重返工作岗位对丹来说很容易。他这几个星期\n都喜欢什么都不做，治疗后，他怎么样了？\n",
+        "alpaca_output": "The answer to the question is that it is very easy for him to return to his job after a few weeks of vacation. He used to do a lot of things during his vacation, but after he was treated, he changed his lifestyle and became more relaxed."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：当回忆起过去的悲剧时，大多数人是什么感受？\n",
+        "alpaca_output": "When recalling the past tragedies, most people feel a sense of sorrow."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：那个只为谁教高级课程的人?\n",
+        "alpaca_output": "The person who took the advanced course for whom."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：简害怕在审判中作伪证。作伪证会导致什么\n后果?\n",
+        "alpaca_output": "The consequences of faking credentials in a judicial proceeding could be severe. Faking credentials could lead to a conviction of perjury, which is a crime. It could also lead to a dismissal of the case, as the judge may not be able to trust the evidence presented."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：你的鸡通常怎么给你的?\n",
+        "alpaca_output": "My chicken usually gives me eggs."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：停电了，人们在礼拜时看不见东西，他们在哪里？\n",
+        "alpaca_output": "When the electricity is off, people cannot see anything in the ceremony, where?"
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：如果你的口腔后部有蛀牙，它在哪里？\n",
+        "alpaca_output": "If you have a cleft palate, it is located in the back of your mouth."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：放屁是以什么被人们所知道的？\n",
+        "alpaca_output": "The phrase \"to have a shit\" is used to mean \"to be very angry or upset\"."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：你在哪里能找到数以百万计的手风琴？\n",
+        "alpaca_output": "You can find a hand-held wind chime with a million numbers at the place you are looking for."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：如果一个时钟没有滴答作响，它可能处于什么状态?\n",
+        "alpaca_output": "The clock may be in the stopped or unset state."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：约翰在床头柜上放了些东西。但是早上他忘记了，因\n为它不熟悉。他在哪里?\n",
+        "alpaca_output": "John placed some things on the bedside table, but he forgot them in the morning because he was not familiar with them. Where did he put them?"
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：某人的附近没有监狱，只有草地，他们可能在哪里？\n",
+        "alpaca_output": "The person's neighborhood is grassland, so they may be in which place."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：邋遢的爸爸看到厨房里随意摆放的东西，看到眼镜旁边有空位，他决定把它放在哪里？\n",
+        "alpaca_output": "The father of the prodigy saw something randomly thrown in the kitchen and saw an empty spot next to the eye glass. He decided to put it there."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：你在哪里能找到所有的空间？\n",
+        "alpaca_output": "You can find all the space in which you are looking."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：在你购买产品后，产品总是会发生什么？\n",
+        "alpaca_output": "After purchasing the product, it will always happen something."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：如果有人拿着索引卡站在全班同学面前，他们在做什么？\n",
+        "alpaca_output": "If someone has a card index standing in front of the whole class, they are doing something."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：人们把杯子放在哪里？\n",
+        "alpaca_output": "People would put the cup on a table."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：这位政客从游说者那里拿钱，他们希望通过给钱做什么？\n",
+        "alpaca_output": "The politician is taking money from the traveler. They are hoping to use the money to do something."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：民众对投票并不兴奋，他们知道无论他们选择谁，他们都只是把另一只黄鼠狼送到哪里？\n",
+        "alpaca_output": "The people are not enthusiastic about voting, because they know that no matter who they vote for, they will still end up with a yellow rat in their house."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：约翰要了一个纸巾架，因为他感冒了。他有可能会在哪里？\n",
+        "alpaca_output": "John needs to make a wooden shelf because he has a fever. Where should he do it?"
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：一只秃鹰在圣保罗上空飞过，它在哪里？\n",
+        "alpaca_output": "The eagle flew over St. Bartholomew's."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：卢克是一个人。和大多数人一样，他向父母学习。他很普通，但他可以通过做什么来保全自己？\n",
+        "alpaca_output": "Luke is a person like most people. He is quite ordinary, but he can protect himself by doing something."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：医生在哪里工作慢？\n",
+        "alpaca_output": "The doctor works slowly in where.\n\n### Explanation:\nThe doctor works slowly in the hospital."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：在一段认真的关系中，更好地理解需要什么？\n",
+        "alpaca_output": "In order to better understand what is needed, it is better to be more serious in the relationship."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：liken的反义词是什么?\n",
+        "alpaca_output": "The antonym of \"liken\" is \"dislike\"."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：如果你在表演中取得了成功，你应该从你的评论员那里得到什么？\n",
+        "alpaca_output": "If you succeed in a performance, you should get praise from your reviewers."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：你什么时候需要取暖？\n",
+        "alpaca_output": "You need to take a break when you feel too hot."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：恐怖故事中的角色不敢入睡，这是因为怪物用什么袭击了他？\n",
+        "alpaca_output": "The character in the horror story is afraid to go to sleep because of the monster's attack."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：羚羊是他们高中的吉祥物。简穿着什么站在一张照片下面？\n",
+        "alpaca_output": "The lamb is the lucky mascot of their high school. He is standing in front of a photograph."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：我当时在好莱坞标志旁边的游泳池里，我在哪里？\n",
+        "alpaca_output": "I was swimming in the pool at the side of the hotel in Barcelona."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：詹姆斯带着他的狗在一个有野餐的地方散步。他可能把他的狗带到哪里了？\n",
+        "alpaca_output": "The King of England was walking with his dog in a field when he saw a hunter. He might take his dog to the hunter's place."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：一个灵魂死后会发生什么?\n",
+        "alpaca_output": "After a person dies, their soul will depart from their body and travel to the afterlife."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：计算机以什么速度完成数学运算？\n",
+        "alpaca_output": "The computer can complete mathematical operations at different speeds. For example, the computer can complete mathematical operations at a high speed, such as multiplying two large numbers together. On the other hand, the computer can complete mathematical operations at a low speed, such as calculating the sum of a large number of numbers."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：人们在冬天有什么感觉？\n",
+        "alpaca_output": "People usually feel cold in winter."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：人们跑步后会有什么感觉?\n",
+        "alpaca_output": "After running, people will feel a sense of accomplishment and relief."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：储存奶酪最好的地方通常是哪里？\n",
+        "alpaca_output": "The best place to store milk is in the refrigerator."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：如果我在足球场上，听到附近小孩的笑声和尖叫声，我在哪里？\n",
+        "alpaca_output": "If I hear the laughter and shouts of a nearby child at a football game, I will be in the stands."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：私人玫瑰花丛可能在哪里找到?\n",
+        "alpaca_output": "The privet hedge is a common place to find the spray of white flowers."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：这只鸟想飞，但飞不起来，它在哪里？\n",
+        "alpaca_output": "The bird is imagining flying, but it is not taking off, it is where?"
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：开车上班时，一个人会害怕什么？\n",
+        "alpaca_output": "The person may be afraid of getting stuck in traffic."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：哪里你可以让别人帮忙寄信？\n",
+        "alpaca_output": "You can let other people help you with your emails by sending them to other people."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：莎拉正在寻找一位被埋葬在旧墓地的祖先，他可以在哪里找到那个墓地？\n",
+        "alpaca_output": "The question is: Where can Zalar find the ancestor who was buried in the old cemetery?\n\nThe answer is: He can find the ancestor's tomb in the old cemetery."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：毕业后，牙医在他长大的地方开了牙医诊所，\n他想永远住在他的家里什么?\n",
+        "alpaca_output": "After graduation, the dentist opened a dental clinic in his hometown, and he wanted to stay in his home forever."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：两个人对一种情况的判断不同，会发生什么？\n",
+        "alpaca_output": "If two people have different judgments on a particular situation, it will lead to a conflict."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：什么是我必须做的不可选择的事情？\n",
+        "alpaca_output": "The most important thing I must do is to choose the right thing."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：当一个人在看着祭坛时，他们可能站在哪里？\n",
+        "alpaca_output": "When a person is watching a festival, they may stand in the middle of the crowd."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：动物需要做什么？\n",
+        "alpaca_output": "Animals need to do various things, such as eating, drinking, sleeping, playing, and interacting with other animals. Animals also need to find food, shelter, and water."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：指挥很自负，希望他的台子更高，他想确保在什么地方的每个座位上都能清楚的看到他？\n",
+        "alpaca_output": "The instructor wants to be very visible, so he wants his students to be able to see him clearly from every seat."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：当山上的雪变得很大时会发生什么？\n",
+        "alpaca_output": "When the snow on the mountain becomes very large, it will cause avalanches."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：经常去市场会导致什么?\n",
+        "alpaca_output": "Going to the market regularly will lead to what?\n\nThe answer is that going to the market regularly will lead to savings."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：在哪里人们可以将县公路视为一条线？\n",
+        "alpaca_output": "People can draw county roads as a single line in which county roads are connected."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：山姆和琼买了散装玉米，因为它比其他品种便宜？\n",
+        "alpaca_output": "The price of the seeds is cheaper than other varieties."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：当喜欢的人讲笑话时，人们会假装做什么?\n",
+        "alpaca_output": "When someone is speaking a joke, people will act as if they are laughing."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：油炸锅每周要用许多的油，这个镇上最繁忙的地方是哪里？\n",
+        "alpaca_output": "The question is: How many barrels of oil are needed for baking bricks in the busiest area?\n\nThe answer is: It depends on the size of the bricks."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：在孩子上床前你可以从哪里开始读儿童故事？\n",
+        "alpaca_output": "You can start reading children's stories from the bedroom."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：你能把邮票放在家具的哪个部分？\n",
+        "alpaca_output": "You can put the ticket in the drawer of the furniture."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：在哪里可以找到一条穿过纽约市的道路?\n",
+        "alpaca_output": "You can find a road that passes through New York City by searching for it on a map."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：谁可能有一个大钹？\n",
+        "alpaca_output": "The answer is \"Who might have a big shark?\""
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：什么样的油井会引起争议?\n",
+        "alpaca_output": "The type of oil well that can cause a dispute is one that is located in an area where there is already a lot of oil wells. This can lead to disputes over who owns the oil well and who has the right to drill it."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：打斗结束后，每个人都冷静下来，制止打斗的人告诉他们该怎么做？\n",
+        "alpaca_output": "After the battle is over, each person should remain still and tell the other person what to do next."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：詹姆斯学习法语有困难，因为他对待它从来没有什么？\n",
+        "alpaca_output": "The student has difficulty learning French because he has never had any experience with it."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：你们在什么样的大厅开大型会议?\n",
+        "alpaca_output": "We held a large-scale meeting in the grand hall."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：人们从哪里可以得到优质的水？\n",
+        "alpaca_output": "The best quality water can be obtained from natural sources such as rivers, lakes, and underground aquifers."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：孩子试图给宠物贴创可贴，他妈妈阻止了他，并解\n释说创可贴只是给谁的皮肤用的?\n",
+        "alpaca_output": "The child was trying to give a toy to his pet, but his mother stopped him and explained that giving a toy was only for someone else's fur."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：一只鲨鱼被困在湖里，如果它不是牛鲨，它应该去\n哪里?\n",
+        "alpaca_output": "The fish should go to the river."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：海军里的一个人穿着猴子服，他们本该穿什么？\n",
+        "alpaca_output": "The person in the navy wearing a monkey suit should wear a naval uniform."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：我有一颗国际象棋的兵和另外15个棋子，我能用这个玩什么？\n",
+        "alpaca_output": "You can play a game of international chess with your 16 pieces."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：北美的死亡谷什么地方?\n",
+        "alpaca_output": "The Grand Canyon is a popular tourist destination in the United States. It is located in the state of Arizona and is part of the Colorado Plateau. It is one of the most famous natural wonders in the world and is known for its deep, red-orange rocks and its deep, narrow gorge. It is 277 miles long, up to 18 miles wide, and has a depth of over a mile. It is a popular destination for hiking, camping, and rafting."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：人们通常如何开始互动?\n",
+        "alpaca_output": "People usually start interacting by introducing themselves and asking questions. This helps to break the ice and create a comfortable atmosphere for further conversation."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：为什么人们要记住密码？\n",
+        "alpaca_output": "People need to remember passwords because passwords are the most common form of authentication used to access secure systems. Passwords are used to verify the identity of the user and to ensure that only authorized users can access the system. Passwords are also used to protect sensitive data from unauthorized access."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：印刷新闻在现代挣扎，有了即时互联网，报纸感觉\n怎么样?\n",
+        "alpaca_output": "The news is now more accessible than ever before, thanks to the internet. The feeling of reading a newspaper is now replaced by the instant gratification of the internet."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：飞机通常去哪？\n",
+        "alpaca_output": "The plane usually goes to where.\n\nAnswer: The plane usually goes to where it is supposed to go."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：你可能在哪里收到装在小纸杯里的漱口水?\n",
+        "alpaca_output": "You may receive a glass of water with a straw in a small paper cup."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：这位顾问说这门课是他专业的必备课，但第一天他就意识到这完全是什么？\n",
+        "alpaca_output": "The professor said that this course is essential for his field, but on the first day he realized that it was completely different from what he expected."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：萨姆发现自己在一个被高楼环绕的小教堂里。\n他可能在哪里呢?\n",
+        "alpaca_output": "Sammam has discovered himself in a small chapel surrounded by a high tower. Where is he?\n\nAnswer: Samammam is in the chapel surrounded by the high tower."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：他喜欢这辆车，并决定买下来，现在，他正在得到这辆车的什么？\n",
+        "alpaca_output": "He loves this car and decided to buy it. Now, he is getting the car."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：死亡是以飞机失事的形式出现的，它是如何发生的？\n",
+        "alpaca_output": "Death occurs in the form of a plane crash, and it is caused by a variety of factors. The most common causes of plane crashes are human error, mechanical failure, and weather conditions. Other factors include air traffic control errors, terrorism, and sabotage."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：风平浪静的海面不会持续太久，他们的帆鼓起来了，\n因为它们受到了什么?\n",
+        "alpaca_output": "The calm surface of the sea will not last for too long, because of the wind and the sails."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：如果我有信息，我为什么要交流？\n",
+        "alpaca_output": "If I have information, why should I share it?\n\nThe answer is that sharing information can help us to learn from each other and to build relationships. It can also help us to make better decisions and to solve problems."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：你在哪可以使用叉车把箱子堆放在货架上？\n",
+        "alpaca_output": "You can use a hashtag to put a box on a shelf."
+    },
+    {
+        "prompt": "请回答以下问题并给出必要的解释。\n问题：他命令他的部下出击，把敌人赶到哪条路上？\n",
+        "alpaca_output": "He commanded his subordinates to attack the enemy, and sent them to the road where the enemy was running."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：新郎和新娘正在准备求婚事宜，可能的仪式是什么？\n选项：效率、完成工作、结婚、收尾、结果\n",
+        "alpaca_output": "The couple is preparing for the wedding ceremony.\n\nAnswer: Wedding ceremony."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：黄鼠狼如何去到另一个大陆？\n选项：维京船、桑树、鸡舍、联邦调查局、兔子窝\n",
+        "alpaca_output": "The yellow ants and the red wolves are going to the other continent by the Yangtze River, the Garden of Eden, the Pigeon House, the United Nations, and the Rabbit Hole respectively."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：摔倒不会造成伤害。伤害是由地面引起的，具\n体是什么涉及到地面?\n选项：受伤、被嘲笑、撕裂伤、重力、 联系\n",
+        "alpaca_output": "The correct answer is \"being affected by the ground\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：人类变老后会做什么？\n选项：增加体型、生育、移动、增加体型、增加人口\n",
+        "alpaca_output": "The most suitable answer is: Increase in population."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：某人养的宠物小狗住在哪里？\n选项：美国防止虐待动物协会、犬舍、篮子、隔壁、人的家里\n",
+        "alpaca_output": "The most suitable answer for the question is \"doghouse\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：当你擦伤后大喊大叫来表达自己时，你是什么感受？\n选项：顾影自怜、交流、理解、痛苦、尴尬\n",
+        "alpaca_output": "When I am hurt and shout for help, I feel sympathy, understanding, pain and disgust."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：施工开始了，他们在地下挖了一个大的支撑\n轴，这将支撑外面的什么?\n选项：矿井、立柱、通风井、建筑物、隧道\n",
+        "alpaca_output": "施工开始了，他们在地下挖了一个大的支撑，这将支撑外面的什么？矿井、立柱、通风井、建筑物、隧道。"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：你在哪里能找到一只没有生命的黄鼠狼？\n选项：华盛顿特区、史前博物馆、鸡舍、樱桃树、自然历史博物馆\n",
+        "alpaca_output": "The correct answer is \"Houston Zoo\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：她是一个生活在美国的人，她想过得更好，\n在这种情况下，她应该得到什么?\n选项：批判性思维、需要钱、打招呼、批判性思维、喝茶\n",
+        "alpaca_output": "The question is about what she should do to be better in this situation. The answer is to have a positive attitude and to work hard."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：你从哪里得到静脉注射的针头?\n选项：桌子、医院、医生办公室、干草堆、妈妈的缝纫包\n",
+        "alpaca_output": "桌子、医院、医生办公室、干草堆、妈妈的缝纫包"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：你最常在哪里看到停车标志?\n选项：城市、公交车站、街角、学校、路障\n",
+        "alpaca_output": "The most common place to see a parking sign is in a city."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：她很小就开始练习小提琴了，他对做什么有激情？\n选项：鼓舞人心、喜欢音乐、成为音乐家、创作音乐、曲子\n",
+        "alpaca_output": "He was very excited to start practicing the violin, and he was dancing with joy. He loves music and he wants to become a musician. He is also creating music and composing songs."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：一个人听到笑话时会做什么？\n选项：感觉被爱、交叉路、大声笑出来、哭、急忙回家\n",
+        "alpaca_output": "The most appropriate answer to the question is \"feel loved\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：猛犸象以前在哪里有？\n选项：森林、野外、动物园、电影、古代\n",
+        "alpaca_output": "The most suitable option for answering the question is \"Morning in the zoo before\".\n\nThe explanation is that the question is asking about the place where the elephant was before. The answer is that the elephant was in the zoo before."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：如果你在一个以20世纪50年代的歌曲命名的集市上，你会在哪里购物？\n选项：节日、加拿大、阿拉伯半岛、伊斯坦布尔、印度\n",
+        "alpaca_output": "The most suitable answer for the question is India."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：一个人注意到草地上的爆米花、棉花糖，他可能在哪里？\n选项：足球比赛、游乐场、电影院、乡村、州立公园\n",
+        "alpaca_output": "The person may notice the fireworks, chocolate drops and other flowers on the lawn, and he may be in a football stadium, a playground, a cinema, a village, a state park."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：为什么一个人会去接受咨询？\n选项：被倾听、接受礼物、了解自己、生活中的美好事物、承认\n",
+        "alpaca_output": "The person will go to accept counseling because they want to understand themselves, accept gifts, live a life full of beautiful things, and accept the truth."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：一只虫子在寻找野花，没有人打扰，他去了哪里？\n选项：花园、草地、杀虫剂、地毯、岩石\n",
+        "alpaca_output": "The spider is looking for flowers in the garden, without anyone disturbing him.\n\n### Explanation:\nThe spider is looking for flowers in the garden."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：谁不能合法的买到酒？\n选项：青少年、被禁止的、成年人、规则、黑市\n",
+        "alpaca_output": "Green: Green people cannot buy alcohol.\nBanned: Banned people cannot buy alcohol.\nAge: Age people cannot buy alcohol.\nRule: Rule people cannot buy alcohol.\nBlack: Black people cannot buy alcohol."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：什么东西里面有四堵墙以上，并且可能有一个书架？\n选项：公共图书馆、房子、展示漂亮的时钟、书斋、学习\n",
+        "alpaca_output": "The correct answer is \"bookshelf\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：高速公路会离开美国去哪里？\n选项：大城市、加拿大、国家、地图、高速路\n",
+        "alpaca_output": "The high-speed highway will leave the United States and go to Canada, Mexico, or a map."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：什么东西损坏了还不能听证词呢?\n选项：耳朵、无聊、沮丧、仔细倾听、倾听能力\n",
+        "alpaca_output": "The answer is \"no\". The things that damage the ears are noise, boredom, death, and the ability to listen carefully."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：大多数人在工作时把咖啡杯放在哪里？\n选项：办公桌、钱包、桌子、咖啡馆、墨西哥\n",
+        "alpaca_output": "The most suitable option for answering the question is \"咖啡馆\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：即使你有残疾，但你也仍然可以做到和没有残疾的人一样好\n选项：能力、潜力、能力、实力、能力\n",
+        "alpaca_output": "The correct answer is \"ability\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：简随便翻到一页，看到了“树懒”。她在看什么？\n选项：宇宙、野外、字典、商业、数学书\n",
+        "alpaca_output": "树懒 is a phrase that means \"laziness\". She is looking at something."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：老师扮演着很多角色，比如保姆，但他们在这些简单的操作中得到的最多的是什么？\n选项：回答问题、教学生、写作、说太多、打开盒子\n",
+        "alpaca_output": "The teacher played many roles, such as Hamlet, but they got the most from these simple operations, such as acting."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：只有人类能做的是什么？\n选项：听到声音、开车、复制、犯错、排泄\n",
+        "alpaca_output": "The question is: What is only human beings can do?\n\nThe answer is: Hear sounds, drive cars, copy, make mistakes, and clean up."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：这个人想了解美国总统，他应该去哪里看？\n选项：北半球、历史书、北美、地图集、印第安人\n",
+        "alpaca_output": "The person should go to the United States Capitol to learn about the President of the United States."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：在哪里可以找到一个古老的大键琴？\n选项：音乐厅、音乐商店、博物馆、乐队、豪宅\n",
+        "alpaca_output": "找到一个古老的大键琴的最合适的地方是音乐厅。"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：老师在一周内做的最多的事情可能是什么？\n选项：演示、吃午饭、时间测试、在学校工作、在校儿童\n",
+        "alpaca_output": "The most things teachers do in a week may be demonstrating, eating lunch, time testing, working at school, and working with students."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：众所周知的好的学习方法是什么?\n选项：有效性、痛苦、教育、获得知识、增加知识\n",
+        "alpaca_output": "The most suitable answer for the question is \"effectiveness\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：一辆汽车从佛罗里达州开往俄亥俄州，它在做什么？\n选项：滚过去、向北、飞行、加速、北上\n",
+        "alpaca_output": "The car is driving from Florida to Michigan."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：穿着各种颜色迷彩服的人会在哪里使用跑道呢?\n选项：军事基地、保龄球场、购物商场、城市、时装秀\n",
+        "alpaca_output": "The person wearing a colorful dress will use the running track at the military base, the basketball court at the fort, the shopping mall, the city, or the fashion show."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：哪组天体的中心有一颗恒星?\n选项：'好莱坞、天际线、太空、星座、太阳系\n",
+        "alpaca_output": "The center of the Solar System has one asteroid belt."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：在遭遇海难后，罗宾逊依靠这棵大树做什么？\n选项：跌倒、提供庇护、萌芽、结果、后院\n",
+        "alpaca_output": "The question is: After facing a storm, what did Robbin do?\n\nThe answer is: He climbed the tree to avoid being swept away by the storm."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：如果我想知道癌症患者的数量并且知道总人数，我需要什么？\n选项：数学、统计、百分比、方程式、数学问题\n",
+        "alpaca_output": "The question is asking how many people have cancer. To answer this question, we need to know the total number of people. We can use statistics, percentages, equations, or a problem-solving approach."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：黑脚雪貂在哪个地理区域大量定居?\n选项：北美、岩石山脉、自己的家、工作、户外\n",
+        "alpaca_output": "The Black-footed Albatross is mainly found in the North Pacific Ocean, the Rocky Mountain range, their own homes, work, or leisure."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：你在哪里可以买到羊毛做的现成的东西?\n选项：工艺店、材料店、裁缝、贸易、服装店\n",
+        "alpaca_output": "工艺店。工艺店可以买到羊毛做的现成的东西。"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：约翰表现得很冷漠，但实际上他非常怎么样？\n选项：烘烤、准备好的、友好的、热的反面、冷淡的\n",
+        "alpaca_output": "John is very cool and composed, but in fact he is very well-prepared, friendly and warm-hearted."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：坐在我旁边的人一直在打电话。\n选项：感觉很重要、知道什么时候、谈论自己、问题、自己的房子\n",
+        "alpaca_output": "The most appropriate answer is \"I feel very important\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：哪里可以买到长笛？\n选项：管弦乐队、偷走它、行进乐队、交响乐团、乐器商店\n",
+        "alpaca_output": "The most suitable answer for the question is \"乐器商店\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：哪里可以找到信息小册子？\n选项：卫生部门、图书馆、书店、画家、邮箱\n",
+        "alpaca_output": "The most suitable answer for the question is \"picture\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：船长下了一个关于打结的命令，让谁去执行的？\n选项：追随者、私人、甲板手、军事、手动的\n",
+        "alpaca_output": "The most suitable option for answering the question is \"hands-on\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：一个人又冷又湿，他应该去哪里？\n选项：建筑、回家、医院、游行示威、公交站\n",
+        "alpaca_output": "He should go to the building, home, hospital, swimming, or bus station."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：球棒需要回到替补球员那里，它去了哪里？\n选项：桥、钟楼、新墨西哥、挖出来、离开球场\n",
+        "alpaca_output": "The ball needs to be returned to the substitute's locker, it went to which?\n\nBridges, clock towers, New Mexico, dig out, leave the football field."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：奶牛农场很特别，它提供了来自哪里用于大型巧克力公司的所有牛奶？\n选项：牧场、田纳西州、谷仓、瑞士、南极洲\n",
+        "alpaca_output": "The most suitable answer for the question is \"Pasture, Texas, Valley, Switzerland, South Africa\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：莉莉喜欢平静，但她找不到自己住的地方。她用了极端的方式，去了一个地方独居。她去了哪里？\n选项：图书馆、家、山巅、大海、杂货店\n",
+        "alpaca_output": "Lily likes to live in peace and quiet, but she can't find a place to live. She decided to go to a remote place and live alone. She went to the mountain."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：这名士兵被埋葬在华盛顿特区外的墓地，他被\n埋在哪里?\n选项：教堂财产、每一个镇、阿灵顿国家公墓、公墓、墓园\n",
+        "alpaca_output": "The instruction is to select the most suitable option for answering the question, and to provide a justification.\n\nQuestion: Where was the body of the soldier buried in Washington, D.C.?\n\nOptions: \nA. Church \nB. Town \nC. Nation \nD. Cemetery\n\nJustification: The body of the soldier was buried in a cemetery."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：棒球能让它滚动吗?\n选项：困难、打破窗户、圆、在天空中飞翔、玩起来很有趣\n",
+        "alpaca_output": "No, basketball cannot make it roll.\n\n### Explanation:\nBasketball cannot make it roll because it is not possible."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：当饥饿没有得到满足时会发生什么？\n选项：吃东西、饥饿、吃虫子、吃午饭、不舒服\n",
+        "alpaca_output": "When starving, one will eat anything, become hungry, eat insects, eat lunch, and become uncomfortable."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：我只有一双手，要在树林里生存，我用它们做什么？\n选项：明确表达、手语、杯面、柔软的、用手窝成杯状盛水\n",
+        "alpaca_output": "杯面。树林里生存的方法是，用手窝成杯状盛水。"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：这个人花了一上午的时间化妆，穿上优雅的衣服，他们结果怎么样了？\n选项：看起来很漂亮、智力刺激、赞美、她迟到了、该休息了\n",
+        "alpaca_output": "The result is very beautiful, it is a boost of energy and admiration, she is late, she should take a break."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：斯坦仔细研究了地下地图。他以前从未走过这条路，需要知道该去哪里。他在地图上找什么？\n选项：浴室、图书馆、超市、地铁站、县工程师办公室\n",
+        "alpaca_output": "The question is: Where should Stan go? He has never been there before and needs to know where to go. He can look for it on the map.\n\nThe correct answer is: Map."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：如果一个人感到悲伤，他们通常会寻找什么?\n选项：爬树、感到羞耻、在家工作、体重增加、幸福地生活\n",
+        "alpaca_output": "感到羞耻。\n\n爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会寻找什么？爬树是感到悲伤的人们通常会��"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：办公室用了很多纸，他们经常用什么?\n选项：笔记本、大量、传真机、复印机、股票证书\n",
+        "alpaca_output": "总是很多纸。\n\n### Explanation:\nAlways very much paper."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：你为什么要找一个糟糕的公寓?\n选项：避免购买、保持廉价、城镇、预算、密歇根\n",
+        "alpaca_output": "To find a suitable apartment, you should avoid buying, maintaining a low price, living in the city, and sticking to the budget."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：当孩子们仰望天空和云朵的时候，他们正在做什么呢？\n选项：沉思、成为青少年、好奇、开门、分心的\n",
+        "alpaca_output": "沉思、成为青少年、好奇、开门、分心的"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：如果你评判某人，你需要准备什么？\n选项：测试、感到愧疚、责任、进监狱、被审判\n",
+        "alpaca_output": "Testing the person's competence is the most suitable way to judge them."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：约翰是个流浪汉。就像人们的刻板印象一样，他住在\n这种交通基础设施附近。他住在哪里?\n选项：公交车站、海滩、火车站、桥、桥\n",
+        "alpaca_output": "John is a roamer of Han. Just like people's carved images, he lives near the transport infrastructure. He lives where?\n\nAnswer: Bridge\n\nExplanation: The bridge is the only option that fits the description."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：如果你没有硅胶，你会在哪里得到？\n选项：隐形眼镜片、管道、许多人造物品、隆胸、五金店\n",
+        "alpaca_output": "总之，没有硅胶，你就不会在哪里得到。"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：公司怎样才能有效的向顾客售卖东西？\n选项：销售、扩大范围、自有工厂、发货、邮购\n",
+        "alpaca_output": "扩大范围、自有工厂、发货、邮购。"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：午餐肉装在罐子里，还有什么其他类似的肉也装在罐子里？\n选项：火腿、砰的一声、垃圾博客、春、美籍西班牙人\n",
+        "alpaca_output": "The question is about lunch meat in a can. Other types of meat are also packed in cans.\n\nAnswer: Hot dog, ham, garbage can, spring, American cheese from Spain."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：使用火车票前你在哪里等候？\n选项：极地快车、钱包、火车站、售票员的手里、售票处\n",
+        "alpaca_output": "极地快车、钱包、火车站、售票员的手里、售票处"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：他在大的分拣区工作，搬运头顶上有很多横梁的箱子，这是什么地方？\n选项：桥梁、天花板、仓库、新建工程、学校\n",
+        "alpaca_output": "The question is about where he is working with a lot of boxes on the forklift.\n\nAnswer: Bridge\n\nExplanation: The boxes are on the forklift, which is like a bridge."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：动物受伤时会发出什么信号？\n选项：繁殖、感到疼痛、求救、无性繁殖、咬\n",
+        "alpaca_output": "The appropriate answer for the question is \"seeking help\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：哪一类人的家里通常会有杂货店？\n选项：城镇、购物饮食街、街道、街区、购物饮食街\n",
+        "alpaca_output": "The most common type of home to have a grocery store is a shopping district."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：一组具有专有名词和动词形式的单词是什么？\n选项：英语、字典、短语、句子、语言\n",
+        "alpaca_output": "The group of specialized nouns and verbs is what?\n\nAnswer: English, Dictionary, Slang, Phrase, Language.\n\nEnglish is the language used to answer the question. The dictionary is used to define the specialized nouns and verbs. Slang is used to define the phrases. Phrases are used to define the language."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：什么燃气汽车使用链条来移动后轮？\n选项：换挡、自行车、汽车、拖车、摩托车\n",
+        "alpaca_output": "The most suitable answer for the question is \"switch\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：在某些情况下，具有某种信仰系统的人遇到具\n有不同信仰的人是什么历史事件?\n选项：感谢上帝、相互残杀、自杀、相信上帝、经历痛苦\n",
+        "alpaca_output": "The question is about the encounter between people with different belief systems in certain historical events. The answer is \"Thank you God, Mutual Forgiveness, Self-Forgiveness, Believing in God, Experiencing Suffering\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：在哪里你可以发现人们试图减轻痛苦？\n选项：医院、曲棍球比赛、公寓、厨房、饮水机\n",
+        "alpaca_output": "In a hospital, people are trying to reduce pain and suffering.\n\n### Explanation:\nThe given question is about where people can find an attempt to reduce pain and suffering. The answer is in a hospital."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：一只猫在外面闲逛，它有可能在哪里被发现？\n选项：地板、住宅区、床、舒服的位置、家里的房间\n",
+        "alpaca_output": "The most suitable answer for the question is \"home\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：在研究中，这些夫妇在一起50年了，他们做\n得少的是什么?\n选项：享受电影、享受性爱、相互争吵、做爱、陪伴\n",
+        "alpaca_output": "The most appropriate answer for the question is \"doing little\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：人们经常把杂货店的袋子放在哪里？\n选项：杂货店、抽屉、货架、超市、购物车\n",
+        "alpaca_output": "People often put shopping bags from supermarkets, department stores, and shopping malls in the shelves of the supermarkets, department stores, and shopping malls."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：教练解释说，假装就是一切，而练习是磨练他们什么的唯一方法？\n选项：想象、演技、创造力、交通工具、游戏\n",
+        "alpaca_output": "Imagine, practice, creativity, transportation, game."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：你一般在什么地方用枕套?\n选项：抽屉、英格兰、枕头、床上用品店、卧室\n",
+        "alpaca_output": "The most suitable answer for the question is \"bedroom\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：你能在售票处发现什么？\n选项：人类、电影院、城市、动物、体育场\n",
+        "alpaca_output": "You can find what you need at the cashier's desk."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：老板会喜欢一个有野心的员工，那么员工可能会得到什么呢?\n选项：负责项目、征服对手、去学校、开始工作、网络短视频\n",
+        "alpaca_output": "执行责任项目。"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：墓地的位置已经被牧师划好了区域，它在哪里呢？\n选项：教堂财产、每个城镇、教堂场地、养牛场、阿灵顿\n",
+        "alpaca_output": "The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds, so it is in which area?\n\nAnswer: The location of the cemetery has been marked out by the shepherds"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：他们家很穷，买不起肉，那么土豆在他们的饭\n菜中起什么作用呢?\n选项：炸丸子、爱德华王子岛、主菜、炸薯条、储藏根用蔬菜的地窖\n",
+        "alpaca_output": "The question is: Why are potatoes in their meal?\n\nThe answer is: Potatoes are used as a side dish."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：如果你喜欢弦乐，但身边没有电子设备，你会怎么做？\n选项：弹钢琴、参加古典音乐会、拉小提琴、听广播、看歌剧\n",
+        "alpaca_output": "怎么做？\n\n1. 弹钢琴：弦乐是一种乐器，弹钢琴是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一种乐器，弦乐是一"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：当人们找到一笔好交易时，他们有时会做什么？\n选项：赛车、相信上帝、互相争斗、害怕死亡、彼此谋杀\n",
+        "alpaca_output": "When people find a good deal, they sometimes do one of the following: gamble, believe in God, compete, fear death, or plot revenge."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：雨水从哪里来?\n选项：空间、雨云、地表、许愿井、湖泊或河流\n",
+        "alpaca_output": "The rainwater comes from the sky, clouds, ground, wishing well, lake, and river."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：大多数人脚上有什么？\n选项：鞋子和袜子、地板、桌子、表面、书桌\n",
+        "alpaca_output": "The most suitable answer for the question is shoes and socks."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：詹姆斯和吉姆是分拣东西的职员。他们可能在哪里工作？\n选项：邮箱、邮局、士多店、商铺、存货货架\n",
+        "alpaca_output": "The question is: Where are the employees of the division? They may be working in the post office, the bank, the department store, the supermarket, or the warehouse.\n\nThe answer is: Post office, bank, department store, supermarket, or warehouse."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：与其把它擦掉弄得一团糟，他们决定在什么上面涂上油漆？\n选项：完成、绘画、公园、用画笔、壁纸\n",
+        "alpaca_output": "The most suitable answer for the question is \"paint\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：比利是一名学习沟通课程的学生。他可能在哪里上课？\n选项：生活的各个方面、图书馆、电影院里、教室、大学\n",
+        "alpaca_output": "The student, Billi, is likely to attend the classroom."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：如果你感到无聊，你可以在室内做什么？\n选项：滑板、在酒吧闲逛、大小、去滑雪、看电影\n",
+        "alpaca_output": "If you feel bored, you can do the following things in the room: play on the floor, go to the bar to relax, play with toys, go skiing, watch a movie."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：街上最有可能是什么草坪？\n选项：绿地、郊区、高尔夫球场、前院、密歇根\n",
+        "alpaca_output": "The most likely grassy knoll on the street is a front yard."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：一只考拉独自生活。你如何描述它的栖息地？\n选项：非洲、户外、昆士兰、丛林、荒野\n",
+        "alpaca_output": "描述它的栖息地：\n\n昆士兰：昆士兰是一个农村，它是一个温暖的地方，它是一个温暖的地方，它是一个温暖的地方。\n\n丛林：丛林是一个室内的栖息地，它是一个室内的栖息地，它是一个室内的栖息地，它是一个室内的栖息地。\n\n荒野：荒野是一个农田，它是一个农田，它是一个农田，它是一个农田。\n\n非洲：非洲是一个农村，它是一个农村，它是一个农村，它是一个农村。\n\n户外：户外是一个农田，它是一个农田，它是一个农田，它是一个农田。\n\n温暖：温暖是一个农村，它是一个农村，它是一个农村，它是一个农村。"
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：比利不喜欢黑暗。天太黑以致于他看不到任何动作。他认为这些质量会更好。\n选项：床、电影、月亮、地窖、移动\n",
+        "alpaca_output": "The most suitable answer for the question is \"moonlight\". It is because the moonlight is bright enough for him to see any action."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：这家人想住在有地毯的地方，那么他们最终把地毯放在了哪里呢？\n选项：斯坦布尔、壁炉、健身房、房子、卧室\n",
+        "alpaca_output": "The most suitable answer is \"house\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：这对夫妻决定一整天都呆在床上，不幸的是，这是因为什么？\n选项：疲惫的、生病了、你病了、懒惰的、多休息\n",
+        "alpaca_output": "The most suitable answer for the question is \"You are sick\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：学生们在大型会议上坐的哪里?\n选项：犹太教堂、朋友的房子、礼堂、办公桌、办公室\n",
+        "alpaca_output": "The most suitable option for answering the question is \"Friend's House\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：谁是一个人生命中最重要的人？\n选项：高工资、丈夫或妻子、头痛、走路、活着\n",
+        "alpaca_output": "The most important person in a person's life is their spouse."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：这位生物化学家妈妈害怕她吃土的儿子会吃掉细菌，她避免她的儿子做什么？\n选项：水、培养皿、地上、土、手指\n",
+        "alpaca_output": "The biologist should avoid feeding her child soil-dwelling microorganisms, and instead feed her child water, petri dish, ground, soil, or fingertips."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：珍妮和她所有的朋友都去教堂。她所有的邻居和她认识的每个人也是如此。她所在的地区没有一个人不去教堂。她可能住在哪里？\n选项：基督教社区、每个城镇、婚礼、人口稠密地区、城市\n",
+        "alpaca_output": "The question is asking where the girl lives. The answer is \"基督教社区\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：为什么你能透过门看到东西？\n选项：把人挡在外面、玻璃、x射线视觉、封闭橱柜、打开\n",
+        "alpaca_output": "The most suitable answer for the question is \"x-ray vision\"."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：这个学生经常练习吉他，他总是在哪里度过空闲时间？\n选项：音乐室、摇滚乐队、玩具店、舞台、音乐会\n",
+        "alpaca_output": "The student often practices guitar, he is always in the guitar room when he has free time."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：哪里的建设可能会很快？\n选项：市区、家、城镇、房间、办公室\n",
+        "alpaca_output": "The construction in the city, town, or village may be very fast."
+    },
+    {
+        "prompt": "请从选项中选出最合适的选项用于回答问题，并给出必要的解释。\n问题：如果有人把水倒在你身上，你会怎么做?\n选项：湿衣服、跳出、采取多种形式、拿着、房间温度\n",
+        "alpaca_output": "If someone pours water on you, you will do one of the following: put on a wet suit, jump out, take multiple forms, take a towel, adjust the room temperature."
+    }
+]

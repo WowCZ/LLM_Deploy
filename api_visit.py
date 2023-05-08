@@ -28,8 +28,8 @@ logger.info(f'>>> Generation urls on LLM #{llm_name.upper()}# for human evaluati
 logger.info(gen_urls)
 
 data_file = 'copywriting/data/{human_eval_task}.json'
-human_eval_tasks = ['bias', 'empathy', 'hinting', 'humor', 'philosophical', 'poetry', 'reading', 'story', 'writing']
-extracted_tasks = ['bias', 'poetry', 'story']
+human_eval_tasks = ['empathy', 'hinting', 'humor', 'philosophical', 'poetry', 'reading', 'reasoning', 'story', 'safety', 'writing']
+extracted_tasks = []
 
 last_eval_tasks = []
 for root, ds, fs in os.walk('copywriting/data'):
