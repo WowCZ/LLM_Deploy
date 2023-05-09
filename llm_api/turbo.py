@@ -1,4 +1,4 @@
-import os
+import random
 import openai
 from llm_api import LLMAPI, get_logger
 from typing import List
@@ -6,9 +6,14 @@ from pydantic import BaseModel
 
 logger = get_logger(__name__, 'INFO')
 
-openai_key = os.environ['OPENAI_KEY'] if 'OPENAI_KEY' in os.environ else None
-# assert openai_key, "No OpenAI API key detected in the environment"
-openai.api_key = openai_key
+with open('assets/openai_keys.txt', 'r') as fr:
+    keys = fr.readlines()
+    ks = []
+    for k in keys:
+        ks.append(k.strip())
+
+key_id = random.randint(0, len(ks)-1)
+openai_key = ks[key_id]
 
 params = {"temperature": 0.0, "top_p": 1.0, "num_generations": 1, "max_tokens": 256}
 
