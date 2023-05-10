@@ -33,6 +33,7 @@ from .chinese_alpaca import ChineseAlpacaAPI
 from .stablelm import StablelmAPI
 from .chinese_vicuna import ChineseVicunaAPI
 from .belle import BELLEAPI
+from .cpm import CPMAPI
 
 __all__ = ['AlpacaAPI',
            'BELLEAPI', 
@@ -40,6 +41,7 @@ __all__ = ['AlpacaAPI',
            'ChatGLMAPI', 
            'ChineseAlpacaAPI',
            'ChineseVicunaAPI',
+           'CPMAPI',
            'DavinciAPI', 
            'GPT4API',
            'LLaMAAPI', 

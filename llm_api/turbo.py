@@ -1,5 +1,6 @@
 import random
 import openai
+import time
 from llm_api import LLMAPI, get_logger
 from typing import List
 from pydantic import BaseModel
@@ -14,8 +15,6 @@ with open('assets/openai_keys.txt', 'r') as fr:
 
 key_id = random.randint(0, len(ks)-1)
 openai_key = ks[key_id]
-
-params = {"temperature": 0.0, "top_p": 1.0, "num_generations": 1, "max_tokens": 256}
 
 class TurboAPI(LLMAPI):
     def __init__(self, model_name='gpt-3.5-turbo', model_path=None):
@@ -32,21 +31,36 @@ class TurboAPI(LLMAPI):
 
         if type(prompt) is not list:
             prompt = [prompt]
-        
-        turbo_replies = []
-        for p in prompt:
-            chat_instance = [{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": p}]
 
-            completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
-                                                        messages=chat_instance,
-                                                        temperature=item.temperature,
-                                                        top_p=item.top_p,
-                                                        max_tokens=item.max_new_tokens,
-                                                        n=item.num_return)
-            turbo_reply = completion.choices[0].message.content.strip()
-            turbo_replies.append(turbo_reply)
+        error = None
+        num_failures = 0
+        while num_failures < 5:
+            try:
+                turbo_replies = []
+                for p in prompt:
+                    chat_instance = [{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": p}]
 
-        return turbo_replies
+                    completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+                                                                messages=chat_instance,
+                                                                temperature=item.temperature,
+                                                                top_p=item.top_p,
+                                                                max_tokens=item.max_new_tokens,
+                                                                n=item.num_return)
+                    turbo_reply = completion.choices[0].message.content.strip()
+                    turbo_replies.append(turbo_reply)
+                
+                return turbo_replies
+            except openai.error.RateLimitError as error:
+                logger.warning(error)
+                logger.warning(f"Reach Rate Limit!")
+                num_failures += 1
+                time.sleep(5)
+            except Exception as error:
+                logger.warning(error)
+                num_failures += 1
+                time.sleep(5)
+
+        raise error
     
 if __name__ == '__main__':
     model_api = TurboAPI()

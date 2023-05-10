@@ -1,4 +1,4 @@
-import os
+import time
 import openai
 from llm_api import LLMAPI
 import logging
@@ -25,21 +25,36 @@ class GPT4API(LLMAPI):
 
         if type(prompt) is not list:
             prompt = [prompt]
-        
-        gpt4_replies = []
-        for p in prompt:
-            chat_instance = [{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": p}]
 
-            completion = openai.ChatCompletion.create(model="gpt-4",
-                                                        messages=chat_instance,
-                                                        temperature=item.temperature,
-                                                        top_p=item.top_p,
-                                                        max_tokens=item.max_new_tokens,
-                                                        n=item.num_return)
-            gpt4_reply = completion.choices[0].message.content.strip()
-            gpt4_replies.append(gpt4_reply)
+        error = None
+        num_failures = 0
+        while num_failures < 5:
+            try:
+                gpt4_replies = []
+                for p in prompt:
+                    chat_instance = [{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": p}]
 
-        return gpt4_replies
+                    completion = openai.ChatCompletion.create(model="gpt-4",
+                                                                messages=chat_instance,
+                                                                temperature=item.temperature,
+                                                                top_p=item.top_p,
+                                                                max_tokens=item.max_new_tokens,
+                                                                n=item.num_return)
+                    gpt4_reply = completion.choices[0].message.content.strip()
+                    gpt4_replies.append(gpt4_reply)
+
+                return gpt4_replies
+            except openai.error.RateLimitError as error:
+                logger.warning(error)
+                logger.warning(f"Reach Rate Limit!")
+                num_failures += 1
+                time.sleep(5)
+            except Exception as error:
+                logger.warning(error)
+                num_failures += 1
+                time.sleep(5)
+
+        raise error
     
 if __name__ == '__main__':
     model_api = GPT4API()
