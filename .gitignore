@@ -1,9 +1,0 @@
-models/
-__pycache__/
-*/__pycache__
-copywriting/urls/
-copywriting/annotated_data/
-log/
-.vscode/
-plots/Figures
-plots/HumanEvalResults
