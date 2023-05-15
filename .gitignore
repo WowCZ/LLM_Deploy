@@ -5,4 +5,5 @@ copywriting/urls/
 copywriting/annotated_data/
 log/
 .vscode/
-plots/
+plots/Figures
+plots/HumanEvalResults
