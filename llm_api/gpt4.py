@@ -9,8 +9,6 @@ logger = logging.getLogger(__name__)
 
 openai_key = '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'
 
-params = {"temperature": 0.0, "top_p": 1.0, "num_generations": 1, "max_tokens": 512}
-
 class GPT4API(LLMAPI):
     def __init__(self, model_name='gpt-4', model_path=None):
         super(GPT4API, self).__init__(model_name, model_path)

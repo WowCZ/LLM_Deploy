@@ -33,7 +33,7 @@ class LLaMAAPI(LLMAPI):
             model.save_pretrained(model_path)
     
     def _initialize_llm(self):
-        tokenizer = LlamaTokenizer.from_pretrained(self.model_path)
+        tokenizer = LlamaTokenizer.from_pretrained(self.model_path, use_fast=False, padding_side='left')
         model = LlamaForCausalLM.from_pretrained(self.model_path).to("cuda")
         tokenizer.pad_token='[PAD]'
 

@@ -18,6 +18,7 @@ class T5API(LLMAPI):
     def __init__(self, model_name='google/flan-t5-xxl', model_path=model_local_path):
         super(T5API, self).__init__(model_name, model_path)
         self.supported_types = ['generate', 'score']
+        self.name = 't5'
 
     def _download_llm(self, model_name: str, model_path: str):
         if not os.path.exists(model_path):
@@ -43,17 +44,22 @@ class T5API(LLMAPI):
 
         if type(instance) is not list:
             instance = [instance]
+
+        if item.temperature == 0.0:
+            item.temperature = 1e-6
+            item.do_sample = False
         
         inputs = self.tokenizer(instance, 
                                 return_tensors="pt",
                                 padding=True, 
                                 truncation=True).to("cuda")
         
-        outputs = self.model.generate(**inputs, 
-                                    max_new_tokens=item.max_new_tokens, 
-                                    do_sample=item.do_sample, 
-                                    top_p=item.top_p, 
-                                    temperature=item.temperature)
+        with torch.no_grad():
+            outputs = self.model.generate(**inputs, 
+                                        max_new_tokens=item.max_new_tokens, 
+                                        do_sample=item.do_sample, 
+                                        top_p=item.top_p, 
+                                        temperature=item.temperature)
         response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
         response = [r[len(i):].strip() for i, r in zip(instance, response)]
 
