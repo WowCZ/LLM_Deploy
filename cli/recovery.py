@@ -1,6 +1,7 @@
 import random
+from typing import Union
 from copywriting import get_logger
-from copywriting import recovery_score, recovery_chinese_test
+from copywriting import recovery_score, recovery_chinese_test, recovery_trueskill
 from plots import plot_bar, plot_scatter, plot_human_evaluation
 
 logger = get_logger(__name__, 'INFO')
@@ -9,7 +10,7 @@ def recovery(name: str,
              annotating_path: str, 
              dump_result_path:str, 
              annotated_path:str, 
-             recovery_tasks:list,
+             recovery_tasks:Union[list, str],
              save_fig_path: str,
              save_fig_name: str,
              seed: int):
@@ -29,3 +30,12 @@ def recovery(name: str,
 
     if name == 'human_evaluation':
         plot_human_evaluation(annotated_path, save_fig_path, dump_result_path)
+
+    if name == 'trueskill_evaluation':
+        if type(recovery_tasks) is str:
+            task = recovery_tasks
+        else:
+            task = recovery_tasks[0]
+
+        recover_trueskill = recovery_trueskill(task, annotating_path, annotated_path, dump_result_path)
+        logger.info(recover_trueskill)

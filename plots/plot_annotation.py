@@ -143,7 +143,6 @@ def plot_human_evaluation(annotated_file: str, save_fig_path: str, dump_result_p
     assert os.path.exists(annotated_file), f'{annotated_file} is not found!'
 
     for _, ds, _ in os.walk(annotated_file):
-        print(ds)
         for d in ds:
             _, analysis_results = human_evaluation_reader(os.path.join(annotated_file, d))
 

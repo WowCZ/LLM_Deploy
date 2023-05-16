@@ -11,6 +11,7 @@ def default_sampling(args):
            args.sample_llm_num, 
            args.llm_candidations, 
            args.evaluation_tasks,
+           args.match_plan,
            args.seed)
 
 def default_recovery(args):
@@ -27,7 +28,7 @@ parser = argparse.ArgumentParser(description='Operations on annotated data!')
 subparsers = parser.add_subparsers(help='Sampling or Recovery')
 
 sampling_parser = subparsers.add_parser(name='sampling', description='Sample inference data!')
-sampling_parser.add_argument('--name', type=int, default=1, help='Name of sampling generation data')
+sampling_parser.add_argument('--name', type=str, default='trueskill_evaluation', help='Name of sampling generation data')
 sampling_parser.add_argument('--original_file_path', type=str, default='copywriting/data', help='Path of inference data')
 sampling_parser.add_argument('--annotating_path', type=str, default='copywriting/annotated/sample_data', help='Saved path of the sampled data')
 sampling_parser.add_argument('--dump_recovery_path', type=str, default='copywriting/annotated/sample_recovery_data', help='Saved path of the recovery data')
@@ -36,6 +37,7 @@ sampling_parser.add_argument('--sample_num', type=int, default=4, help='Sampled 
 sampling_parser.add_argument('--sample_llm_num', type=int, default=4, help='Sampled LLM number.')
 sampling_parser.add_argument('--llm_candidations', nargs='+', type=str, default=['alpaca', 'belle', 'bloom', 'chatglm', 'chinese-alpaca', 'chinese-vicuna', 'davinci', 'llama', 'vicuna', 'moss', 'turbo', 'vicuna-13b', 'gpt4'], help='LLM names')
 sampling_parser.add_argument('--evaluation_tasks', nargs='+', type=str, default=['empathy', 'hinting', 'humor', 'philosophical', 'poetry', 'reading', 'reasoning', 'safety', 'story', 'writing'], help='Human evaluation tasks')
+sampling_parser.add_argument('--match_plan', nargs='+', type=str, default=['alpaca&belle', 'alpaca&bloom'], help='Human evaluation tasks')
 sampling_parser.add_argument('--seed', type=int, default=42, help='random seed')
 sampling_parser.set_defaults(func=default_sampling)
 

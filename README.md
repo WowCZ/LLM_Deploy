@@ -32,3 +32,13 @@ python api.py simulator --model_name davinci --simulate_task empathy --port 6566
 ```
 python analysis.py recovery --name human_evaluation --annotated_path copywriting/annotated_data/human_evaluation --dump_result_path copywriting/annotated_data/analysis_data --save_fig_path plots/figures
 ```
+
+### To sample annotating data for TrueSkill strategy:
+```
+python analysis.py sampling --name trueskill_evaluation --match_plan 'alpaca&belle' 'alpaca&bloom' --single_sample_size 3 --evaluation_tasks 'empathy' --dump_recovery_path copywriting/annotated/trueskill_recovery --annotating_path copywriting/annotated/trueskill
+```
+
+### To recover annotated data for TrueSkill strategy:
+```
+python analysis.py recovery --name trueskill_evaluation --recovery_tasks 'empathy' --annotated_path copywriting/annotated/trueskill_recovery --annotating_path copywriting/annotated/trueskill --dump_result_path copywriting/annotated/copywriting/analysis_data
+```
