@@ -2,13 +2,14 @@
 
 ### Step 1: deploy the large language model.
 Just run the following script, where num_server means the api number.
-Choice 1: 
+
+Choice 1: refer to: scripts/api_server.py
 ```
-python api.py server --api=T5API --wrapper=Flask # refer to: scripts/api_server.py
+python api.py server --api=T5API --wrapper=Flask
 ```
-Choice 2: 
+Choice 2: asynchronous task submission
 ```
-sh server_deploy.sh --num_server 16 # asynchronous task submission
+sh server_deploy.sh --num_server 16
 ```
 
 Note: the api server information will be recorded in 'copywriting/urls/{model_name}_server_info.txt'.
