@@ -1,9 +1,11 @@
+import os
 import matplotlib.pyplot as plt
 import pandas as pd
 from numpy import *
 import seaborn as sns
-sns.set_theme(style="whitegrid")
+from copywriting import human_evaluation_reader
 
+sns.set_theme(style="whitegrid")
 
 api_name_map = {
     'alpaca': 'Aplaca-LoRA-7B',
@@ -21,8 +23,7 @@ api_name_map = {
     'gpt4': 'gpt-4'
 }
 
-
-def plot_bar(analysis_results: dict, save_fig_path: str, save_name: str):
+def plot_bar(analysis_results: dict, save_fig_path: str, save_name: str, model_num: int=4):
     sns.palplot(sns.color_palette("hls", 12))
 
     bar_df = {
@@ -34,7 +35,6 @@ def plot_bar(analysis_results: dict, save_fig_path: str, save_name: str):
 
     llm_score_map = {}
     llm_rank_map = {}
-    model_num = 4
     for annotator, results in analysis_results.items():
         for llm, scores in results.items():
             mean_score = mean(scores['score'])
@@ -88,11 +88,6 @@ def plot_scatter(analysis_results: dict, save_fig_path: str, save_name: str):
             gen_scores.append(s['gen_score'])
             ins_scores.append(s['ins_score'])
 
-        # df_results['LLM'].extend([llm]*len(gen_scores))
-        # df_results['GenScore'].extend(gen_scores)
-        # df_results['InsScore'].extend(ins_scores)
-        # df_results['type'].extend([1]*len(gen_scores))
-
         df_results['LLM'].append(llm)
         df_results['GenScore'].append(mean(gen_scores))
         df_results['InsScore'].append(mean(ins_scores))
@@ -141,3 +136,50 @@ def plot_scatter(analysis_results: dict, save_fig_path: str, save_name: str):
     plt.xlim(0, 5.2)
     plt.ylim(0, 5.2)
     plt.savefig(f"{save_fig_path}/{save_name}.png", dpi=600)
+
+def plot_human_evaluation(annotated_file: str, save_fig_path: str, dump_result_path: str):
+    sns.palplot(sns.color_palette("hls", 12))
+
+    for _, ds, _ in os.walk(annotated_file):
+        for d in ds:
+            _, analysis_results = human_evaluation_reader(os.path.join(annotated_file, d))
+
+            bar_df = {
+                'metric': [],
+                'score_mean': [],
+                'score_std': [],
+                'api_name': []
+            }
+            api_score_map = {}
+            for t_name, a_data in analysis_results.items():
+                for a_name, m_data in a_data.items():
+                    for a, s in zip(m_data['api_name'], m_data['score_mean']):
+                        if a not in api_score_map:
+                            api_score_map[a] = 0
+                        api_score_map[a] += s
+                    bar_df['metric'].extend(m_data['metric'])
+                    bar_df['score_mean'].extend(m_data['score_mean'])
+                    bar_df['score_std'].extend(m_data['score_std'])
+                    bar_df['api_name'].extend(m_data['api_name'])
+
+            # hue_order = list(set(bar_df['api_name']))
+            # hue_order.sort()
+            hue_order = sorted(api_score_map.items(), key=lambda x:x[1], reverse=True)
+            hue_order = [k for k, _ in dict(hue_order).items()]
+
+            bar_df = pd.DataFrame(bar_df)
+            bar_df.sort_values(by='metric', inplace=True, ascending=True)
+            bar_df.to_csv(f'{dump_result_path}/{t_name}.csv')
+
+            # Draw a nested barplot by species and sex
+            g = sns.catplot(
+                data=bar_df, kind="bar",
+                x="metric", y="score_mean", hue="api_name", hue_order=hue_order,
+                errorbar="sd", palette="dark", alpha=.6, height=6
+            )
+            g.despine(left=True)
+            g.set_axis_labels("", "Human Evaluation Score")
+            g.legend.set_title("LLM")
+
+            plt.ylim(1, 5)
+            plt.savefig(f"{save_fig_path}/{t_name}.png",dpi=600)

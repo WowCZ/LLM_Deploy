@@ -7,4 +7,4 @@
 #SBATCH --partition=OpenDialogLab_S2
 #SBATCH --ntasks-per-node=1
 
-python api_server.py --api=LLaMAAPI --server=Flask
+python api.py server --api=LLaMAAPI --wrapper=Flask

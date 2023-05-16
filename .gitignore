@@ -5,5 +5,7 @@ copywriting/urls/
 copywriting/annotated_data/
 log/
 .vscode/
-plots/Figures
-plots/HumanEvalResults
+.idea/
+.DS_Store
+plots/figures
+.*

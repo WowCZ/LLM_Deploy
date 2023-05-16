@@ -101,26 +101,3 @@ def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str,
         json.dump(prompts, fw, indent=4, ensure_ascii=False)
 
     return prompts
-
-
-if __name__ == '__main__':
-    # Single Thread
-    url= 'http://43.130.133.215:6501/generate'
-    header = {'Content-Type': 'application/json'}
-    data = {
-        "prompt": "有这样一个故事：“我：“爸在干嘛呢？最近家里生意还好吧。”爸：“已汇””，请问这个故事的笑点在哪儿？"
-    }
-
-    logger.info(post_data(url, header, data))
-
-    # Multiprocessing
-    urls = ['http://43.130.133.215:6501/generate', 'http://43.130.133.215:6502/generate']
-    datas = [
-        {
-        "prompt": "'有这样一个故事：“我：“爸在干嘛呢？最近家里生意还好吧。”爸：“已汇””，请问这个故事的笑点在哪儿？'"
-        },
-        {
-        "prompt": "有这样一个故事，““爸，端午节我不回家，捎几个粽子给我吧。”“行，你要哪种？”“都行，能解馋就行。”“好！”晚上回宿舍，打开邮箱发现爸爸发了一封邮件，足足4个G，下面还留言：不知道你好哪口，就每种给你发了一个。”，请问这个故事的笑点在哪儿？"
-        }
-    ]
-    logger.info(multiprocess_post(urls, header, datas))

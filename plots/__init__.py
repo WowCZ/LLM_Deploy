@@ -1,1 +1,1 @@
-from .plot_annotation import plot_bar, plot_scatter
+from .plot_annotation import plot_bar, plot_scatter, plot_human_evaluation

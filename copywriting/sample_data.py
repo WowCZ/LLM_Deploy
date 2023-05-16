@@ -1,7 +1,6 @@
 import os
 import json
 import random
-import pandas as pd
 from copywriting import get_logger
 from collections import OrderedDict
 
