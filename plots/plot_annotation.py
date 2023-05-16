@@ -140,7 +140,10 @@ def plot_scatter(analysis_results: dict, save_fig_path: str, save_name: str):
 def plot_human_evaluation(annotated_file: str, save_fig_path: str, dump_result_path: str):
     sns.palplot(sns.color_palette("hls", 12))
 
+    assert os.path.exists(annotated_file), f'{annotated_file} is not found!'
+
     for _, ds, _ in os.walk(annotated_file):
+        print(ds)
         for d in ds:
             _, analysis_results = human_evaluation_reader(os.path.join(annotated_file, d))
 

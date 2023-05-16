@@ -46,7 +46,7 @@ recovery_parser.add_argument('--dump_result_path', type=str, default='copywritin
 recovery_parser.add_argument('--annotated_path', type=str, default='copywriting/annotated_data/sample_recovery_data', help='Saved path of the recovery data')
 recovery_parser.add_argument('--save_fig_path', type=str, default='plots/figures', help='Saved path of the ploted figure')
 recovery_parser.add_argument('--save_fig_name', type=str, default='chinese_capability', help='Saved figure name')
-recovery_parser.add_argument('--recovery_task', nargs='+', type=str, default=['empathy'], help='Human evaluation tasks')
+recovery_parser.add_argument('--recovery_tasks', nargs='+', type=str, default=['empathy'], help='Human evaluation tasks')
 recovery_parser.add_argument('--seed', type=int, default=42, help='random seed')
 recovery_parser.set_defaults(func=default_recovery)
 args = parser.parse_args()

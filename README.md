@@ -30,5 +30,5 @@ python api.py simulator --model_name davinci --simulate_task empathy --port 6566
 
 ### To analysis the annotated results at first stage:
 ```
-python analysis.py recovery --name human_evaluation --annotated_path copywriting/annatated_data/human_evaluation --dump_result_path copywriting/analysis_data --save_fig_path plots/figures
+python analysis.py recovery --name human_evaluation --annotated_path copywriting/annotated_data/human_evaluation --dump_result_path copywriting/annotated_data/analysis_data --save_fig_path plots/figures
 ```

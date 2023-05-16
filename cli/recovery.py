@@ -28,6 +28,4 @@ def recovery(name: str,
             logger.info(recovery_data)
 
     if name == 'human_evaluation':
-        for t in recovery_tasks:
-            plot_human_evaluation(annotated_path, save_fig_path, dump_result_path)
-            logger.info(recovery_data)
+        plot_human_evaluation(annotated_path, save_fig_path, dump_result_path)
