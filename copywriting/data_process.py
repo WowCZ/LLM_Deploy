@@ -1,6 +1,10 @@
 import os
 import json
 import pandas as pd
+from collections import OrderedDict
+from copywriting import get_logger
+
+logger = get_logger(__name__, 'INFO')
 
 def process_humor(data_file: str) -> list:
     with open(data_file, 'r') as fr:
@@ -161,5 +165,64 @@ def human_evaluation_reader(dir_path: str) -> pd.DataFrame:
                 analysis_results[n][a]['score_mean'].append(m_df.scoreVal.mean())
                 analysis_results[n][a]['score_std'].append(m_df.scoreVal.std())
 
-    print(metric_map)
+    logger.info(metric_map)
     return df, analysis_results
+
+
+def trueskill_hotmap_reader(dir_path: str) -> pd.DataFrame:
+    hotmap_file = os.path.join(dir_path, 'head_to_head_win_rate.json')
+    if not os.path.exists(hotmap_file):
+        logger.info(f'{hotmap_file} does not exist!')
+        return None
+
+    win_rate_hotmap = json.load(open(hotmap_file))
+
+    off_win_rate = dict()
+    win_rate_map = dict()
+    for k, v in win_rate_hotmap.items():
+        offe, deff = k.split('&')
+        offe, deff = api_name_map[offe], api_name_map[deff] 
+        if offe not in off_win_rate:
+            off_win_rate[offe] = []
+        off_win_rate[offe].append(v)
+
+        if offe not in win_rate_map:
+            win_rate_map[offe] = dict()
+        win_rate_map[offe][deff] = float(v)
+
+    show_order = sorted(off_win_rate.items(), key=lambda x:sum(x[1]), reverse=True)
+    show_order = [k for k, _ in show_order]
+
+    win_rate_df = {
+        'Offender': [],
+        'Defender': [],
+        'WinRate(%)': []
+    }
+
+    for offe in show_order:
+        for deff in show_order:
+            if offe == deff:
+                continue
+
+            win_rate_df['Offender'].append(offe)
+            win_rate_df['Defender'].append(deff)
+            win_rate_df['WinRate(%)'].append(float(win_rate_map[offe][deff])*100)
+
+    data = pd.DataFrame(win_rate_df).pivot(index="Offender", columns="Defender", values="WinRate(%)") 
+
+    return data[show_order].reindex(show_order)
+
+
+def trueskill_gaussian_reader(dir_path: str) -> dict:
+    gaussian_file = os.path.join(dir_path, 'mu_sigma_by_iteration.json')
+    if not os.path.exists(gaussian_file):
+        logger.info(f'{gaussian_file} does not exist!')
+        return None
+
+    gaussian_statistics = json.load(open(gaussian_file))
+
+    gaussian_map = OrderedDict()
+    for itera, gaussian in enumerate(gaussian_statistics):
+        gaussian_map[f'iteration-{itera}'] = dict([(api_name_map[k], v) for k, v in gaussian.items()])
+
+    return gaussian_map

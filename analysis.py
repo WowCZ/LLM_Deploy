@@ -1,5 +1,5 @@
 import argparse
-from cli import recovery, sample
+from cli import recovery, sample, plot
 
 def default_sampling(args):
     sample(args.name, 
@@ -22,7 +22,15 @@ def default_recovery(args):
              args.recovery_tasks,
              args.save_fig_path, 
              args.save_fig_name,
+             args.plot_type,
+             args.radar_type,
              args.seed)
+    
+def default_plot(args):
+    plot(args.type,
+         args.data_file,
+         args.save_fig_path,
+         args.save_fig_name)
 
 parser = argparse.ArgumentParser(description='Operations on annotated data!')
 subparsers = parser.add_subparsers(help='Sampling or Recovery')
@@ -49,8 +57,17 @@ recovery_parser.add_argument('--annotated_path', type=str, default='copywriting/
 recovery_parser.add_argument('--save_fig_path', type=str, default='plots/figures', help='Saved path of the ploted figure')
 recovery_parser.add_argument('--save_fig_name', type=str, default='chinese_capability', help='Saved figure name')
 recovery_parser.add_argument('--recovery_tasks', nargs='+', type=str, default=['empathy'], help='Human evaluation tasks')
+recovery_parser.add_argument('--plot_type', type=str, default='radar', help='radar or bar')
+recovery_parser.add_argument('--radar_type', type=str, default='', help='LLaMA, GPT, Bloom, Select')
 recovery_parser.add_argument('--seed', type=int, default=42, help='random seed')
 recovery_parser.set_defaults(func=default_recovery)
+
+plot_parser = subparsers.add_parser(name='plot', description='Plot figures!')
+plot_parser.add_argument('--type', type=str, default='hotmap', help='plot type')
+plot_parser.add_argument('--data_file', type=str, default='path of the statistical data', help='statistical data')
+plot_parser.add_argument('--save_fig_path', type=str, default='plots/figures', help='Saved path of the ploted figure')
+plot_parser.add_argument('--save_fig_name', type=str, default='TrueSkill-hotmap', help='Saved figure name')
+plot_parser.set_defaults(func=default_plot)
 args = parser.parse_args()
 
 args.func(args)

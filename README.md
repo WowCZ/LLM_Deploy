@@ -40,5 +40,10 @@ python analysis.py sampling --name trueskill_evaluation --match_plan 'alpaca&bel
 
 ### To recover annotated data for TrueSkill strategy:
 ```
-python analysis.py recovery --name trueskill_evaluation --recovery_tasks 'empathy' --annotated_path copywriting/annotated/trueskill_recovery --annotating_path copywriting/annotated/trueskill --dump_result_path copywriting/annotated/copywriting/analysis_data
+python analysis.py recovery --name trueskill_evaluation --recovery_tasks 'empathy' --annotated_path copywriting/annotated/trueskill_recovery --annotating_path copywriting/annotated/trueskill --dump_result_path copywriting/annotated/analysis_data
+```
+
+### To plot figures:
+```
+python analysis.py plot --type gaussian --data_file copywriting/annotated_data/trueskill --save_fig_path plots/figures/gaussian --save_fig_name dynamic
 ```

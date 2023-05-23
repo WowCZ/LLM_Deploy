@@ -17,4 +17,4 @@ def get_logger(name, level='DEBUG'):
 
 from .visit_api import visit_llm_api
 from .sample_data import sample_instance, recovery_score, sample_chinese_testing, recovery_chinese_test, sample_trueskill, recovery_trueskill
-from .data_process import human_evaluation_reader
+from .data_process import human_evaluation_reader, trueskill_hotmap_reader, trueskill_gaussian_reader

@@ -2,7 +2,7 @@ import random
 from typing import Union
 from copywriting import get_logger
 from copywriting import recovery_score, recovery_chinese_test, recovery_trueskill
-from plots import plot_bar, plot_scatter, plot_human_evaluation
+from plots import plot_bar, plot_scatter, plot_humaneval_radar, plot_humaneval_bar, plot_ability_radar
 
 logger = get_logger(__name__, 'INFO')
 
@@ -13,6 +13,8 @@ def recovery(name: str,
              recovery_tasks:Union[list, str],
              save_fig_path: str,
              save_fig_name: str,
+             plot_type: str,
+             radar_type: str,
              seed: int):
     
     random.seed = seed
@@ -29,7 +31,14 @@ def recovery(name: str,
             logger.info(recovery_data)
 
     if name == 'human_evaluation':
-        plot_human_evaluation(annotated_path, save_fig_path, dump_result_path)
+        if plot_type == 'bar':
+            plot_humaneval_bar(annotated_path, save_fig_path, dump_result_path)
+        else:
+            assert plot_type == 'radar', f'The plot type {plot_type} is not supported!'
+            if radar_type:
+                plot_ability_radar(annotated_path, save_fig_path, radar_type)
+            else:
+                plot_humaneval_radar(annotated_path, save_fig_path)
 
     if name == 'trueskill_evaluation':
         if type(recovery_tasks) is str:
