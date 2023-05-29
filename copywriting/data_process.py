@@ -47,7 +47,7 @@ def process_default_task(data_file: str) -> list:
 api_name_map = {
     'alpaca': 'Aplaca-LoRA-7B',
     'belle': 'BELLE-7B',
-    'bloom': 'BLOOM-7B',
+    'bloom': 'BLOOM-7B1',
     'chatglm': 'ChatGLM-6B',
     'chinese-alpaca': 'Chinese-Alpaca-LoRA-7B',
     'chinese-vicuna': 'Chinese-Vicuna-7B',

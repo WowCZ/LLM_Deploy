@@ -107,7 +107,7 @@ class ChatGLMAPI(LLMAPI):
             log_probs = torch.gather(input=log_probs, dim=-1, index=inputs.input_ids[:, 1:].unsqueeze(-1)).squeeze(-1)
 
         log_prob_list = []
-        for i, (p_len, t_len) in enumerate(zip(prompt_lens, target_lens)):
+        for i, (_, t_len) in enumerate(zip(prompt_lens, target_lens)):
             log_prob_list.append(log_probs[i, -t_len:].detach().cpu().tolist())
             # logger.warning(self.tokenizer.decode(inputs.input_ids[:, 1:][i, -t_len:]))
 

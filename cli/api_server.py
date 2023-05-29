@@ -56,7 +56,7 @@ def api_server(api_name: str, server_wrapper: str, url_save_path: str, gen_confi
             item = GenItem.parse_raw(request.data)
             output = model_api.generate(item)
             output = [output] if output is str else output
-            return {"output": output}
+            return {"outputs": output}
         
         if 'score' in model_api.supported_types:
             @app.route('/score', methods=['POST'])
@@ -72,10 +72,10 @@ def api_server(api_name: str, server_wrapper: str, url_save_path: str, gen_confi
             try:
                 output = model_api.generate(item)
                 output = [output] if output is str else output
-                return {"output": output}
+                return {"outputs": output}
             except:
                 output = item.prompt
-                return {"output": output}
+                return {"outputs": output}
         
         if 'score' in model_api.supported_types:
             @app.post('/generate')

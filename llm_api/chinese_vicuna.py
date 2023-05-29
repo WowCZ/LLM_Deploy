@@ -24,19 +24,6 @@ CHINESE_VICUNA_PROMPT = (
     "### Instruction:\n\n{instruction}\n\n### Response:\n\n"
 )
 
-# gen_config = dict(
-#     temperature=0.1,
-#     top_p=0.75,
-#     top_k=40,
-#     num_beams=4,
-#     max_new_tokens=1024,
-#     min_new_tokens=1,
-#     repetition_penalty=1.3,
-#     bos_token_id=1,
-#     eos_token_id=2,
-#     pad_token_id=0
-# )
-
 gen_config = dict(
     temperature=1e-6,
     top_k=40,

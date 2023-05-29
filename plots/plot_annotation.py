@@ -31,10 +31,25 @@ api_name_map = {
     'vicuna-13b': 'Vicuna-13B'
 }
 
+ability_name_map = {
+    '长文理解': 'reading',
+    '言外之意': 'hinting',
+    '创意表达': 'creative',
+    '思辨能力': 'philosophical',
+    '长文表达': 'writing',
+    '古诗词鉴赏': 'poetry',
+    '共情对话': 'empathy',
+    '安全能力': 'safety',
+    '幽默理解': 'humor',
+    '常识推理': 'reasoning'
+}
+
 import colorsys
 import random
 
 random.seed = 42
+
+deprecated_metrics = ['符合主流价值观', '综合创意表达能力']
  
 def get_n_hls_colors(num):
     hls_colors = []
@@ -254,7 +269,6 @@ def plot_humaneval_bar(annotated_file: str, save_fig_path: str, dump_result_path
             bar_df = pd.DataFrame(bar_df)
             bar_df.sort_values(by='metric', inplace=True, ascending=True)
 
-            # Draw a nested barplot by species and sex
             g = sns.catplot(
                 data=bar_df, kind="bar",
                 x="metric", y="score_mean", hue="api_name", hue_order=hue_order,
@@ -266,6 +280,77 @@ def plot_humaneval_bar(annotated_file: str, save_fig_path: str, dump_result_path
 
             plt.ylim(1, 5)
             plt.savefig(f"{save_fig_path}/{t_name}-bar.png",dpi=600)
+
+def plot_bar(annotated_file: str, save_fig_path: str, save_fig_name: str):
+    assert os.path.exists(annotated_file), f'{annotated_file} is not found!'
+    logger.info(f'Deprecated Metrics: {deprecated_metrics}')
+
+    ability_api_score = dict()
+    api_score_map = {}
+    for _, ds, _ in os.walk(annotated_file):
+        if not ds:
+            continue
+
+        for d in tqdm(ds):
+            _, analysis_results = human_evaluation_reader(os.path.join(annotated_file, d))
+
+            for abli, api in analysis_results.items():
+                ability_api_score[abli] = {}
+                for api_name, metrics in api.items():
+                    api_name = api_name_map[api_name]
+                    if api_name not in ability_api_score[abli]:
+                        ability_api_score[abli][api_name] = []
+
+                    scores = []
+                    for score, zh_metric in zip(metrics['score_mean'], metrics['zh_metric']):
+                        if zh_metric in deprecated_metrics:
+                            continue
+                        else:
+                            if api_name not in api_score_map:
+                                api_score_map[api_name] = 0
+                            api_score_map[api_name] += score
+                            scores.append(score)
+
+                    ability_api_score[abli][api_name].extend(scores)
+    
+    hue_order = sorted(api_score_map.items(), key=lambda x:x[1], reverse=True)
+    hue_order = [k for k, _ in dict(hue_order).items()]
+
+    ability_api_df = {
+        'Score': [],
+        'Models': [],
+        'Ability': []
+    }
+    for abli, api_scores in ability_api_score.items():
+        for api, scores in api_scores.items():
+            ability_api_df['Ability'].append(ability_name_map[abli])
+            ability_api_df['Models'].append(api)
+            ability_api_df['Score'].append(mean(scores))
+
+    ability_api_df = pd.DataFrame(ability_api_df)
+
+    logger.info(set(ability_api_df.Ability))
+
+    g = sns.FacetGrid(ability_api_df, 
+                      hue='Models',
+                      hue_order=hue_order,
+                      palette=sns.color_palette([api_color_map[a] for a in hue_order]),  
+                      col="Ability", 
+                      col_wrap=5, 
+                      height=4, 
+                      ylim=(1, 5))
+    g.map(sns.barplot, 
+          "Models", 
+          "Score", 
+          order=hue_order, 
+          errorbar=None)
+    # g.set_xticklabels(labels = hue_order, rotation = 50, fontsize=5)
+    g.set_xticklabels(labels = '')
+    g.add_legend(title='Models', label_order=hue_order, ncol=1, prop={'size': 6})
+
+    # plt.legend(ncol=2, prop={'size': 6})
+
+    plt.savefig(f"{save_fig_path}/{save_fig_name}-bar.png",dpi=600)
 
 
 def plot_humaneval_radar(annotated_file: str, save_fig_path: str):
@@ -397,8 +482,6 @@ def plot_ability_radar(annotated_file: str, save_fig_path: str, radar_name: str)
         ## show api name
         plt.plot(angles, data, '-', color=api_color_map[api_name], linewidth=1, alpha=0.5, label=api_name)
         plt.fill(angles, data, facecolor=api_color_map[api_name], alpha=0.02)
-        # plt.plot(angles, data, '-', linewidth=1, alpha=0.5, label=api_name)
-        # plt.fill(angles, data, alpha=0.00)
 
     ## show title
     # plt.figtext(0.515, 0.95, attr, ha='center')
@@ -421,15 +504,17 @@ def plot_hotmap(file_path: str, save_fig_path: str, save_fig_name: str = None):
             if df is None:
                 continue
 
-            sns.set_context({"figure.figsize":(20,20)})
+            sns.set_context({"figure.figsize":(25,25)})
             ax = sns.heatmap(data=df, cmap="RdBu_r", center=50, fmt=".2f", annot=True, linewidths=0.6) 
 
             ax.xaxis.tick_top()
             plt.xticks(rotation=50, fontsize=15)
             plt.yticks(rotation=50, fontsize=15)
 
-            plt.xlabel('Defender', fontsize=25, fontweight='bold')
-            plt.ylabel('Offender', fontsize=25, fontweight='bold')
+            # plt.xlabel('Defender', fontsize=25, fontweight='bold')
+            # plt.ylabel('Offender', fontsize=25, fontweight='bold')
+            plt.xlabel('')
+            plt.title('Defender')
 
             if save_fig_name:
                 plt.savefig(f"{save_fig_path}/{d}-{save_fig_name}.png", dpi=600)
@@ -493,9 +578,9 @@ def plot_gaussian(file_path: str, save_fig_path: str, save_fig_name: str = None)
                     os.mkdir(save_path)
 
                 if save_fig_name:
-                    plt.savefig(f"{save_path}/{d}-{it}-{save_fig_name}.png" ,dpi=600)
+                    plt.savefig(f"{save_path}/{d}-{it}-{save_fig_name}.png", dpi=600)
                 else:
-                    plt.savefig(f"{save_path}/{d}-{it}-gaussian.png" ,dpi=600)
+                    plt.savefig(f"{save_path}/{d}-{it}-gaussian.png", dpi=600)
 
 def plot_dynamic_gif(file_path: str, save_fig_path: str, save_fig_name: str = None):
     import imageio.v2 as imageio
@@ -531,3 +616,58 @@ def plot_dynamic_gif(file_path: str, save_fig_path: str, save_fig_name: str = No
                     imageio.mimsave(f"{save_path}/{d}-{save_fig_name}.gif", gif_images, 'GIF', duration=500, floop=sys.maxsize)
                 else:
                     imageio.mimsave(f"{save_path}/{d}.gif", gif_images, 'GIF', duration=500, floop=sys.maxsize)
+
+
+def plot_vedio(file_path: str, save_fig_path: str, save_fig_name: str = None):
+    import concurrent.futures
+    import imageio
+    from PIL import Image
+    
+    def process_image(file_name):
+        if file_name.endswith(".png"):
+            # image = Image.open(file_name)
+            image = imageio.imread(file_name)
+        # return image.convert("RGB")
+        return image
+    
+    for _, ds, _ in  os.walk(file_path):
+        if not ds:
+            continue
+        
+        for d in tqdm(ds):
+            img_file_path = os.path.join(file_path, d)
+            for _, _, img_paths in os.walk(img_file_path):
+                img_paths = [n for n in img_paths if '.png' in n]
+                values = []
+                for n in img_paths:
+                    v = int(n.split('-')[2])
+                    values.append(v)
+
+                img_paths = dict(zip(img_paths, values))
+
+                img_paths = sorted(img_paths.items(), key=lambda x:x[1])
+                img_paths = [k for k, _ in dict(img_paths).items()]
+
+                save_path = os.path.join(save_fig_path, d)
+                if not os.path.exists(save_path):
+                    os.mkdir(save_path)
+
+                logger.info(img_paths)
+                video_images = []
+                for path in img_paths:
+                    video_images.append(os.path.join(img_file_path, path))
+
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    # 利用线程池并行处理图像
+                    images = list(executor.map(process_image, video_images))
+
+                if save_fig_name:
+                    video_name = f"{d}-{save_fig_name}.mp4"
+                else:
+                    video_name = f"{d}.mp4"
+
+                print(type(images[0]))
+                # 将图片转换为视频文件
+                with imageio.get_writer(os.path.join(save_path, video_name), fps=4) as video:
+                    for image in images:
+                        video.append_data(image)
