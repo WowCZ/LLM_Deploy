@@ -1,4 +1,4 @@
-from plots import plot_hotmap, plot_gaussian, plot_dynamic_gif, plot_vedio, plot_bar
+from plots import plot_hotmap, plot_gaussian, plot_dynamic_gif, plot_vedio, plot_bar, plot_ability_radar
 
 def plot(type: str, data_file: str, save_fig_path: str, save_fig_name: str):
     if type == 'bar':
@@ -15,3 +15,6 @@ def plot(type: str, data_file: str, save_fig_path: str, save_fig_name: str):
 
     if type == 'video':
         plot_vedio(data_file, save_fig_path, save_fig_name)
+
+    if type == 'radar':
+        plot_ability_radar(data_file, save_fig_path, save_fig_name)

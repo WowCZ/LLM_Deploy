@@ -116,4 +116,4 @@ def api_server(api_name: str, server_wrapper: str, url_save_path: str, gen_confi
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
 
 # curl -H "Content-Type: application/json" -X POST http://10.140.24.46:8610/generate -d "@examples/cn_gen.json"
-# curl -H "Content-Type: application/json" -X POST http://10.140.24.61:8454/score -d "@examples/cn_score.json"
+# curl -H "Content-Type: application/json" -X POST http://10.140.24.41:7924/score -d "@examples/cn_score.json"

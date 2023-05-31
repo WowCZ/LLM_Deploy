@@ -20,10 +20,6 @@ def default_recovery(args):
              args.dump_result_path, 
              args.annotated_path, 
              args.recovery_tasks,
-             args.save_fig_path, 
-             args.save_fig_name,
-             args.plot_type,
-             args.radar_type,
              args.seed)
     
 def default_plot(args):
@@ -33,7 +29,7 @@ def default_plot(args):
          args.save_fig_name)
 
 parser = argparse.ArgumentParser(description='Operations on annotated data!')
-subparsers = parser.add_subparsers(help='Sampling or Recovery')
+subparsers = parser.add_subparsers(help='Sampling or Recovery or Plot')
 
 sampling_parser = subparsers.add_parser(name='sampling', description='Sample inference data!')
 sampling_parser.add_argument('--name', type=str, default='trueskill_evaluation', help='Name of sampling generation data')
@@ -54,11 +50,7 @@ recovery_parser.add_argument('--name', type=str, default='chinese_capability', h
 recovery_parser.add_argument('--annotating_path', type=str, default='copywriting/annotated_data/chinese_capability', help='Path of inference data')
 recovery_parser.add_argument('--dump_result_path', type=str, default='copywriting/analysis_data', help='Saved path of the sampled data')
 recovery_parser.add_argument('--annotated_path', type=str, default='copywriting/annotated_data/sample_recovery_data', help='Saved path of the recovery data')
-recovery_parser.add_argument('--save_fig_path', type=str, default='plots/figures', help='Saved path of the ploted figure')
-recovery_parser.add_argument('--save_fig_name', type=str, default='chinese_capability', help='Saved figure name')
 recovery_parser.add_argument('--recovery_tasks', nargs='+', type=str, default=['empathy'], help='Human evaluation tasks')
-recovery_parser.add_argument('--plot_type', type=str, default='radar', help='radar or bar')
-recovery_parser.add_argument('--radar_type', type=str, default='', help='LLaMA, GPT, Bloom, Select')
 recovery_parser.add_argument('--seed', type=int, default=42, help='random seed')
 recovery_parser.set_defaults(func=default_recovery)
 

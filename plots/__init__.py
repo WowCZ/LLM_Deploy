@@ -1,6 +1,4 @@
-from .plot_annotation import plot_bar, \
-plot_scatter, \
-plot_humaneval_bar, \
+from .plot_annotation import plot_scatter, \
 plot_humaneval_radar, \
 plot_ability_radar, \
 plot_hotmap, \

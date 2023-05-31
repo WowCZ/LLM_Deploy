@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import math
 import numpy as np
 import pandas as pd
@@ -8,41 +9,23 @@ from numpy import *
 from tqdm import tqdm
 import seaborn as sns
 import matplotlib.pyplot as plt
-from copywriting import get_logger
-from copywriting import human_evaluation_reader, trueskill_hotmap_reader, trueskill_gaussian_reader
+from matplotlib import font_manager
+from llm_api import api_name_map, ability_name_map, ability_en_zh_map
+from copywriting import get_logger, human_evaluation_reader, trueskill_hotmap_reader, trueskill_gaussian_reader
+
+ZH_FONT_PATH = os.environ['ZH_FONT_PATH']
+font_path = f'{ZH_FONT_PATH}/SimHei.ttf' # ttf的路径 最好是具体路径
+font_manager.fontManager.addfont(font_path)
+ 
+# plt.rcParams['font.family'] = 'SimHei' #下面代码不行，在加上这一行
+plt.rcParams['font.sans-serif'] = ['SimHei'] #用来正常显示中文标签
+plt.rcParams['axes.unicode_minus']=False
 
 logger = get_logger(__name__, 'INFO')
 
-sns.set_theme(style="whitegrid")
+logger.info(f'Supported Fonts: {font_manager.get_font_names()}')
 
-api_name_map = {
-    'gpt4': 'gpt-4',
-    'alpaca': 'Aplaca-LoRA-7B',
-    'belle': 'BELLE-7B',
-    'vicuna': 'Vicuna-7B',
-    'turbo': 'gpt-3.5-turbo',
-    'chatglm': 'ChatGLM-6B',
-    'bloom': 'BLOOM-7B1',
-    'chinese-vicuna': 'Chinese-Vicuna-7B',
-    'davinci': 'text-davinci-003',
-    'llama': 'LLaMA-7B',
-    'chinese-alpaca': 'Chinese-Alpaca-LoRA-7B',
-    'moss': 'MOSS-moon-003-sft-16B',
-    'vicuna-13b': 'Vicuna-13B'
-}
-
-ability_name_map = {
-    '长文理解': 'reading',
-    '言外之意': 'hinting',
-    '创意表达': 'creative',
-    '思辨能力': 'philosophical',
-    '长文表达': 'writing',
-    '古诗词鉴赏': 'poetry',
-    '共情对话': 'empathy',
-    '安全能力': 'safety',
-    '幽默理解': 'humor',
-    '常识推理': 'reasoning'
-}
+sns.set_style("whitegrid",{"font.sans-serif":['SimHei', 'DejaVu Sans']})
 
 import colorsys
 import random
@@ -92,14 +75,12 @@ def color(value):
         a3 = digit.index(value[5]) * 16 + digit.index(value[6])
         return (a1, a2, a3)
 
-# colors = [plt.cm.Paired(i) for i in range(len(api_name_map))]
 colors = list(map(lambda x: color(tuple(x)), ncolors(len(api_name_map))))
-# random.shuffle(colors)
 api_color_map = dict(zip(list(api_name_map.values()), colors))
 
 llm_type_map = {
     'LLaMA': ['Aplaca-LoRA-7B', 'Chinese-Alpaca-LoRA-7B', 'Chinese-Vicuna-7B', 'LLaMA-7B', 'Vicuna-7B', 'Vicuna-13B'],
-    'Bloom': ['BELLE-7B', 'BLOOM-7B1'],
+    'BLOOM': ['BELLE-7B', 'BLOOM-7B1'],
     'ChatGLM': ['ChatGLM-6B'],
     'CodeGen': ['MOSS-moon-003-sft-16B'],
     'GPT': ['text-davinci-003', 'gpt-3.5-turbo', 'gpt-4'],
@@ -107,56 +88,10 @@ llm_type_map = {
     'RankRep': ['gpt-4', 'ChatGLM-6B', 'Vicuna-13B', 'Aplaca-LoRA-7B']
 }
 
-def plot_bar(analysis_results: dict, save_fig_path: str, save_name: str, model_num: int=4):
-    sns.palplot(sns.color_palette("hls", 12))
 
-    bar_df = {
-        'annotator': [],
-        'score': [],
-        'llm': [],
-        'rank_score': []
-    }
+def plot_scatter(analysis_result_path: str, save_fig_path: str, save_name: str):
+    analysis_results = json.load(open(os.path.join(analysis_result_path, '中文测评结果.json')))
 
-    llm_score_map = {}
-    llm_rank_map = {}
-    for annotator, results in analysis_results.items():
-        for llm, scores in results.items():
-            mean_score = mean(scores['score'])
-            mean_rank_score = mean([5-(r-1)/model_num*5 for r in scores['rank']])
-            bar_df['annotator'].append(annotator)
-            bar_df['llm'].append(llm)
-            bar_df['score'].append(mean_score)
-            bar_df['rank_score'].append(mean_rank_score)
-
-            if llm not in llm_score_map:
-                llm_score_map[llm] = 0
-            llm_score_map[llm] += mean_score
-
-            if llm not in llm_rank_map:
-                llm_rank_map[llm] = 0
-            llm_rank_map[llm] += mean_rank_score
-
-    hue_order = sorted(llm_score_map.items(), key=lambda x:x[1], reverse=True)
-    hue_order = [k for k, _ in dict(hue_order).items()]
-    # print(hue_order)
-    bar_df = pd.DataFrame(bar_df)
-    bar_df.sort_values(by='annotator', inplace=True, ascending=True)
-
-    # Draw a nested barplot by species and sex
-    g = sns.catplot(
-        data=bar_df, kind="bar",
-        x="annotator", y="score", hue="llm", hue_order=hue_order,
-        errorbar="sd", palette="dark", alpha=.6, height=6
-    )
-    g.despine(left=True)
-    g.set_axis_labels("", "Lab Evaluation Score")
-    g.legend.set_title("LLM")
-
-    plt.ylim(1, 5)
-    plt.savefig(f"{save_fig_path}/{save_name}.png", dpi=600)
-
-
-def plot_scatter(analysis_results: dict, save_fig_path: str, save_name: str):
     df_results = {
         'LLM': [],
         'GenScore': [],
@@ -221,66 +156,6 @@ def plot_scatter(analysis_results: dict, save_fig_path: str, save_name: str):
     plt.ylim(0, 5.2)
     plt.savefig(f"{save_fig_path}/{save_name}.png", dpi=600)
 
-def plot_humaneval_bar(annotated_file: str, save_fig_path: str, dump_result_path: str):
-    sns.palplot(sns.color_palette("hls", 12))
-
-    assert os.path.exists(annotated_file), f'{annotated_file} is not found!'
-
-    for _, ds, _ in os.walk(annotated_file):
-        for d in ds:
-            _, analysis_results = human_evaluation_reader(os.path.join(annotated_file, d))
-
-            bar_df = {
-                'metric': [],
-                'score_mean': [],
-                'score_std': [],
-                'api_name': [],
-                'zh_metric': []
-            }
-            api_score_map = {}
-            for t_name, a_data in analysis_results.items():
-                for _, m_data in a_data.items():
-                    for a, s in zip(m_data['api_name'], m_data['score_mean']):
-                        if a not in api_score_map:
-                            api_score_map[a] = 0
-                        api_score_map[a] += s
-                    bar_df['metric'].extend(m_data['metric'])
-                    bar_df['zh_metric'].extend(m_data['zh_metric'])
-                    bar_df['score_mean'].extend(m_data['score_mean'])
-                    bar_df['score_std'].extend(m_data['score_std'])
-                    bar_df['api_name'].extend(m_data['api_name'])
-
-            metrics = list(set(bar_df['zh_metric']))
-            google_sheet = dict()
-            for zh_m in metrics:
-                google_sheet[zh_m] = {}
-            for api, score, zh_m in zip(bar_df['api_name'], bar_df['score_mean'], bar_df['zh_metric']):
-                if api not in google_sheet[zh_m]:
-                    google_sheet[zh_m][api] = score
-
-            google_sheet = pd.DataFrame(google_sheet)
-            google_sheet.to_csv(f'{dump_result_path}/{t_name}-google-sheet.csv')
-
-            # hue_order = list(set(bar_df['api_name']))
-            # hue_order.sort()
-            hue_order = sorted(api_score_map.items(), key=lambda x:x[1], reverse=True)
-            hue_order = [k for k, _ in dict(hue_order).items()]
-
-            bar_df = pd.DataFrame(bar_df)
-            bar_df.sort_values(by='metric', inplace=True, ascending=True)
-
-            g = sns.catplot(
-                data=bar_df, kind="bar",
-                x="metric", y="score_mean", hue="api_name", hue_order=hue_order,
-                errorbar="sd", palette="dark", alpha=.6, height=6
-            )
-            g.despine(left=True)
-            g.set_axis_labels("", "Human Evaluation Score")
-            g.legend.set_title("LLM")
-
-            plt.ylim(1, 5)
-            plt.savefig(f"{save_fig_path}/{t_name}-bar.png",dpi=600)
-
 def plot_bar(annotated_file: str, save_fig_path: str, save_fig_name: str):
     assert os.path.exists(annotated_file), f'{annotated_file} is not found!'
     logger.info(f'Deprecated Metrics: {deprecated_metrics}')
@@ -317,36 +192,36 @@ def plot_bar(annotated_file: str, save_fig_path: str, save_fig_name: str):
     hue_order = [k for k, _ in dict(hue_order).items()]
 
     ability_api_df = {
-        'Score': [],
-        'Models': [],
-        'Ability': []
+        '分数': [],
+        '模型': [],
+        '能力': []
     }
     for abli, api_scores in ability_api_score.items():
         for api, scores in api_scores.items():
-            ability_api_df['Ability'].append(ability_name_map[abli])
-            ability_api_df['Models'].append(api)
-            ability_api_df['Score'].append(mean(scores))
+            ability_api_df['能力'].append(ability_name_map[abli])
+            ability_api_df['模型'].append(api)
+            ability_api_df['分数'].append(mean(scores))
 
     ability_api_df = pd.DataFrame(ability_api_df)
 
-    logger.info(set(ability_api_df.Ability))
+    logger.info(set(ability_api_df.能力))
 
     g = sns.FacetGrid(ability_api_df, 
-                      hue='Models',
+                      hue='模型',
                       hue_order=hue_order,
                       palette=sns.color_palette([api_color_map[a] for a in hue_order]),  
-                      col="Ability", 
+                      col="能力", 
                       col_wrap=5, 
                       height=4, 
                       ylim=(1, 5))
     g.map(sns.barplot, 
-          "Models", 
-          "Score", 
+          "模型", 
+          "分数", 
           order=hue_order, 
           errorbar=None)
     # g.set_xticklabels(labels = hue_order, rotation = 50, fontsize=5)
     g.set_xticklabels(labels = '')
-    g.add_legend(title='Models', label_order=hue_order, ncol=1, prop={'size': 6})
+    g.add_legend(title='模型', label_order=hue_order, ncol=1, prop={'size': 7, 'family': 'DejaVu Sans'})
 
     # plt.legend(ncol=2, prop={'size': 6})
 
@@ -399,8 +274,6 @@ def plot_humaneval_radar(annotated_file: str, save_fig_path: str):
                     data = np.concatenate((data, [data[0]]))
 
                     ## show api name
-                    # plt.plot(angles,data,'-',color=api_color_map[api_name],linewidth=1,alpha=0.5,label=api_name)
-                    # plt.fill(angles,data,facecolor=api_color_map[api_name],alpha=0.05)
                     plt.plot(angles, data, '-', linewidth=1, alpha=0.5, label=api_name)
                     plt.fill(angles, data, alpha=0.05)
 
@@ -424,6 +297,7 @@ def plot_ability_radar(annotated_file: str, save_fig_path: str, radar_name: str)
             _, analysis_results = human_evaluation_reader(os.path.join(annotated_file, d))
 
             for abli, api in analysis_results.items():
+                abli = ability_name_map[abli]
                 ability_api_score[abli] = {}
                 for api_name, metrics in api.items():
                     api_name = api_name_map[api_name]
@@ -432,7 +306,14 @@ def plot_ability_radar(annotated_file: str, save_fig_path: str, radar_name: str)
                     if api_name not in ability_api_score[abli]:
                         ability_api_score[abli][api_name] = []
 
-                    ability_api_score[abli][api_name].extend(metrics['score_mean'])
+                    scores = []
+                    for score, zh_metric in zip(metrics['score_mean'], metrics['zh_metric']):
+                        if zh_metric in deprecated_metrics:
+                            continue
+                        else:
+                            scores.append(score)
+
+                    ability_api_score[abli][api_name].extend(scores)
 
     abli_names = [n for n in ability_api_score.keys()]
     api_ability_score = dict()
@@ -444,11 +325,7 @@ def plot_ability_radar(annotated_file: str, save_fig_path: str, radar_name: str)
             
             api_ability_score[api].append(mean(score))
 
-    print(api_ability_score)
-    
-    print(abli_names)
-    abli_names = [f'{i}' for i, _ in enumerate(abli_names)]
-    print(abli_names)
+    logger.info(f'Abilities: {abli_names}')
 
     labels = np.array(abli_names)
     labels = np.concatenate((labels,[labels[0]]))
@@ -485,9 +362,9 @@ def plot_ability_radar(annotated_file: str, save_fig_path: str, radar_name: str)
 
     ## show title
     # plt.figtext(0.515, 0.95, attr, ha='center')
-    plt.figtext(0.515, 0.95, 'Human Evaluation', ha='center')
+    # plt.figtext(0.515, 0.95, 'Human Evaluation', ha='center')
 
-    plt.legend(loc='upper right', prop={'size': 6}, bbox_to_anchor=(1.3, 0.1))
+    plt.legend(loc='upper right', prop={'size': 7, 'family': 'DejaVu Sans'}, bbox_to_anchor=(1.3, 0.1))
     plt.grid(True)
     plt.savefig(f"{save_fig_path}/{radar_name}-radar.png" ,dpi=600)
 
@@ -527,8 +404,6 @@ def plot_gaussian(file_path: str, save_fig_path: str, save_fig_name: str = None)
 
     def normal_dis(x, mu=50, sigma=5):
         return 0.3989422804014327 / sigma * math.exp(- (x - mu) * (x - mu) / (2 * sigma * sigma))
-
-    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
     
     selected_api = llm_type_map['RankRep']
     for _, ds, _ in os.walk(file_path):
@@ -559,15 +434,15 @@ def plot_gaussian(file_path: str, save_fig_path: str, save_fig_name: str = None)
                     plt.fill_between(xs, ys, 0, alpha=0.3, color=api_color_map[api])
 
                     # 绘制最上方的单个的 \mu    
-                    plt.text(mu, normal_dis(mu, mu, sigma) + 0.0003, api, fontsize=4, color='black')  
+                    plt.text(mu, normal_dis(mu, mu, sigma) + 0.0003, api, fontsize=4, color='black', fontname='DejaVu Sans')  
 
                     # plt.title(f'Normal Distribution($\mu={round(mu, 2)}, \sigma={round(sigma, 2)}$)',fontsize=16)
-                    plt.title(f'Normal Distribution: {d.upper()}',fontsize=16)
+                    plt.title(f'{ability_en_zh_map[d]}(正态分布)',fontsize=16)
                     # #设置图表标题和标题字号
                     # plt.tick_params(axis='both',which='major',labelsize=14)
 
                     plt.xlabel('$\mu$',fontsize=10)
-                    plt.ylabel('Prob.',fontsize=10)
+                    plt.ylabel('概率',fontsize=10)
                     plt.ylim(0, 0.6)
                     plt.xlim(0, 60)
                     # plt.legend()

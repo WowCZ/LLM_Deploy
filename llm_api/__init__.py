@@ -17,6 +17,50 @@ def get_logger(name, level='DEBUG'):
 
 logger = get_logger(__name__, level='INFO')
 
+
+api_name_map = {
+    'gpt4': 'gpt-4',
+    'alpaca': 'Aplaca-LoRA-7B',
+    'belle': 'BELLE-7B',
+    'vicuna': 'Vicuna-7B',
+    'turbo': 'gpt-3.5-turbo',
+    'chatglm': 'ChatGLM-6B',
+    'bloom': 'BLOOM-7B1',
+    'chinese-vicuna': 'Chinese-Vicuna-7B',
+    'davinci': 'text-davinci-003',
+    'llama': 'LLaMA-7B',
+    'chinese-alpaca': 'Chinese-Alpaca-LoRA-7B',
+    'moss': 'MOSS-moon-003-sft-16B',
+    'vicuna-13b': 'Vicuna-13B'
+}
+
+ability_name_map = {
+    '长文理解': '长文阅读能力',
+    '言外之意': '言外之意理解能力',
+    '创意表达': '创意表达能力',
+    '思辨能力': '思辨能力',
+    '长文表达': '强逻辑长文表达能力',
+    '古诗词鉴赏': '古诗词鉴赏能力',
+    '共情对话': '共情对话能力',
+    '安全能力': '安全交互能力',
+    '幽默理解': '幽默理解能力',
+    '常识推理': '常识推理解释能力'
+}
+
+ability_en_zh_map = {
+    'reading': '长文阅读能力',
+    'hinting': '言外之意理解能力',
+    'story': '创意表达能力',
+    'philosophical': '思辨能力',
+    'writing': '强逻辑长文表达能力',
+    'poetry': '古诗词鉴赏能力',
+    'empathy': '共情对话能力',
+    'safety': '安全交互能力',
+    'humor': '幽默理解能力',
+    'reasoning': '常识推理解释能力'
+}
+
+
 from . import base_api
 from .base_api import LLMAPI
 from .chatglm import ChatGLMAPI

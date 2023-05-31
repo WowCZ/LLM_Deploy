@@ -95,7 +95,7 @@ def _sample_pairwise_game(sample_case_num: int,
     if not os.path.exists(dump_save_path):
         os.makedirs(dump_save_path)
 
-    recovery_file = os.path.join(dump_recovery_path, f'{evaluation_name}.json')
+    recovery_file = os.path.join(dump_recovery_path, f'{evaluation_name}-recovery.json')
     with open(recovery_file, 'w') as fw:
         json.dump(recovery_mapping, fw, ensure_ascii=False, indent=4)
 
@@ -133,7 +133,7 @@ def _sample_pairwise_game(sample_case_num: int,
     with open(test_case_file, 'w') as fw:
         json.dump(record_case, fw, ensure_ascii=False, indent=4)
 
-    return recovery_mapping
+    return record_case
 
 
 def sample_trueskill(match_plan: list, 
@@ -144,10 +144,11 @@ def sample_trueskill(match_plan: list,
                      dump_recovery_path:str,
                      evaluation_name:str='TrueSkill',
                      score_template: str='1-5'):
+    games = []
     for gi, match in enumerate(match_plan):
         pairwise_llm = match.split('&')
         single_name = f'{evaluation_name}-game-{gi}'
-        _sample_pairwise_game(sample_num, 
+        game = _sample_pairwise_game(sample_num, 
                            inference_path, 
                            task, 
                            pairwise_llm, 
@@ -155,6 +156,8 @@ def sample_trueskill(match_plan: list,
                            dump_recovery_path,
                            single_name,
                            score_template)
+        games.append({single_name: game})
+    return games
 
 
 def recovery_trueskill(recovery_task: str, annotated_path: str, recovery_path: str, dump_result_path: str):
@@ -165,6 +168,10 @@ def recovery_trueskill(recovery_task: str, annotated_path: str, recovery_path: s
     for _, _, fs in os.walk(annotated_path):
         for f in fs:
             f_name = f.split('.')[0]
+            if 'recovery' not in f_name:
+                continue
+
+            f_name = '-'.join(f_name.split('-')[:-1])
             result_info[recovery_task][f_name] = dict()
             annotated_result = json.load(open(os.path.join(annotated_path, f)))["打分"]
             model_name_map = json.load(open(os.path.join(recovery_path, f)))
