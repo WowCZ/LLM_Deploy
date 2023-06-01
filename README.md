@@ -1,3 +1,5 @@
+<div align=center><img width="150" height="150" src="assets/figures/lilac.png"/></div>
+
 ## Inference process with API server, API client and API simulator
 
 ### Deploy the large language model:
