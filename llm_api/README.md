@@ -22,5 +22,5 @@
 | [**gpt-4**](https://arxiv.org/pdf/2303.08774.pdf) | `gpt-4` <img src='../assets/icons/openai.svg' style='width:7%'/> | **GPT-4** | <font color=red>**FT**</font> | &#x2705; | &#x2705; | &#x2705; | &#x2705; | **OpenAI** |
 | [**MOSS-moon-003-sft-16B**](https://github.com/OpenLMLab/MOSS) | `fnlp/moss-moon-003-sft` &#x1F917; | **CodeGen-16B** | <font color=red>**FT**</font> | &#x2705; | &#x2705; | &#x2705; | &#x2705; | **Fudan University** |
 | [**gpt-3.5-turbo**](https://arxiv.org/pdf/2203.02155.pdf) | `gpt-3.5-turbo` <img src='../assets/icons/openai.svg' style='width:7%'/> | **GPT-3** | <font color=red>**FT**</font> | &#x2705; | &#x2705; | &#x2705; | &#x2705; | **OpenAI** |
-| [**Vicuna-7B**](https://lmsys.org/blog/2023-03-30-vicuna/) | `lmsys/vicuna-7b-delta-v1.1` &#x1F917; | **LLaMA-7B** | <font color=green>**LoRA**</font> | &#x274C; | &#x2705; | &#x2705; | &#x2705; | **UC Berkeley+** |
-| [**Vicuna-13B**](https://lmsys.org/blog/2023-03-30-vicuna/) | `lmsys/vicuna-13b-delta-v1.1` &#x1F917; | **LLaMA-13B** | <font color=green>**LoRA**</font> | &#x274C; | &#x2705; | &#x2705; | &#x2705; | **UC Berkeley+** |
+| [**Vicuna-7B**](https://lmsys.org/blog/2023-03-30-vicuna/) | `lmsys/vicuna-7b-delta-v1.1` &#x1F917; | **LLaMA-7B** | <font color=green>**LoRA**</font> | &#x2705; | &#x2705; | &#x2705; | &#x2705; | **UC Berkeley+** |
+| [**Vicuna-13B**](https://lmsys.org/blog/2023-03-30-vicuna/) | `lmsys/vicuna-13b-delta-v1.1` &#x1F917; | **LLaMA-13B** | <font color=green>**LoRA**</font> | &#x2705; | &#x2705; | &#x2705; | &#x2705; | **UC Berkeley+** |

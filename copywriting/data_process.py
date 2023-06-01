@@ -3,6 +3,7 @@ import json
 import pandas as pd
 from collections import OrderedDict
 from copywriting import get_logger
+from llm_api import api_name_map
 
 logger = get_logger(__name__, 'INFO')
 
@@ -43,22 +44,6 @@ def process_default_task(data_file: str) -> list:
         json.dump(poetry_instruction, fw, indent=4, ensure_ascii=False)
     
     return poetry_instruction
-
-api_name_map = {
-    'alpaca': 'Aplaca-LoRA-7B',
-    'belle': 'BELLE-7B',
-    'bloom': 'BLOOM-7B1',
-    'chatglm': 'ChatGLM-6B',
-    'chinese-alpaca': 'Chinese-Alpaca-LoRA-7B',
-    'chinese-vicuna': 'Chinese-Vicuna-7B',
-    'davinci': 'text-davinci-003',
-    'llama': 'LLaMA-7B',
-    'moss': 'MOSS-moon-003-sft-16B',
-    'turbo': 'gpt-3.5-turbo',
-    'vicuna': 'Vicuna-7B',
-    'vicuna-13b': 'Vicuna-13B',
-    'gpt4': 'gpt-4'
-}
 
 def _extract_human_eval(eval_item: dict) -> dict:
     user_utt = eval_item['messages'][0]['statements'][0]['utterance']

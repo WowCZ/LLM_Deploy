@@ -12,3 +12,4 @@ log/
 .gitignore
 plots/figures/gaussian/
 flagged/
+trueskill/

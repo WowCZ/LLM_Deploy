@@ -55,7 +55,7 @@ python analysis.py recovery \
 
 ### Plot figures:
 ```
-python analysis.py plot 
+python analysis.py plot \
  --type gaussian \
  --data_file copywriting/annotated_data/trueskill \
  --save_fig_path plots/figures/gaussian \

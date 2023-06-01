@@ -79,12 +79,12 @@ colors = list(map(lambda x: color(tuple(x)), ncolors(len(api_name_map))))
 api_color_map = dict(zip(list(api_name_map.values()), colors))
 
 llm_type_map = {
-    'LLaMA': ['Aplaca-LoRA-7B', 'Chinese-Alpaca-LoRA-7B', 'Chinese-Vicuna-7B', 'LLaMA-7B', 'Vicuna-7B', 'Vicuna-13B'],
-    'BLOOM': ['BELLE-7B', 'BLOOM-7B1'],
+    'LLaMA家族': ['Aplaca-LoRA-7B', 'Chinese-Alpaca-LoRA-7B', 'Chinese-Vicuna-7B', 'LLaMA-7B', 'Vicuna-7B', 'Vicuna-13B'],
+    'BLOOM家族': ['BELLE-7B', 'BLOOM-7B1'],
     'ChatGLM': ['ChatGLM-6B'],
     'CodeGen': ['MOSS-moon-003-sft-16B'],
-    'GPT': ['text-davinci-003', 'gpt-3.5-turbo', 'gpt-4'],
-    'Select': ['MOSS-moon-003-sft-16B', 'Vicuna-13B', 'BELLE-7B', 'ChatGLM-6B', 'gpt-4'],
+    'GPT家族': ['text-davinci-003', 'gpt-3.5-turbo', 'gpt-4'],
+    '代表模型': ['MOSS-moon-003-sft-16B', 'Vicuna-13B', 'BELLE-7B', 'ChatGLM-6B', 'gpt-4'],
     'RankRep': ['gpt-4', 'ChatGLM-6B', 'Vicuna-13B', 'Aplaca-LoRA-7B']
 }
 
@@ -361,8 +361,7 @@ def plot_ability_radar(annotated_file: str, save_fig_path: str, radar_name: str)
         plt.fill(angles, data, facecolor=api_color_map[api_name], alpha=0.02)
 
     ## show title
-    # plt.figtext(0.515, 0.95, attr, ha='center')
-    # plt.figtext(0.515, 0.95, 'Human Evaluation', ha='center')
+    plt.figtext(0.515, 0.95, radar_name, ha='center')
 
     plt.legend(loc='upper right', prop={'size': 7, 'family': 'DejaVu Sans'}, bbox_to_anchor=(1.3, 0.1))
     plt.grid(True)
