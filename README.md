@@ -1,8 +1,8 @@
 <!-- <div align='center' ><font size='30'>ALIEN: Ability Leading Evaluation</font></div> -->
-# 👽ALIEN: Ability Leading Evaluation
+# ALIEN: Ability Leading Evaluation 👽
 <!-- <div align=center><img width="300" height="300" src="assets/figures/lilac.png"/></div> -->
 
-## 🚀LLM APIs
+## LLM APIs 🚀
 
 ### Deploy the large language model:
 ```
@@ -27,7 +27,7 @@ python api.py simulator \
  --port 6566
 ```
 
-## 📈Result Analysis
+## Result Analysis 📈
 
 ### Sample annotating data for TrueSkill strategy:
 ```
@@ -59,7 +59,7 @@ python analysis.py plot \
  --save_fig_name gaussian
 ```
 
-## 🌐WebUI
+## WebUI 🌐
 ```
 python webui.py
 ```
