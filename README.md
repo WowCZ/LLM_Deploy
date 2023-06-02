@@ -1,19 +1,14 @@
-<div align=center><img width="300" height="300" src="assets/figures/lilac.png"/></div>
+<!-- <div align='center' ><font size='30'>ALIEN: Ability Leading Evaluation</font></div> -->
+# 👽ALIEN: Ability Leading Evaluation
+<!-- <div align=center><img width="300" height="300" src="assets/figures/lilac.png"/></div> -->
 
-## Inference process with API server, API client and API simulator
+## 🚀LLM APIs
 
 ### Deploy the large language model:
-
-#### Choice 1: single task submission
 ```
 python api.py server \
  --api=T5API \
  --wrapper=Flask
-```
-
-#### Choice 2: asynchronous task submission
-```
-sh server_deploy.sh --num_server 16
 ```
 
 ### Complete human evaluation tasks with the deployed large language model apis:
@@ -32,7 +27,7 @@ python api.py simulator \
  --port 6566
 ```
 
-## Analysis process with annotated results
+## 📈Result Analysis
 
 ### Sample annotating data for TrueSkill strategy:
 ```
@@ -41,8 +36,8 @@ python analysis.py sampling \
  --match_plan 'alpaca&belle' 'alpaca&bloom' \
  --single_sample_size 3 \
  --evaluation_tasks 'empathy' \
- --dump_recovery_path copywriting/annotated/trueskill_recovery \
- --annotating_path copywriting/annotated/trueskill
+ --dump_recovery_path resource/annotated/trueskill_recovery \
+ --annotating_path resource/annotated/trueskill
 ```
 
 ### Recover annotated data for TrueSkill strategy:
@@ -50,21 +45,21 @@ python analysis.py sampling \
 python analysis.py recovery \
  --name trueskill_evaluation \
  --recovery_tasks 'empathy' \
- --annotated_path copywriting/annotated/trueskill_recovery \
- --annotating_path copywriting/annotated/trueskill \
- --dump_result_path copywriting/annotated/analysis_data
+ --annotated_path resource/annotated/trueskill_recovery \
+ --annotating_path resource/annotated/trueskill \
+ --dump_result_path resource/annotated/analysis_data
 ```
 
 ### Plot figures:
 ```
 python analysis.py plot \
  --type gaussian \
- --data_file copywriting/annotated_data/trueskill \
- --save_fig_path plots/figures/gaussian \
+ --data_file resource/annotated_data/trueskill \
+ --save_fig_path resource/figures/gaussian \
  --save_fig_name gaussian
 ```
 
-## WebUI for collecting human feedback infomation
+## 🌐WebUI
 ```
 python webui.py
 ```

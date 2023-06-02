@@ -1,7 +1,7 @@
 import random
 from typing import Union
-from copywriting import get_logger
-from copywriting import recovery_score, recovery_chinese_test, recovery_trueskill
+from analysis import get_logger
+from analysis import recovery_score, recovery_chinese_test, recovery_trueskill
 
 logger = get_logger(__name__, 'INFO')
 

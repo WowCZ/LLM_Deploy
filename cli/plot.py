@@ -1,4 +1,4 @@
-from plots import plot_hotmap, plot_gaussian, plot_dynamic_gif, plot_vedio, plot_bar, plot_ability_radar
+from analysis import plot_hotmap, plot_gaussian, plot_dynamic_gif, plot_vedio, plot_bar, plot_ability_radar
 
 def plot(type: str, data_file: str, save_fig_path: str, save_fig_name: str):
     if type == 'bar':

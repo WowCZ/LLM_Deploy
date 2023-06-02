@@ -1,11 +1,9 @@
 import os
 import emoji
-import time
-import tqdm
 import json
 import gradio as gr
-from copywriting import sample_trueskill
-from llm_api import ability_name_map, api_name_map, ability_en_zh_map
+from analysis import sample_trueskill
+from llms import ability_name_map, api_name_map, ability_en_zh_map
 
 abilities = [k for k in ability_name_map.keys()]
 llms = [k for k in api_name_map.values()]
@@ -17,9 +15,9 @@ class ArenaPlan():
                  match_plan: list, 
                  ability: str, 
                  sample_num: int=1, 
-                 inference_path: str='copywriting/data', 
-                 dump_save_path: str='copywriting/analysis/arena', 
-                 dump_recovery_path: str='copywriting/analysis/arena'):
+                 inference_path: str='resource/data', 
+                 dump_save_path: str='resource/analysis/arena', 
+                 dump_recovery_path: str='resource/analysis/arena'):
         self.matches = sample_trueskill(match_plan, 
                                         ability, 
                                         sample_num, 

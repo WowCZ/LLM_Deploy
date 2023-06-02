@@ -1,5 +1,5 @@
 import os
-from copywriting import get_logger, visit_llm_api
+from analysis import get_logger, visit_llm_api
 
 logger = get_logger(__name__, 'INFO')
 

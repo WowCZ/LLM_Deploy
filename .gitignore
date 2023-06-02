@@ -1,15 +1,8 @@
 models/
 __pycache__/
 */__pycache__
-copywriting/urls/
-copywriting/annotated_data/
-copywriting/annotated/
-copywriting/analysis/
 log/
 .vscode/
 .idea/
 .DS_Store
-.gitignore
-plots/figures/gaussian/
-flagged/
-trueskill/
+resource/

@@ -5,7 +5,7 @@ from typing import Dict
 from waitress import serve
 from fastapi import FastAPI
 from pydantic import BaseModel
-from llm_api import get_logger
+from llms import get_logger
 from flask import Flask, request
 
 logger = get_logger(__name__, level='INFO')

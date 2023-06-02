@@ -1,7 +1,7 @@
 import random
 from typing import Union
-from copywriting import get_logger
-from copywriting import sample_instance, sample_chinese_testing, sample_trueskill
+from analysis import get_logger
+from analysis import sample_instance, sample_chinese_testing, sample_trueskill
 
 logger = get_logger(__name__, 'INFO')
 
