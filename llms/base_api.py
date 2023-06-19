@@ -2,12 +2,24 @@ import os
 from typing import List, Union
 
 class LLMAPI:
-    def __init__(self, model_name, model_path=None, adapter_name=None, adapter_path=None):
+    def __init__(self, model_name: str, 
+                 model_path: Union[str, dict]=None, 
+                 model_version: str='default', 
+                 adapter_name: str=None, 
+                 adapter_path: str=None):
+        
         self.model_name = model_name
+        if model_path and type(model_path) is dict:
+            model_path = model_path[model_version]
+        
+            assert type(model_path) is str, f'type of model_path is {type(model_path)} rather than string.'
+
         self.model_path = model_path
         self.adapter_name = adapter_name
         self.adapter_path = adapter_path
+        self.model_version = model_version
         self.supported_types = ['generate']
+
         if model_path and not os.path.exists(model_path):
             self._download_llm(model_name, model_path)
 

@@ -17,8 +17,11 @@ key_id = random.randint(0, len(ks)-1)
 openai_key = ks[key_id]
 
 class DavinciAPI(LLMAPI):
-    def __init__(self, model_name='text-davinci-003', model_path=None):
-        super(DavinciAPI, self).__init__(model_name, model_path)
+    def __init__(self, 
+                 model_name='text-davinci-003', 
+                 model_path=None,
+                 model_version='default'):
+        super(DavinciAPI, self).__init__(model_name, model_path, model_version)
         self.name = 'davinci'
         
     def generate(self, item: BaseModel) -> List[str]:

@@ -2,20 +2,22 @@ import os
 import torch
 from typing import List
 from pydantic import BaseModel
-from llms import LLMAPI, get_logger
+from llms import LLMAPI, get_logger, model_download_path
 from transformers import AutoTokenizer, CpmTokenizer, GPT2LMHeadModel, TextGenerationPipeline
 
 logger = get_logger(__name__, 'INFO') # DEBUG
 
 pretrained_name = 'TsinghuaAI/CPM-Generate'
-model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
 model_name = 'CPM-2.6B'
 
-model_local_path = os.path.join(model_path, model_name)
+model_local_path = os.path.join(model_download_path, model_name)
 
 class CPMAPI(LLMAPI):
-    def __init__(self, model_name='TsinghuaAI/CPM-Generate', model_path=model_local_path):
-        super(CPMAPI, self).__init__(model_name, model_path)
+    def __init__(self, 
+                 model_name='TsinghuaAI/CPM-Generate', 
+                 model_path=model_local_path,
+                 model_version='default'):
+        super(CPMAPI, self).__init__(model_name, model_path, model_version)
         self.supported_types = ['generate', 'score']
         self.name = 'cpm'
 

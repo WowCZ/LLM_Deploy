@@ -4,7 +4,7 @@ import tqdm
 import requests
 from typing import Union, List
 from multiprocessing import Pool
-from copywriting import get_logger
+from . import get_logger
 
 logger = get_logger(__name__, 'INFO')
 
@@ -98,6 +98,32 @@ def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str,
 
     out_data_file = data_file.replace('.json', f'_{llm_name}.json')
     with open(out_data_file, 'w') as fw:
+        json.dump(prompts, fw, indent=4, ensure_ascii=False)
+
+    return prompts
+
+
+def revisit_llm_api(data_file: str, llm_url: str, llm_name: str, output_match_condition: str):
+    header = {'Content-Type': 'application/json'}
+    
+    revisit_data_file = data_file.replace('.json', f'_{llm_name}.json')
+    with open(revisit_data_file, 'r') as fr:
+        prompts = json.load(fr)
+
+    if type(llm_url) is str:
+        llm_url = [llm_url]
+
+    revisit_cnt = 0
+    output_prefix = f'{llm_name}_output'
+    for p in prompts:
+        if p[output_prefix] == output_match_condition:
+            revisit_cnt += 1
+            response = visit_llm(llm_url, header, [p])
+            p[output_prefix] = response['outputs'][0]
+
+    logger.info(f'Revisited prompts: {revisit_cnt}')
+
+    with open(revisit_data_file, 'w') as fw:
         json.dump(prompts, fw, indent=4, ensure_ascii=False)
 
     return prompts

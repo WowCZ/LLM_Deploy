@@ -2,23 +2,25 @@ import os
 import torch
 from typing import List
 from pydantic import BaseModel
-from llms import LLMAPI, get_logger
+from llms import LLMAPI, get_logger, model_download_path
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 logger = get_logger(__name__, 'INFO') # DEBUG
 
 pretrained_name = 'BelleGroup/BELLE-7B-2M'
-model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
 model_name = 'BELLE-7B'
 
-model_local_path = os.path.join(model_path, model_name)
+model_local_path = os.path.join(model_download_path, model_name)
 
 BELLE_PROMPT = "Human: {instruction} \n\nAssistant:"
 
 
 class BELLEAPI(LLMAPI):
-    def __init__(self, model_name='BelleGroup/BELLE-7B-2M', model_path=model_local_path):
-        super(BELLEAPI, self).__init__(model_name, model_path)
+    def __init__(self, 
+                 model_name='BelleGroup/BELLE-7B-2M', 
+                 model_path=model_local_path,
+                 model_version='default'):
+        super(BELLEAPI, self).__init__(model_name, model_path, model_version)
         self.supported_types = ['generate', 'score']
         self.name = 'belle'
 

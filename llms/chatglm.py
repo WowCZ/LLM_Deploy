@@ -2,21 +2,23 @@ import os
 import torch
 from typing import List
 from pydantic import BaseModel
-from llms import LLMAPI, get_logger
+from llms import LLMAPI, get_logger, model_download_path
 from transformers import AutoTokenizer, AutoModel
 
-logger = get_logger(__name__, 'INFO') # DEBUG
+logger = get_logger(__name__, 'INFO')
 
-custom_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
 model_name = 'ChatGLM-6B'
-model_local_path = os.path.join(custom_path, model_name)
+model_local_path = os.path.join(model_download_path, model_name)
 # defualt params = {"temperature": 0.95, "top_p": 0.7, "max_tokens": 2048}
 
 CHATGLM_PROMPT = "[Round 0]\n问：{instruction}\n答：\n"
 
 class ChatGLMAPI(LLMAPI):
-    def __init__(self, model_name='THUDM/chatglm-6b', model_path=model_local_path):
-        super(ChatGLMAPI, self).__init__(model_name, model_path)
+    def __init__(self, 
+                 model_name='THUDM/chatglm-6b', 
+                 model_path=model_local_path, 
+                 model_version='default'):
+        super(ChatGLMAPI, self).__init__(model_name, model_path, model_version)
         self.supported_types = ['generate', 'score']
         self.name = 'chatglm'
 

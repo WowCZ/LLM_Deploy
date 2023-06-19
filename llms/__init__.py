@@ -31,7 +31,8 @@ api_name_map = {
     'llama': 'LLaMA-7B',
     'chinese-alpaca': 'Chinese-Alpaca-LoRA-7B',
     'moss': 'MOSS-moon-003-sft-16B',
-    'vicuna-13b': 'Vicuna-13B'
+    'vicuna-13b': 'Vicuna-13B',
+    'sensechat': 'SenseChat'
 }
 
 ability_name_map = {
@@ -57,9 +58,11 @@ ability_en_zh_map = {
     'empathy': '共情对话能力',
     'safety': '安全交互能力',
     'humor': '幽默理解能力',
-    'reasoning': '常识推理解释能力'
+    'reasoning': '常识推理解释能力',
+    'overall': '综合能力'
 }
 
+model_download_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
 
 from . import base_api
 from .base_api import LLMAPI
@@ -78,6 +81,7 @@ from .stablelm import StablelmAPI
 from .chinese_vicuna import ChineseVicunaAPI
 from .belle import BELLEAPI
 from .cpm import CPMAPI
+from .sensechat import SenseChatAPI
 
 __all__ = ['AlpacaAPI',
            'BELLEAPI', 
@@ -93,6 +97,7 @@ __all__ = ['AlpacaAPI',
            'StablelmAPI',
            'T5API', 
            'TurboAPI', 
-           'VicunaAPI']
+           'VicunaAPI',
+           'SenseChatAPI']
 
 logger.info(f'Now we support to deploy {len(__all__)} large language models as APIs, listed as {__all__}')

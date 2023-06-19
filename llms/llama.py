@@ -2,7 +2,7 @@ import os
 import torch
 from typing import List
 from pydantic import BaseModel
-from llms import LLMAPI, get_logger
+from llms import LLMAPI, get_logger, model_download_path
 from transformers import LlamaForCausalLM, LlamaTokenizer
 
 logger = get_logger(__name__, 'INFO') # DEBUG
@@ -10,15 +10,17 @@ logger = get_logger(__name__, 'INFO') # DEBUG
 # pjlab: /mnt/petrelfs/share_data/llm_llama/7B
 
 pretrained_name = 'decapoda-research/llama-7b-hf'
-model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
 model_name = 'LLaMA-7B'
 
-model_local_path = os.path.join(model_path, model_name)
+model_local_path = os.path.join(model_download_path, model_name)
 
 
 class LLaMAAPI(LLMAPI):
-    def __init__(self, model_name='decapoda-research/llama-7b-hf', model_path=model_local_path):
-        super(LLaMAAPI, self).__init__(model_name, model_path)
+    def __init__(self, 
+                 model_name='decapoda-research/llama-7b-hf', 
+                 model_path=model_local_path,
+                 model_version='default'):
+        super(LLaMAAPI, self).__init__(model_name, model_path, model_version)
         self.supported_types = ['generate', 'score']
         self.name = 'llama'
 

@@ -3,19 +3,18 @@ import torch
 from typing import List
 from peft import PeftModel
 from pydantic import BaseModel
-from llms import LLMAPI, get_logger
+from llms import LLMAPI, get_logger, model_download_path
 from transformers import LlamaForCausalLM, LlamaTokenizer
 
 logger = get_logger(__name__, 'INFO') # DEBUG
 
 pretrained_lora_name = 'tloen/alpaca-lora-7b'
-model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
 lora_model_name = 'Alpaca-LoRA-7B'
 main_model_name = 'LLaMA-7B'
 lora_weights = 'tloen/alpaca-lora-7b'
 
-model_local_path = os.path.join(model_path, main_model_name)
-lora_local_path = os.path.join(model_path, lora_model_name)
+model_local_path = os.path.join(model_download_path, main_model_name)
+lora_local_path = os.path.join(model_download_path, lora_model_name)
 
 
 ALPACA_PROMPT = {
@@ -30,9 +29,10 @@ class AlpacaAPI(LLMAPI):
     def __init__(self, 
                  model_name='decapoda-research/llama-7b-hf', 
                  model_path=model_local_path, 
+                 model_version='default', 
                  adapter_name='tloen/alpaca-lora-7b', 
                  adapter_path=lora_local_path):
-        super(AlpacaAPI, self).__init__(model_name, model_path, adapter_name, adapter_path)
+        super(AlpacaAPI, self).__init__(model_name, model_path, model_version, adapter_name, adapter_path)
         self.supported_types = ['generate', 'score']
         self.name = 'alpaca'
 
@@ -98,7 +98,7 @@ class AlpacaAPI(LLMAPI):
             item.temperature = 1e-6
             item.do_sample = False
         
-        instance = [ALPACA_PROMPT["prompt_no_input"].format(instruction=ins) for ins in instance]
+        # instance = [ALPACA_PROMPT["prompt_no_input"].format(instruction=ins) for ins in instance]
 
         inputs = self.tokenizer(instance, 
                                 return_tensors="pt",

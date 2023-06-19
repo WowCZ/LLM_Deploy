@@ -2,24 +2,37 @@ import os
 import torch
 from typing import List
 from pydantic import BaseModel
-from llms import LLMAPI, get_logger
+from llms import LLMAPI, get_logger, model_download_path
 from transformers import LlamaForCausalLM, LlamaTokenizer
 
 logger = get_logger(__name__, 'INFO') # DEBUG
 
-model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
-model_name = 'Vicuna-7B'
+model_version_7b = 'Vicuna-7B'
+model_version_13b = 'Vicuna-13B'
 
-model_local_path = os.path.join(model_path, model_name)
+model_version_map = {
+    'default': os.path.join(model_download_path, model_version_7b),
+    '7b': os.path.join(model_download_path, model_version_7b),
+    '13b': os.path.join(model_download_path, model_version_13b)
+}
 
-EVAL_PROMPT = "system. Human: {instruction}. Assistant:"
+version_nickname_map = {
+    'default': 'vicuna',
+    '7b': 'vicuna',
+    '13b': 'vicuna-13b',
+}
+
+EVAL_PROMPT = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {instruction} ASSISTANT:"
 
 
 class VicunaAPI(LLMAPI):
-    def __init__(self, model_name='lmsys/vicuna-7b-delta-v1.1', model_path=model_local_path):
-        super(VicunaAPI, self).__init__(model_name, model_path)
+    def __init__(self, 
+                 model_name='lmsys/vicuna-7b-delta-v1.1', 
+                 model_path=model_version_map,
+                 model_version='default'):
+        super(VicunaAPI, self).__init__(model_name, model_path, model_version)
         self.supported_types = ['generate', 'score']
-        self.name = 'vicuna'
+        self.name = version_nickname_map[self.model_version]
 
     def _download_llm(self, model_name: str, model_path: str):
         # manual operation referred on https://github.com/lm-sys/FastChat
@@ -46,7 +59,7 @@ class VicunaAPI(LLMAPI):
             item.temperature = 1e-6
             item.do_sample = False
 
-        instance = [EVAL_PROMPT.format(instruction=i) for i in instance]
+        # instance = [EVAL_PROMPT.format(instruction=i) for i in instance]
         
         inputs = self.tokenizer(instance, 
                                 return_tensors="pt",

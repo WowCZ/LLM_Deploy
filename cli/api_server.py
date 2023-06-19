@@ -32,7 +32,7 @@ def get_host_ip():
         s.close()
         return ip
 
-def api_server(api_name: str, server_wrapper: str, url_save_path: str, gen_config: dict):
+def api_server(api_name: str, api_version: str, server_wrapper: str, url_save_path: str, gen_config: dict):
     class GenItem(BaseModel):
         prompt: Union[str, list]
         temperature: float=gen_config['temperature']
@@ -46,7 +46,7 @@ def api_server(api_name: str, server_wrapper: str, url_save_path: str, gen_confi
         prompt: Union[str, list]
         target: Union[str, list]
 
-    model_api = eval(api_name)()
+    model_api = eval(api_name)(model_version=api_version)
 
     if server_wrapper == 'Flask':
         ### Flask Server

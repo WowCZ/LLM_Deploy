@@ -6,25 +6,17 @@
 
 ### Deploy the large language model:
 ```
-python api.py server \
- --api=T5API \
- --wrapper=Flask
+python api.py server --api=T5API --wrapper=Flask
 ```
 
 ### Complete human evaluation tasks with the deployed large language model apis:
 ```
-python api.py client \
- --model_name davinci \
- --batch_size 2 \
- --max_length 1024
+python api.py client --model_name davinci --batch_size 2 --max_length 1024
 ```
 
 ### Simulate as the human evaluation server:
 ```
-python api.py simulator \
- --model_name davinci \
- --simulate_task empathy \
- --port 6566
+python api.py simulator --model_name davinci --simulate_task empathy --port 6566
 ```
 
 ## Result Analysis 📈

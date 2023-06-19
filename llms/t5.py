@@ -1,6 +1,6 @@
 import torch
 import os
-from llms import LLMAPI, get_logger
+from llms import LLMAPI, get_logger, model_download_path
 from typing import List
 from pydantic import BaseModel
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
@@ -8,15 +8,17 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 logger = get_logger(__name__, 'INFO') # DEBUG
 
 pretrained_name = 'google/flan-t5-xxl'
-model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
 model_name = 'FLAN-T5-11B'
 
-model_local_path = os.path.join(model_path, model_name)
+model_local_path = os.path.join(model_download_path, model_name)
 
 
 class T5API(LLMAPI):
-    def __init__(self, model_name='google/flan-t5-xxl', model_path=model_local_path):
-        super(T5API, self).__init__(model_name, model_path)
+    def __init__(self, 
+                 model_name='google/flan-t5-xxl', 
+                 model_path=model_local_path, 
+                 model_version='default'):
+        super(T5API, self).__init__(model_name, model_path, model_version)
         self.supported_types = ['generate', 'score']
         self.name = 't5'
 

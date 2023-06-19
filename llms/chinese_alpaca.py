@@ -3,19 +3,18 @@ import torch
 from typing import List
 from peft import PeftModel
 from pydantic import BaseModel
-from llms import LLMAPI, get_logger
+from llms import LLMAPI, get_logger, model_download_path
 from transformers import LlamaForCausalLM, LlamaTokenizer
 
 logger = get_logger(__name__, 'INFO') # DEBUG
 
 pretrained_lora_name = 'ziqingyang/chinese-alpaca-lora-7b'
-model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
 lora_model_name = 'Chinese-Alpaca-LoRA-7B'
 main_model_name = 'LLaMA-7B'
 lora_weights = 'ziqingyang/chinese-alpaca-lora-7b'
 
-model_local_path = os.path.join(model_path, main_model_name)
-lora_local_path = os.path.join(model_path, lora_model_name)
+model_local_path = os.path.join(model_download_path, main_model_name)
+lora_local_path = os.path.join(model_download_path, lora_model_name)
 
 
 CHINESE_ALPACA_PROMPT = (
@@ -39,9 +38,10 @@ class ChineseAlpacaAPI(LLMAPI):
     def __init__(self, 
                  model_name='decapoda-research/llama-7b-hf', 
                  model_path=model_local_path, 
+                 model_version='default',
                  adapter_name='ziqingyang/chinese-alpaca-lora-7b', 
                  adapter_path=lora_local_path):
-        super(ChineseAlpacaAPI, self).__init__(model_name, model_path, adapter_name, adapter_path)
+        super(ChineseAlpacaAPI, self).__init__(model_name, model_path, model_version, adapter_name, adapter_path)
         self.supported_types = ['generate', 'score']
         self.name = 'chinese-alpaca'
 

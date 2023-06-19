@@ -2,7 +2,7 @@ import os
 import torch
 from typing import List
 from pydantic import BaseModel
-from llms import LLMAPI, get_logger
+from llms import LLMAPI, get_logger, model_download_path
 from transformers import AutoModelForCausalLM, AutoTokenizer, StoppingCriteria, StoppingCriteriaList
 
 logger = get_logger(__name__, 'INFO') # DEBUG
@@ -26,10 +26,9 @@ system_prompt = """<|SYSTEM|># StableLM Tuned (Alpha version)
 ALPHA_PROMPT = system_prompt + " <|USER|>{instruction}<|ASSISTANT|>"
 
 pretrained_name = 'stabilityai/stablelm-tuned-alpha-7b'
-model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
 model_name = 'Stablelm-7B'
 
-model_local_path = os.path.join(model_path, model_name)
+model_local_path = os.path.join(model_download_path, model_name)
 
 gen_config = dict(
     max_new_tokens=1024,
@@ -38,8 +37,11 @@ gen_config = dict(
 )
 
 class StablelmAPI(LLMAPI):
-    def __init__(self, model_name='stabilityai/stablelm-tuned-alpha-7b', model_path=model_local_path):
-        super(StablelmAPI, self).__init__(model_name, model_path)
+    def __init__(self, 
+                 model_name='stabilityai/stablelm-tuned-alpha-7b', 
+                 model_path=model_local_path,
+                 model_version='default'):
+        super(StablelmAPI, self).__init__(model_name, model_path, model_version)
         self.supported_types = ['generate', 'score']
         self.name = 'alpha'
 

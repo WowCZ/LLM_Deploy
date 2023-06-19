@@ -17,8 +17,11 @@ key_id = random.randint(0, len(ks)-1)
 openai_key = ks[key_id]
 
 class TurboAPI(LLMAPI):
-    def __init__(self, model_name='gpt-3.5-turbo', model_path=None):
-        super(TurboAPI, self).__init__(model_name, model_path)
+    def __init__(self, 
+                 model_name='gpt-3.5-turbo', 
+                 model_path=None,
+                 model_version='default'):
+        super(TurboAPI, self).__init__(model_name, model_path, model_version)
         self.name = 'turbo'
         
     def generate(self, item: BaseModel) -> List[str]:

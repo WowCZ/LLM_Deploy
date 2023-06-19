@@ -2,23 +2,39 @@ import os
 import torch
 from typing import List
 from pydantic import BaseModel
-from llms import LLMAPI, get_logger
+from llms import LLMAPI, get_logger, model_download_path
 from transformers import AutoTokenizer, AutoModel, BloomForCausalLM
 
 logger = get_logger(__name__, 'INFO') # DEBUG
 
 pretrained_name = 'bigscience/bloomz-7b1'
-model_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
-model_name = 'BLOOM-7B1'
+model_name_7b1 = 'BLOOM-7B1'
+model_name_z7b1 = 'BLOOMZ-7B1'
+model_name_z7b1_mt = 'BLOOMZ-7B1-MT'
 
-model_local_path = os.path.join(model_path, model_name)
+model_version_map = {
+    'default': os.path.join(model_download_path, model_name_7b1),
+    '7b1': os.path.join(model_download_path, model_name_7b1),
+    'z7b1': os.path.join(model_download_path, model_name_z7b1),
+    'z7b1-mt': os.path.join(model_download_path, model_name_z7b1_mt)
+}
+
+version_nickname_map = {
+    'default': 'bloom',
+    '7b1': 'bloom',
+    'z7b1': 'bloomz',
+    'z7b1-mt': 'bloomz-mt'
+}
 
 
 class BloomAPI(LLMAPI):
-    def __init__(self, model_name='bigscience/bloomz-7b1', model_path=model_local_path):
-        super(BloomAPI, self).__init__(model_name, model_path)
+    def __init__(self, 
+                 model_name='bigscience/bloomz-7b1',
+                 model_path=model_version_map,
+                 model_version='default'):
+        super(BloomAPI, self).__init__(model_name, model_path, model_version)
         self.supported_types = ['generate', 'score']
-        self.name = 'bloom'
+        self.name = version_nickname_map[self.model_version]
 
     def _download_llm(self, model_name: str, model_path: str):
         if not os.path.exists(model_path):

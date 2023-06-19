@@ -1,8 +1,10 @@
 import os
 import json
+from numpy import *
 import pandas as pd
+import pingouin as pg
 from collections import OrderedDict
-from copywriting import get_logger
+from analysis import get_logger
 from llms import api_name_map
 
 logger = get_logger(__name__, 'INFO')
@@ -71,19 +73,28 @@ def _extract_human_eval(eval_item: dict) -> dict:
     }
 
 
+def _read_humaneval_file(file_path: str):
+    try:
+        with open(file_path, 'r') as fr:
+            line = fr.readlines()[0]
+            if line[-2:].strip() == ',]':
+                str_line = line[:-2].strip() + "]"
+            else:
+                str_line = line
+
+            results = json.loads(str_line)
+    except:
+        results = json.load(open(file_path))
+
+    return results
+
 def _single_evaluation_reader(path: str) -> dict:
     panda_data = []
     name = path.split('/')[-1].split('.')[-2].split('-')
     task_name = name[0]
     api_name = '-'.join(name[1:])
-    with open(path, 'r') as fr:
-        line = fr.readlines()[0]
-        if line[-2:].strip() == ',]':
-            str_line = line[:-2].strip() + "]"
-        else:
-            str_line = line
 
-    results = json.loads(str_line)
+    results = _read_humaneval_file(path)
 
     for ditem in results:
         extracted_d = _extract_human_eval(ditem)
@@ -152,6 +163,146 @@ def human_evaluation_reader(dir_path: str) -> pd.DataFrame:
 
     logger.info(metric_map)
     return df, analysis_results
+
+
+def _single_annotation_reader(path: str) -> dict:
+    panda_data = []
+    name = path.split('/')[-1].split('.')[-2].split('-')
+    task_name = name[0]
+    api_name = '-'.join(name[1:])
+
+    results = _read_humaneval_file(path)
+
+    for ditem in results:
+        extracted_d = _extract_human_eval(ditem)
+        multiple_scores = extracted_d['multiple_scores']
+
+        p_data = {
+            'tName': task_name,
+            'aName': api_name,
+            'annotation': dict()
+        }
+        for k, v in multiple_scores.items():
+            p_data['annotation'][k] = mean(v)
+
+        panda_data.append(p_data)
+    
+    return panda_data
+
+
+def human_annotation_reader(dir_path: str) -> dict():
+    trustable_icc_lowerbound = 0.75
+
+    all_panda_data = dict()
+    for _, _, fs in os.walk(dir_path):
+        for f in fs:
+            if f.startswith('.'):
+                continue
+            panda_data = _single_annotation_reader(os.path.join(dir_path, f))
+            tName, aName = panda_data[0]['tName'], panda_data[0]['aName']
+
+            if tName not in all_panda_data:
+                all_panda_data[tName] = dict()
+            
+            if aName not in all_panda_data[tName]:
+                all_panda_data[tName][aName] = []
+
+            for d in panda_data:
+                all_panda_data[tName][aName].append(d['annotation'])
+    
+    annotation_cnt = dict()
+    for tName, data in all_panda_data.items():
+        for aName, annotation in data.items():
+            if tName not in annotation_cnt:
+                annotation_cnt[tName] = len(annotation)
+                continue
+            
+            assert annotation_cnt[tName] == len(annotation)
+    
+    intraclass_instances = dict()
+    trustable_instances = dict()
+    for tName, data in all_panda_data.items():
+        if tName not in intraclass_instances:
+            intraclass_instances[tName] = []
+        for i in range(annotation_cnt[tName]):
+            panda_data = {
+                'LLM': [],
+                'Annotator': [],
+                'Score': []
+            }
+            for aName, annotation in data.items():
+                for anno, s in annotation[i].items():
+                    panda_data['LLM'].append(aName)
+                    panda_data['Annotator'].append(anno)
+                    panda_data['Score'].append(s)
+            intraclass_instances[tName].append(pd.DataFrame(panda_data))
+
+        iccs = []
+        bad_case_cnt = 0
+        significant_cnt = 0
+        trustable_instances[tName] = {
+            'min_icc_id': -1,
+            'trustable_ids': []
+        }
+        min_icc = 1
+        min_icc_id = -1
+        for ii, instance in enumerate(intraclass_instances[tName]):
+            try:
+                icc = pg.intraclass_corr(data=instance, targets='LLM', raters='Annotator', ratings='Score')
+            except:
+                bad_case_cnt += 1
+                continue
+            iccs.append(icc.ICC[2])
+            if iccs[-1] < min_icc:
+                min_icc = iccs[-1]
+                min_icc_id = ii
+
+            if iccs[-1] >= trustable_icc_lowerbound:
+                significant_cnt += 1
+                trustable_instances[tName]['trustable_ids'].append(ii)
+
+        trustable_instances[tName]['min_icc_id'] = min_icc_id
+
+    return {tName: iccs}, trustable_instances
+
+
+def trustable_humaneval_creation(data_path, dump_path_name, dump_trustable_instances):
+    dump_path = '/'.join(data_path.split('/')[:-2] + [dump_path_name])
+    if not os.path.exists(dump_path):
+        os.mkdir(dump_path)
+
+    min_icc_info = dict()
+    for _, ds, _ in os.walk(data_path):
+        for d in ds:
+            task_path = os.path.join(data_path, d)
+            dump_task_path = os.path.join(dump_path, d)
+            if not os.path.exists(dump_task_path):
+                os.mkdir(dump_task_path)
+
+            trustable_ids = dump_trustable_instances[d]['trustable_ids']
+            min_icc_id = dump_trustable_instances[d]['min_icc_id']
+            for _, _, fs in os.walk(task_path):
+                for f in fs:
+                    if f.startswith('.'):
+                        continue
+
+                    task_api_file = os.path.join(task_path, f)
+                    results = _read_humaneval_file(task_api_file)
+
+                    if d not in min_icc_info:
+                        min_icc_info[d] = dict()
+
+                    min_icc_info[d][f.split('-')[1]] = results[min_icc_id]
+
+                    trustable_data = []
+                    for ti in trustable_ids:
+                        trustable_data.append(results[ti])
+
+                    with open(os.path.join(dump_task_path, f), 'w') as fw:
+                        json.dump(trustable_data, fw, indent=4, ensure_ascii=False)
+    
+    with open(os.path.join(dump_path, 'min_icc_info.json'), 'w') as fw:
+        json.dump(min_icc_info, fw, indent=4, ensure_ascii=False)
 
 
 def trueskill_hotmap_reader(dir_path: str) -> pd.DataFrame:

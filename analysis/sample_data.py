@@ -2,7 +2,7 @@ import os
 import json
 import random
 from typing import Any
-from copywriting import get_logger
+from analysis import get_logger
 from collections import OrderedDict
 
 random.seed = 42

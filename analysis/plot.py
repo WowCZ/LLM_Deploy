@@ -11,7 +11,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
 from llms import api_name_map, ability_name_map, ability_en_zh_map
-import get_logger, human_evaluation_reader, trueskill_hotmap_reader, trueskill_gaussian_reader
+from . import get_logger, human_evaluation_reader, human_annotation_reader, trueskill_hotmap_reader, trueskill_gaussian_reader, trustable_humaneval_creation
 
 ZH_FONT_PATH = os.environ['ZH_FONT_PATH']
 font_path = f'{ZH_FONT_PATH}/SimHei.ttf' # ttf的路径 最好是具体路径
@@ -19,11 +19,11 @@ font_manager.fontManager.addfont(font_path)
  
 # plt.rcParams['font.family'] = 'SimHei' #下面代码不行，在加上这一行
 plt.rcParams['font.sans-serif'] = ['SimHei'] #用来正常显示中文标签
-plt.rcParams['axes.unicode_minus']=False
+plt.rcParams['axes.unicode_minus'] = False
 
 logger = get_logger(__name__, 'INFO')
 
-logger.info(f'Supported Fonts: {font_manager.get_font_names()}')
+# logger.info(f'Supported Fonts: {font_manager.get_font_names()}')
 
 sns.set_style("whitegrid",{"font.sans-serif":['SimHei', 'DejaVu Sans']})
 
@@ -85,8 +85,11 @@ llm_type_map = {
     'CodeGen': ['MOSS-moon-003-sft-16B'],
     'GPT家族': ['text-davinci-003', 'gpt-3.5-turbo', 'gpt-4'],
     '代表模型': ['MOSS-moon-003-sft-16B', 'Vicuna-13B', 'BELLE-7B', 'ChatGLM-6B', 'gpt-4'],
-    'RankRep': ['gpt-4', 'ChatGLM-6B', 'Vicuna-13B', 'Aplaca-LoRA-7B']
+    'RankRep': ['gpt-4', 'ChatGLM-6B', 'Vicuna-13B', 'Aplaca-LoRA-7B'],
+    'ALL': ['ChatGLM-6B', 'Chinese-Vicuna-7B', 'LLaMA-7B', 'Vicuna-7B', 'text-davinci-003', 'Vicuna-13B', 'BELLE-7B', 'BLOOM-7B1', 'Aplaca-LoRA-7B', 'Chinese-Alpaca-LoRA-7B', 'MOSS-moon-003-sft-16B', 'gpt-3.5-turbo', 'gpt-4']
 }
+
+llm_name_gaussian = dict(zip(llm_type_map['ALL'], [0.002*i for i in range(len(llm_type_map['ALL']))]))
 
 
 def plot_scatter(analysis_result_path: str, save_fig_path: str, save_name: str):
@@ -204,13 +207,17 @@ def plot_bar(annotated_file: str, save_fig_path: str, save_fig_name: str):
 
     ability_api_df = pd.DataFrame(ability_api_df)
 
-    logger.info(set(ability_api_df.能力))
+    abilities_order = sorted(list(set(ability_api_df.能力)))
+    abilities_order = ['创意表达能力', '言外之意理解能力', '思辨能力', '长文阅读能力', '强逻辑长文表达能力', '共情对话能力', '幽默理解能力', '安全交互能力', '古诗词鉴赏能力', '常识推理解释能力']
+
+    logger.info(abilities_order)
 
     g = sns.FacetGrid(ability_api_df, 
                       hue='模型',
                       hue_order=hue_order,
                       palette=sns.color_palette([api_color_map[a] for a in hue_order]),  
-                      col="能力", 
+                      col='能力', 
+                      col_order=abilities_order,
                       col_wrap=5, 
                       height=4, 
                       ylim=(1, 5))
@@ -361,9 +368,10 @@ def plot_ability_radar(annotated_file: str, save_fig_path: str, radar_name: str)
         plt.fill(angles, data, facecolor=api_color_map[api_name], alpha=0.02)
 
     ## show title
-    plt.figtext(0.515, 0.95, radar_name, ha='center')
+    if radar_name != 'ALL':
+        plt.figtext(0.515, 0.95, radar_name, ha='center')
 
-    plt.legend(loc='upper right', prop={'size': 7, 'family': 'DejaVu Sans'}, bbox_to_anchor=(1.3, 0.1))
+    plt.legend(loc='lower left', ncol=2, prop={'size': 4.5, 'family': 'DejaVu Sans'}, bbox_to_anchor=(-0.36, -0.1)) # bbox_to_anchor=(1.3, 0.1)
     plt.grid(True)
     plt.savefig(f"{save_fig_path}/{radar_name}-radar.png" ,dpi=600)
 
@@ -404,12 +412,15 @@ def plot_gaussian(file_path: str, save_fig_path: str, save_fig_name: str = None)
     def normal_dis(x, mu=50, sigma=5):
         return 0.3989422804014327 / sigma * math.exp(- (x - mu) * (x - mu) / (2 * sigma * sigma))
     
-    selected_api = llm_type_map['RankRep']
+    selected_api = llm_type_map['ALL']
     for _, ds, _ in os.walk(file_path):
         if not ds:
             continue
 
         for d in tqdm(ds):
+            if d != 'overall':
+                continue
+
             gaussian_path = os.path.join(file_path, d)
             gaussian_map = trueskill_gaussian_reader(gaussian_path)
             if gaussian_map is None:
@@ -433,7 +444,7 @@ def plot_gaussian(file_path: str, save_fig_path: str, save_fig_name: str = None)
                     plt.fill_between(xs, ys, 0, alpha=0.3, color=api_color_map[api])
 
                     # 绘制最上方的单个的 \mu    
-                    plt.text(mu, normal_dis(mu, mu, sigma) + 0.0003, api, fontsize=4, color='black', fontname='DejaVu Sans')  
+                    plt.text(mu, normal_dis(mu, mu, sigma) + llm_name_gaussian[api], api, fontsize=4, color='black', fontname='DejaVu Sans')  
 
                     # plt.title(f'Normal Distribution($\mu={round(mu, 2)}, \sigma={round(sigma, 2)}$)',fontsize=16)
                     plt.title(f'{ability_en_zh_map[d]}(正态分布)',fontsize=16)
@@ -443,7 +454,7 @@ def plot_gaussian(file_path: str, save_fig_path: str, save_fig_name: str = None)
                     plt.xlabel('$\mu$',fontsize=10)
                     plt.ylabel('概率',fontsize=10)
                     plt.ylim(0, 0.6)
-                    plt.xlim(0, 60)
+                    plt.xlim(20, 45)
                     # plt.legend()
                     plt.grid(color='black', alpha=0.2)
                     
@@ -545,3 +556,64 @@ def plot_vedio(file_path: str, save_fig_path: str, save_fig_name: str = None):
                 with imageio.get_writer(os.path.join(save_path, video_name), fps=4) as video:
                     for image in images:
                         video.append_data(image)
+
+
+def plot_icc(file_path: str, save_fig_path: str, save_fig_name: str = None):
+    icc_results = {
+        '模型': [],
+        'ICC': []
+    }
+    dump_trustable_instances = dict()
+    for _, ds, _ in os.walk(file_path):
+        if len(ds) == 0:
+            continue
+
+        for d in tqdm(ds):
+            analysis_results, trustable_instances = human_annotation_reader(os.path.join(file_path, d))
+            for k, v in trustable_instances.items():
+                dump_trustable_instances[k] = v
+
+            for k, vs in analysis_results.items():
+                for v in vs:
+                    icc_results['模型'].append(ability_name_map[k])
+                    icc_results['ICC'].append(v)
+
+    with open(os.path.join(file_path, 'trustable_instances.json'), 'w') as fw:
+        json.dump(dump_trustable_instances, fw, ensure_ascii=False, indent=4)
+
+    # with open(os.path.join(file_path, 'trustable_instances.json'), 'r') as fr:
+    #     dump_trustable_instances = json.load(fr)
+
+    # ## uncommant for recording trustable human evaluation info
+    # dump_path_name = 'trustable_humaneval'
+    # trustable_humaneval_creation(file_path, dump_path_name, dump_trustable_instances)
+
+    df = pd.DataFrame(icc_results)
+    # Initialize the figure with a logarithmic x axis
+    f, ax = plt.subplots(figsize=(8, 6))
+    # ax.set_xscale("log")
+
+    # Plot the orbital period with horizontal boxes
+    sns.boxplot(x="ICC", y="模型", data=df,
+                whis=[0, 100], width=.6, palette="vlag")
+
+    # Add in points to show each observation
+    sns.stripplot(x="ICC", y="模型", data=df,
+                size=2, color=".3", linewidth=0)
+
+    # Tweak the visual presentation
+    plt.yticks(fontsize=7)
+    ax.xaxis.grid(True)
+    plt.xlim(0.6, 1.0)
+    ax.set(ylabel="")
+    ax.set(xlabel="组内相关性系数（ICC）")
+    sns.despine(trim=True, left=True)
+
+    if not os.path.exists(save_fig_path):
+        os.mkdir(save_fig_path)
+
+    if save_fig_name:
+        plt.savefig(f"{save_fig_path}/{save_fig_name}.png", dpi=600)
+    else:
+        plt.savefig(f"{save_fig_path}/icc.png", dpi=600)
+            
