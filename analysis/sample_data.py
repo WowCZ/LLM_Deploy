@@ -9,6 +9,8 @@ random.seed = 42
 
 logger = get_logger(__name__, 'INFO')
 
+invalid_output_candidates = ['Skip', '', '网络繁忙，请稍后再试。']
+
 def sample_chinese_testing(sample_size: int, 
                            sample_case_num: int, 
                            sample_llm_num: int, 
@@ -106,14 +108,24 @@ def _sample_pairwise_game(sample_case_num: int,
         gen_file = os.path.join(inference_path, f'{task}_{llm}.json')
         gen_info[llm] = json.load(open(gen_file))
     
- 
+    valid_case_ids = []
+    for case_id in range(len(gen_info['prompt'])):
+        valid_tag = True
+        for llm in pairwise_llm:
+            llm_gen = gen_info[llm][case_id][f'{llm}_output']
+            if llm_gen in invalid_output_candidates:
+                valid_tag = False
+        
+        if valid_tag:
+            valid_case_ids.append(case_id)
+
     record_case = OrderedDict()
     random.shuffle(pairwise_llm)
     sampled_case_ids = []
     for q_id in range(sample_case_num):
-        case_id = random.choice(range(len(gen_info['prompt'])))
+        case_id = random.choice(valid_case_ids)
         while case_id in sampled_case_ids:
-            case_id = random.choice(range(len(gen_info['prompt'])))
+            case_id = random.choice(valid_case_ids)
         sampled_case_ids.append(case_id)
 
         prompt = gen_info['prompt'][case_id]
@@ -165,7 +177,7 @@ def recovery_trueskill(recovery_task: str, annotated_path: str, recovery_path: s
         recovery_task: OrderedDict()
     }
 
-    for _, _, fs in os.walk(annotated_path):
+    for _, _, fs in os.walk(recovery_path):
         for f in fs:
             f_name = f.split('.')[0]
             if 'recovery' not in f_name:
@@ -173,7 +185,7 @@ def recovery_trueskill(recovery_task: str, annotated_path: str, recovery_path: s
 
             f_name = '-'.join(f_name.split('-')[:-1])
             result_info[recovery_task][f_name] = dict()
-            annotated_result = json.load(open(os.path.join(annotated_path, f)))["打分"]
+            annotated_result = json.load(open(os.path.join(annotated_path, f'{f_name}.json')))["打分"]
             model_name_map = json.load(open(os.path.join(recovery_path, f)))
 
             winner = ''

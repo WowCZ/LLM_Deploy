@@ -16,9 +16,9 @@ def default_sampling(args):
 
 def default_recovery(args):
     recovery(args.name, 
-             args.annotating_path, 
+             args.annotated_data_path, 
              args.dump_result_path, 
-             args.annotated_path, 
+             args.recovery_info_path, 
              args.recovery_tasks,
              args.seed)
     
@@ -33,9 +33,9 @@ subparsers = parser.add_subparsers(help='Sampling or Recovery or Plot')
 
 sampling_parser = subparsers.add_parser(name='sampling', description='Sample inference data!')
 sampling_parser.add_argument('--name', type=str, default='trueskill_evaluation', help='Name of sampling generation data')
-sampling_parser.add_argument('--original_file_path', type=str, default='copywriting/data', help='Path of inference data')
-sampling_parser.add_argument('--annotating_path', type=str, default='copywriting/annotated/sample_data', help='Saved path of the sampled data')
-sampling_parser.add_argument('--dump_recovery_path', type=str, default='copywriting/annotated/sample_recovery_data', help='Saved path of the recovery data')
+sampling_parser.add_argument('--original_file_path', type=str, default='resource/data', help='Path of inference data')
+sampling_parser.add_argument('--annotating_path', type=str, default='resource/annotated/sample_data', help='Saved path of the sampled data')
+sampling_parser.add_argument('--dump_recovery_path', type=str, default='resource/annotated/sample_recovery_data', help='Saved path of the recovery data')
 sampling_parser.add_argument('--single_sample_size', type=int, default=24, help='Testing case number from Chinese ability testing.')
 sampling_parser.add_argument('--sample_num', type=int, default=4, help='Sampled number from each LLM generated data.')
 sampling_parser.add_argument('--sample_llm_num', type=int, default=4, help='Sampled LLM number.')
@@ -47,9 +47,9 @@ sampling_parser.set_defaults(func=default_sampling)
 
 recovery_parser = subparsers.add_parser(name='recovery', description='Recover annotated data!')
 recovery_parser.add_argument('--name', type=str, default='chinese_capability', help='Name of sampling generation data')
-recovery_parser.add_argument('--annotating_path', type=str, default='copywriting/annotated_data/chinese_capability', help='Path of inference data')
-recovery_parser.add_argument('--dump_result_path', type=str, default='copywriting/analysis_data', help='Saved path of the sampled data')
-recovery_parser.add_argument('--annotated_path', type=str, default='copywriting/annotated_data/sample_recovery_data', help='Saved path of the recovery data')
+recovery_parser.add_argument('--annotated_data_path', type=str, default='resource/annotated_data/chinese_capability', help='Path of inference data')
+recovery_parser.add_argument('--dump_result_path', type=str, default='resource/analysis_data', help='Saved path of the sampled data')
+recovery_parser.add_argument('--recovery_info_path', type=str, default='resource/annotated_data/sample_recovery_data', help='Saved path of the recovery data')
 recovery_parser.add_argument('--recovery_tasks', nargs='+', type=str, default=['empathy'], help='Human evaluation tasks')
 recovery_parser.add_argument('--seed', type=int, default=42, help='random seed')
 recovery_parser.set_defaults(func=default_recovery)

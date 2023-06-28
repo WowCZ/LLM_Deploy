@@ -3,52 +3,54 @@ import torch
 from typing import List
 from pydantic import BaseModel
 from llms import LLMAPI, get_logger, model_download_path
-from transformers import LlamaForCausalLM, LlamaTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 logger = get_logger(__name__, 'INFO') # DEBUG
 
-model_version_7b = 'Vicuna-7B'
-model_version_13b = 'Vicuna-13B'
+model_default_7b = 'BaiChuan-7B'
+model_chinese_vicuna_7b = 'BaiChuan-Chinese-Vicuna-7B'
 
 model_version_map = {
-    'default': os.path.join(model_download_path, model_version_7b),
-    '7b': os.path.join(model_download_path, model_version_7b),
-    '13b': os.path.join(model_download_path, model_version_13b)
+    'default': os.path.join(model_download_path, model_default_7b),
+    'chinese-vicuna': os.path.join(model_download_path, model_chinese_vicuna_7b)
 }
 
 version_nickname_map = {
-    'default': 'vicuna',
-    '7b': 'vicuna',
-    '13b': 'vicuna-13b',
+    'default': 'baichuan',
+    'chinese-vicuna': 'baichuan-vicuna',
 }
 
 EVAL_PROMPT = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {instruction} ASSISTANT:"
 
 
-class VicunaAPI(LLMAPI):
+class BaiChuanAPI(LLMAPI):
     def __init__(self, 
-                 model_name='lmsys/vicuna-7b-delta-v1.1', 
+                 model_name='baichuan-inc/baichuan-7B', 
                  model_path=model_version_map,
                  model_version='default'):
-        super(VicunaAPI, self).__init__(model_name, model_path, model_version)
+        super(BaiChuanAPI, self).__init__(model_name, model_path, model_version)
         self.supported_types = ['generate', 'score']
         self.name = version_nickname_map[self.model_version]
 
     def _download_llm(self, model_name: str, model_path: str):
-        # manual operation referred on https://github.com/lm-sys/FastChat
-        # download from https://zhuanlan.zhihu.com/p/620801429
-        pass
+        if not os.path.exists(model_path):
+            os.makedirs(model_path)
+
+            tokenizer = AutoTokenizer.from_pretrained(model_name)
+            model = AutoModelForCausalLM.from_pretrained(model_name).to("cuda")
+
+            tokenizer.save_pretrained(model_path)
+            model.save_pretrained(model_path)
     
     def _initialize_llm(self):
-        tokenizer = LlamaTokenizer.from_pretrained(self.model_path, use_fast=False, padding_side='left')
-        model = LlamaForCausalLM.from_pretrained(self.model_path).to("cuda")
+        tokenizer = AutoTokenizer.from_pretrained(self.model_path, use_fast=False, trust_remote_code=True, padding_side='left')
+        model = AutoModelForCausalLM.from_pretrained(self.model_path, trust_remote_code=True).to("cuda")
         tokenizer.pad_token='[PAD]'
 
         return model, tokenizer
         
     def generate(self, item:BaseModel) -> List[str]:
         instance = item.prompt
-
         if not instance:
             return []
 
@@ -67,11 +69,13 @@ class VicunaAPI(LLMAPI):
                                 truncation=True,
                                 max_length=2048).to("cuda")
         
-        outputs = self.model.generate(**inputs, 
-                                    max_new_tokens=item.max_new_tokens, 
-                                    do_sample=item.do_sample, 
-                                    top_p=item.top_p, 
-                                    temperature=item.temperature)
+        with torch.no_grad():
+            outputs = self.model.generate(**inputs, 
+                                        max_new_tokens=item.max_new_tokens, 
+                                        do_sample=item.do_sample, 
+                                        top_p=item.top_p, 
+                                        temperature=item.temperature,
+                                        repetition_penalty=1.1)
         response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
         response = [r[len(i):].strip() for i, r in zip(instance, response)]
 
@@ -121,9 +125,10 @@ class VicunaAPI(LLMAPI):
         return log_prob_list
     
 if __name__ == '__main__':
-    model_api = VicunaAPI()
+    model_api = BaiChuanAPI()
 
     # Test Case
     example_prompt = "中国有多少省份？"
     response = model_api.generate(example_prompt)
     logger.info(f'{example_prompt} \n {model_api.model_name} : {response}')
+

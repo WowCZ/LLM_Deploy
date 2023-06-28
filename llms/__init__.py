@@ -25,14 +25,17 @@ api_name_map = {
     'vicuna': 'Vicuna-7B',
     'turbo': 'gpt-3.5-turbo',
     'chatglm': 'ChatGLM-6B',
+    'baichuan-vicuna': 'BaiChuan-Chinese-Vicuna-7B',
     'bloom': 'BLOOM-7B1',
     'chinese-vicuna': 'Chinese-Vicuna-7B',
     'davinci': 'text-davinci-003',
     'llama': 'LLaMA-7B',
+    'bloomz-mt': 'BLOOMZ-MT-7B1',
     'chinese-alpaca': 'Chinese-Alpaca-LoRA-7B',
     'moss': 'MOSS-moon-003-sft-16B',
     'vicuna-13b': 'Vicuna-13B',
-    'sensechat': 'SenseChat'
+    'sensechat': 'SenseChat',
+    'baichuan': 'BaiChuan-7B',
 }
 
 ability_name_map = {
@@ -82,8 +85,10 @@ from .chinese_vicuna import ChineseVicunaAPI
 from .belle import BELLEAPI
 from .cpm import CPMAPI
 from .sensechat import SenseChatAPI
+from .baichuan import BaiChuanAPI
 
 __all__ = ['AlpacaAPI',
+           'BaiChuanAPI',
            'BELLEAPI', 
            'BloomAPI', 
            'ChatGLMAPI', 
