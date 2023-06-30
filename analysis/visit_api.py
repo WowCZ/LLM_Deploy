@@ -45,7 +45,7 @@ def load_as_batches(data, api_size):
     
     batch_data = []
     prompt_temp = copy.deepcopy(data[0])
-    prompt_temp['max_new_tokens'] = 1024
+    prompt_temp['max_new_tokens'] = 4096
     for i in range(api_size-1):
         prompt_temp['prompt'] = [p['prompt'] for p in data[i*per_api_batch:(i+1)*per_api_batch]]
         batch_data.append(copy.deepcopy(prompt_temp))
@@ -64,11 +64,14 @@ def visit_llm(llm_url, header, data):
     return {'outputs': [batch_pr_map[d['prompt']] for d in data]}
 
 
-def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str, batch_size: int, max_length: int):
+def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str, batch_size: int, max_length: int, dump_type: str, max_prompt_num: int):
     header = {'Content-Type': 'application/json'}
     
     with open(data_file, 'r') as fr:
         prompts = json.load(fr)
+
+    if max_prompt_num:
+        prompts = prompts[:max_prompt_num]
 
     p_lens = []
     for p in prompts:
@@ -84,6 +87,12 @@ def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str,
 
     if type(llm_url) is str:
         llm_url = [llm_url]
+
+    out_data_file = data_file.replace('.json', f'_{llm_name}.jsonl')
+    if dump_type == 'incremental':
+        fw = open(out_data_file, 'a')
+    else:
+        fw = None
     
     batch_nums = len(prompts) // batch_size + 1 if len(prompts) % batch_size != 0 else len(prompts) // batch_size
     for i in tqdm.tqdm(range(batch_nums)):
@@ -95,10 +104,19 @@ def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str,
         right = min((i+1)*batch_size, len(prompts))
         for j in range(left, right):
             prompts[j][f'{llm_name}_output'] = response['outputs'][j-left]
+            if fw:
+                print(f'>>> Add #sample-{j}')
+                fw.write(json.dumps(prompts[j], ensure_ascii=False)+'\n')
+                fw.flush()
 
-    out_data_file = data_file.replace('.json', f'_{llm_name}.json')
-    with open(out_data_file, 'w') as fw:
-        json.dump(prompts, fw, indent=4, ensure_ascii=False)
+    if dump_type == 'incremental':
+        fw.flush()
+        fw.close()
+    elif dump_type == 'oncetime':
+        with open(out_data_file, 'w') as fw:
+            json.dump(prompts, fw, indent=4, ensure_ascii=False)
+    else:
+        raise TypeError(f'{dump_type} for dump_type is not defined!')
 
     return prompts
 

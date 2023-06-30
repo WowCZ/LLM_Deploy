@@ -4,7 +4,7 @@ from analysis import get_logger, visit_llm_api, revisit_llm_api
 logger = get_logger(__name__, 'INFO')
 
 
-def api_client(llm_name: str, batch_size: int, max_length: int, url_path: str, evaluation_tasks: list, inference_path: str, revisit_condition: str=None):
+def api_client(llm_name: str, batch_size: int, max_length: int, url_path: str, evaluation_tasks: list, inference_path: str, revisit_condition: str=None, dump_type: str='oncetime', max_prompt_num: int=None):
     assert os.path.exists(url_path), f'Url path: {url_path} is not given.'
 
     server_info_file = f'{url_path}/{llm_name}_server_info.txt'
@@ -34,5 +34,5 @@ def api_client(llm_name: str, batch_size: int, max_length: int, url_path: str, e
             logger.info(f'>>> LLM #{llm_name.upper()}# has been revisted on task #{t}# in condition of {revisit_condition}.')
             revisit_llm_api(data_file.format(data_path=inference_path, human_eval_task=t), gen_urls[0], llm_name, revisit_condition)
         else:
-            visit_llm_api(data_file.format(data_path=inference_path, human_eval_task=t), gen_urls, llm_name, len(gen_urls)*batch_size, max_length)
+            visit_llm_api(data_file.format(data_path=inference_path, human_eval_task=t), gen_urls, llm_name, len(gen_urls)*batch_size, max_length, dump_type, max_prompt_num)
             logger.info(f'>>> LLM #{llm_name.upper()}# has been processed on task #{t}#.')

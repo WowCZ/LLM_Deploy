@@ -20,7 +20,9 @@ def client(args):
                args.url_path, 
                args.evaluation_tasks,
                args.inference_path,
-               args.revisit_condition)
+               args.revisit_condition,
+               args.dump_type,
+               args.max_prompt_num)
     
 def simulator(args):
     api_simulator(args.simulate_task,
@@ -54,6 +56,8 @@ client_parser.add_argument('--url_path', type=str, default='resource/urls', help
 client_parser.add_argument('--evaluation_tasks', nargs='+', type=str, default=['empathy', 'hinting', 'humor', 'philosophical', 'poetry', 'reading', 'reasoning', 'safety', 'story', 'writing'], help='Human evaluation tasks')
 client_parser.add_argument('--inference_path', type=str, default='resource/data', help='the path of the saved urls.')
 client_parser.add_argument('--revisit_condition', type=str, default=None, help='output condition to revisiting llm api.')
+client_parser.add_argument('--dump_type', type=str, default='oncetime', help='incremental or oncetime')
+client_parser.add_argument('--max_prompt_num', type=int, default=None, help='the maximum number of the evaluated prompts')
 client_parser.set_defaults(func=client)
 
 simulator_parser =  subparsers.add_parser(name='simulator', help='Simulator')
