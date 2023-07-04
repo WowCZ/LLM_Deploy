@@ -1,3 +1,4 @@
+import os
 import json
 import copy
 import tqdm
@@ -10,6 +11,12 @@ logger = get_logger(__name__, 'INFO')
 
 def post_data(url, header, data):
     reqs = requests.post(url=url, headers=header, data=json.dumps(data))
+    while reqs.text.strip().startswith('<html><head>'):
+        reqs = requests.post(url=url, headers=header, data=json.dumps(data))
+    # print('#'*100)
+    # print(data)
+    # print('>>>>', reqs.text.strip().startswith('<html><head>'))
+    # print('#'*100)
     return json.loads(reqs.text)
 
 def _post_data(args):
@@ -45,7 +52,7 @@ def load_as_batches(data, api_size):
     
     batch_data = []
     prompt_temp = copy.deepcopy(data[0])
-    prompt_temp['max_new_tokens'] = 4096
+    # prompt_temp['max_new_tokens'] = 4096
     for i in range(api_size-1):
         prompt_temp['prompt'] = [p['prompt'] for p in data[i*per_api_batch:(i+1)*per_api_batch]]
         batch_data.append(copy.deepcopy(prompt_temp))
@@ -73,6 +80,18 @@ def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str,
     if max_prompt_num:
         prompts = prompts[:max_prompt_num]
 
+    if type(llm_url) is str:
+        llm_url = [llm_url]
+
+    out_data_file = data_file.replace('.json', f'_{llm_name}.jsonl')
+    if os.path.exists(out_data_file):
+        with open(out_data_file, 'r') as fr:
+            out_data_len = len(fr.readlines())
+    else:
+        out_data_len = 0
+
+    prompts = prompts[out_data_len:]
+
     p_lens = []
     for p in prompts:
         p_len = len(p['prompt'])
@@ -85,10 +104,6 @@ def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str,
     logger.info(f'Original maximum length of prompts: {max(p_lens)}')
     logger.info(f'Maximum length of prompts: {max_length}')
 
-    if type(llm_url) is str:
-        llm_url = [llm_url]
-
-    out_data_file = data_file.replace('.json', f'_{llm_name}.jsonl')
     if dump_type == 'incremental':
         fw = open(out_data_file, 'a')
     else:
@@ -98,6 +113,12 @@ def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str,
     for i in tqdm.tqdm(range(batch_nums)):
         data = prompts[i*batch_size: (i+1)*batch_size]
 
+        # try:
+        #     response = visit_llm(llm_url, header, data)
+        # except:
+        #     max_try_nums = 3
+        #     while max_try_nums:
+        #         response = visit_llm(llm_url, header, data)
         response = visit_llm(llm_url, header, data)
 
         left = i*batch_size

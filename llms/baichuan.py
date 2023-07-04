@@ -9,19 +9,26 @@ logger = get_logger(__name__, 'INFO') # DEBUG
 
 model_default_7b = 'BaiChuan-7B'
 model_chinese_vicuna_7b = 'BaiChuan-Chinese-Vicuna-7B'
+model_chinese_lima_7b = 'BaiChuan-Chinese-LIMA-7B'
 
 model_version_map = {
     'default': os.path.join(model_download_path, model_default_7b),
-    'chinese-vicuna': os.path.join(model_download_path, model_chinese_vicuna_7b)
+    'chinese-vicuna': os.path.join(model_download_path, model_chinese_vicuna_7b),
+    'chinese-lima': os.path.join(model_download_path, model_chinese_lima_7b)
 }
 
 version_nickname_map = {
     'default': 'baichuan',
     'chinese-vicuna': 'baichuan-vicuna',
+    'chinese-lima': 'baichuan-lima',
 }
 
-EVAL_PROMPT = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {instruction} ASSISTANT:"
+PROMT_MAP = {
+    'chinese-vicuna': "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {instruction} ASSISTANT:",
+    'chinese-lima': "<|user|>\n {instruction} \n <|assistant|>\n"
+}
 
+EVAL_PROMPT = PROMT_MAP['chinese-vicuna']
 
 class BaiChuanAPI(LLMAPI):
     def __init__(self, 
@@ -31,6 +38,11 @@ class BaiChuanAPI(LLMAPI):
         super(BaiChuanAPI, self).__init__(model_name, model_path, model_version)
         self.supported_types = ['generate', 'score']
         self.name = version_nickname_map[self.model_version]
+        if self.model_version in PROMT_MAP:
+            global EVAL_PROMPT 
+            EVAL_PROMPT = PROMT_MAP[self.model_version]
+        
+        logger.info(f'>>> inference prompt {EVAL_PROMPT}')
 
     def _download_llm(self, model_name: str, model_path: str):
         if not os.path.exists(model_path):
@@ -45,7 +57,10 @@ class BaiChuanAPI(LLMAPI):
     def _initialize_llm(self):
         tokenizer = AutoTokenizer.from_pretrained(self.model_path, use_fast=False, trust_remote_code=True, padding_side='left')
         model = AutoModelForCausalLM.from_pretrained(self.model_path, trust_remote_code=True).to("cuda")
-        tokenizer.pad_token='[PAD]'
+        if self.model_version == 'chinese-lima':
+            model = model.half()
+            
+        tokenizer.pad_token='<pad>'
 
         return model, tokenizer
         

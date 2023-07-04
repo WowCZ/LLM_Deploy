@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 
-openai_key = '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'
+openai_key = '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'
 
 class GPT4API(LLMAPI):
     def __init__(self, 
@@ -37,9 +37,6 @@ class GPT4API(LLMAPI):
 
                     completion = openai.ChatCompletion.create(model="gpt-4",
                                                                 messages=chat_instance,
-                                                                temperature=item.temperature,
-                                                                top_p=item.top_p,
-                                                                max_tokens=item.max_new_tokens,
                                                                 n=item.num_return)
                     gpt4_reply = completion.choices[0].message.content.strip()
                     gpt4_replies.append(gpt4_reply)

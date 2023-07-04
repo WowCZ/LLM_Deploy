@@ -36,6 +36,10 @@ api_name_map = {
     'vicuna-13b': 'Vicuna-13B',
     'sensechat': 'SenseChat',
     'baichuan': 'BaiChuan-7B',
+    'internlm': 'InternLM',
+    'claude': 'Claude',
+    'erniebot': 'ErnieBot',
+    'glm': 'GLM-130B'
 }
 
 ability_name_map = {
