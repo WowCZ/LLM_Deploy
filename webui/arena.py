@@ -150,7 +150,7 @@ def _annotation_result(winner):
     else:
         return f'Make your decision! \n ({arena_plan.progress()})'
 
-def arena_two_model():
+def arena_two_model(port):
     with gr.Blocks(title=emoji.emojize('Arena :crossed_swords:')) as demo:
         gr.Markdown('**Step 1**: Choose the ability for evaluation:')
         human_eval_abi = gr.Dropdown(choices=[ability_name_map[k] for k in abilities], 
@@ -206,4 +206,4 @@ def arena_two_model():
                        outputs=None, 
                        api_name='save')
 
-    demo.launch(share=True)
+    demo.launch(share=True, server_port=port)

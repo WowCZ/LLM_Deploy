@@ -86,7 +86,7 @@ llm_type_map = {
     'GPT家族': ['text-davinci-003', 'gpt-3.5-turbo', 'gpt-4'],
     '代表模型': ['MOSS-moon-003-sft-16B', 'Vicuna-13B', 'BELLE-7B', 'ChatGLM-6B', 'gpt-4'],
     'RankRep': ['gpt-4', 'ChatGLM-6B', 'Vicuna-13B', 'Aplaca-LoRA-7B'],
-    'ALL': ['ChatGLM-6B', 'Chinese-Vicuna-7B', 'LLaMA-7B', 'Vicuna-7B', 'text-davinci-003', 'Vicuna-13B', 'BELLE-7B', 'BLOOM-7B1', 'Aplaca-LoRA-7B', 'Chinese-Alpaca-LoRA-7B', 'MOSS-moon-003-sft-16B', 'gpt-3.5-turbo', 'gpt-4']
+    'ALL': ['ChatGLM-6B', 'Chinese-Vicuna-7B', 'LLaMA-7B', 'Vicuna-7B', 'text-davinci-003', 'Vicuna-13B', 'BELLE-7B', 'BLOOM-7B1', 'Aplaca-LoRA-7B', 'Chinese-Alpaca-LoRA-7B', 'MOSS-moon-003-sft-16B', 'gpt-3.5-turbo', 'gpt-4', 'BLOOMZ-175B', 'BaiChuan-Chinese-Vicuna-7B', 'SenseChat', 'InternLM', 'ErnieBot']
 }
 
 llm_name_gaussian = dict(zip(llm_type_map['ALL'], [0.002*i for i in range(len(llm_type_map['ALL']))]))
@@ -384,11 +384,12 @@ def plot_hotmap(file_path: str, save_fig_path: str, save_fig_name: str = None):
             # plt.clf()
             sns.set(font_scale=1.5)
             hotmap_path = os.path.join(file_path, d)
+            logger.info('>>> Hotmap Figure: ' + hotmap_path)
             df = trueskill_hotmap_reader(hotmap_path)
             if df is None:
                 continue
 
-            sns.set_context({"figure.figsize":(25,25)})
+            sns.set_context({"figure.figsize":(30,30)})
             ax = sns.heatmap(data=df, cmap="RdBu_r", center=50, fmt=".2f", annot=True, linewidths=0.6) 
 
             ax.xaxis.tick_top()
@@ -418,10 +419,8 @@ def plot_gaussian(file_path: str, save_fig_path: str, save_fig_name: str = None)
             continue
 
         for d in tqdm(ds):
-            if d != 'overall':
-                continue
-
             gaussian_path = os.path.join(file_path, d)
+            logger.info('>>> Gaussion Figure: ' + gaussian_path)
             gaussian_map = trueskill_gaussian_reader(gaussian_path)
             if gaussian_map is None:
                 continue
@@ -454,7 +453,7 @@ def plot_gaussian(file_path: str, save_fig_path: str, save_fig_name: str = None)
                     plt.xlabel('$\mu$',fontsize=10)
                     plt.ylabel('概率',fontsize=10)
                     plt.ylim(0, 0.6)
-                    plt.xlim(20, 45)
+                    plt.xlim(25, 37)
                     # plt.legend()
                     plt.grid(color='black', alpha=0.2)
                     
@@ -503,7 +502,7 @@ def plot_dynamic_gif(file_path: str, save_fig_path: str, save_fig_name: str = No
                     imageio.mimsave(f"{save_path}/{d}.gif", gif_images, 'GIF', duration=500, floop=sys.maxsize)
 
 
-def plot_vedio(file_path: str, save_fig_path: str, save_fig_name: str = None):
+def plot_video(file_path: str, save_fig_path: str, save_fig_name: str = None):
     import concurrent.futures
     import imageio
     from PIL import Image
@@ -515,12 +514,17 @@ def plot_vedio(file_path: str, save_fig_path: str, save_fig_name: str = None):
         # return image.convert("RGB")
         return image
     
+    print(file_path)
     for _, ds, _ in  os.walk(file_path):
         if not ds:
             continue
         
         for d in tqdm(ds):
+            # if d != 'overall2':
+            #     continue
+
             img_file_path = os.path.join(file_path, d)
+            logger.info('>>> Gaussion Video: ' + img_file_path)
             for _, _, img_paths in os.walk(img_file_path):
                 img_paths = [n for n in img_paths if '.png' in n]
                 values = []

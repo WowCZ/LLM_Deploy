@@ -52,6 +52,6 @@ python analysis.py plot \
 ## 🌐WebUI 
 -------
 ```
-python webui.py
+python webui.py chat --url http://10.140.24.57:9762/generate
 ```
 ![image](assets/figures/trueskill_annotation.png)

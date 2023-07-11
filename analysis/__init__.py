@@ -15,7 +15,7 @@ def get_logger(name, level='DEBUG'):
     logger.addHandler(ch)
     return logger
 
-from .visit_api import visit_llm_api, revisit_llm_api
+from .visit_api import visit_llm_api, revisit_llm_api, visit_llm
 from .sample_data import sample_instance, \
 recovery_score, \
 sample_chinese_testing, \
@@ -35,6 +35,6 @@ plot_ability_radar, \
 plot_hotmap, \
 plot_gaussian, \
 plot_dynamic_gif, \
-plot_vedio, \
+plot_video, \
 plot_bar, \
 plot_icc

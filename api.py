@@ -44,7 +44,7 @@ server_parser.add_argument('--temperature', type=float, default=0.8, help='gener
 server_parser.add_argument('--max_new_tokens', type=int, default=1024, help='generation configuration: max_new_tokens')
 server_parser.add_argument('--top_p', type=float, default=0.7, help='generation configuration: top_p')
 server_parser.add_argument('--num_return', type=int, default=1, help='generation configuration: num_return')
-server_parser.add_argument('--do_sample', type=bool, default=False, help='generation configuration: do_sample')
+server_parser.add_argument('--do_sample', type=bool, default=True, help='generation configuration: do_sample')
 server_parser.add_argument('--seed', type=int, default=42, help='generation configuration: seed')
 server_parser.set_defaults(func=server)
 
@@ -72,5 +72,5 @@ simulator_parser.set_defaults(func=simulator)
 args = parser.parse_args()
 args.func(args)
 
-# curl -H "Content-Type: application/json" -X POST http://43.130.133.215:6052/generate -d "@examples/cn_gen.json"
+# curl -H "Content-Type: application/json" -X POST http://10.140.24.57:9762/generate -d "@examples/cn_gen.json"
 # API_SECRET_KEY=69d9b38238d744bcace97ee2aa094f2a curl https://sensenova.sensetime.com/test/v1/nlp/chat/completions -w "Total time: %{time_total} seconds\n" -H "Content-Type: application/json" -H "Authorization: $API_SECRET_KEY" -d '{"messages": [{"role": "user", "content": "请问我生成一篇爱情小说的大纲，200字左右"}], "temperature": 0.8, "top_p": 0.7, "max_new_tokens": 2048, "repetition_penalty": 1, "user": "test" }'

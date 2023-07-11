@@ -29,6 +29,8 @@ def _post_data(args):
         output_key = 'outputs'
     pr_map = dict()
     for p, r in zip(data['prompt'], response[output_key]):
+        if type(r) is list:
+            r = r[0]
         pr_map[p] = r
     return pr_map
 
@@ -113,12 +115,6 @@ def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str,
     for i in tqdm.tqdm(range(batch_nums)):
         data = prompts[i*batch_size: (i+1)*batch_size]
 
-        # try:
-        #     response = visit_llm(llm_url, header, data)
-        # except:
-        #     max_try_nums = 3
-        #     while max_try_nums:
-        #         response = visit_llm(llm_url, header, data)
         response = visit_llm(llm_url, header, data)
 
         left = i*batch_size

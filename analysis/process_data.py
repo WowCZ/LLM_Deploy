@@ -337,7 +337,7 @@ def trueskill_hotmap_reader(dir_path: str) -> pd.DataFrame:
 
     for offe in show_order:
         for deff in show_order:
-            if offe == deff:
+            if offe == deff or offe not in win_rate_map or deff not in win_rate_map[offe]:
                 continue
 
             win_rate_df['Offender'].append(offe)

@@ -9,23 +9,27 @@ logger = get_logger(__name__, 'INFO') # DEBUG
 
 model_default_7b = 'BaiChuan-7B'
 model_chinese_vicuna_7b = 'BaiChuan-Chinese-Vicuna-7B'
-model_chinese_lima_7b = 'BaiChuan-Chinese-LIMA-7B'
+model_chinese_chat_7b = 'BaiChuan-ShortChat-7B'
+model_sft_7b = 'BaiChuan-SFT-7B'
 
 model_version_map = {
     'default': os.path.join(model_download_path, model_default_7b),
     'chinese-vicuna': os.path.join(model_download_path, model_chinese_vicuna_7b),
-    'chinese-lima': os.path.join(model_download_path, model_chinese_lima_7b)
+    'chinese-chat': os.path.join(model_download_path, model_chinese_chat_7b),
+    'sft': os.path.join(model_download_path, model_sft_7b)
 }
 
 version_nickname_map = {
     'default': 'baichuan',
     'chinese-vicuna': 'baichuan-vicuna',
-    'chinese-lima': 'baichuan-lima',
+    'chinese-chat': 'baichuan-lima',
+    'sft': 'baichuan-sft',
 }
 
 PROMT_MAP = {
     'chinese-vicuna': "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {instruction} ASSISTANT:",
-    'chinese-lima': "<|user|>\n {instruction} \n <|assistant|>\n"
+    'chinese-chat': "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. \nUSER: {instruction} \nASSISTANT:",
+    'sft': "<|user|>\n {instruction} \n <|assistant|>\n"
 }
 
 EVAL_PROMPT = PROMT_MAP['chinese-vicuna']
@@ -48,17 +52,17 @@ class BaiChuanAPI(LLMAPI):
         if not os.path.exists(model_path):
             os.makedirs(model_path)
 
-            tokenizer = AutoTokenizer.from_pretrained(model_name)
-            model = AutoModelForCausalLM.from_pretrained(model_name).to("cuda")
+            tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+            model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True).to("cuda")
 
             tokenizer.save_pretrained(model_path)
             model.save_pretrained(model_path)
     
     def _initialize_llm(self):
-        tokenizer = AutoTokenizer.from_pretrained(self.model_path, use_fast=False, trust_remote_code=True, padding_side='left')
+        tokenizer = AutoTokenizer.from_pretrained(self.model_path, use_fast=False, trust_remote_code=True)
         model = AutoModelForCausalLM.from_pretrained(self.model_path, trust_remote_code=True).to("cuda")
-        if self.model_version == 'chinese-lima':
-            model = model.half()
+        # if self.model_version == 'chinese-lima':
+        # model = model.half()
             
         tokenizer.pad_token='<pad>'
 
@@ -76,7 +80,7 @@ class BaiChuanAPI(LLMAPI):
             item.temperature = 1e-6
             item.do_sample = False
 
-        instance = [EVAL_PROMPT.format(instruction=i) for i in instance]
+        # instance = [EVAL_PROMPT.format(instruction=i) for i in instance]
         
         inputs = self.tokenizer(instance, 
                                 return_tensors="pt",

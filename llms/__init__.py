@@ -39,7 +39,8 @@ api_name_map = {
     'internlm': 'InternLM',
     'claude': 'Claude',
     'erniebot': 'ErnieBot',
-    'glm': 'GLM-130B'
+    'glm': 'GLM-130B',
+    'bloomz-175b': 'BLOOMZ-175B',
 }
 
 ability_name_map = {
@@ -66,7 +67,8 @@ ability_en_zh_map = {
     'safety': '安全交互能力',
     'humor': '幽默理解能力',
     'reasoning': '常识推理解释能力',
-    'overall': '综合能力'
+    'overall': '综合能力',
+    'overall2': '综合能力',
 }
 
 model_download_path = '/mnt/lustre/chenzhi/workspace/LLM/models'

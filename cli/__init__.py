@@ -11,4 +11,4 @@ from .simulator import api_simulator
 from .recovery import recovery
 from .sample import sample
 from .plot import plot
-from .webui import deploy_webui
+from .webui import deploy_arena, deploy_chat
