@@ -74,3 +74,4 @@ args.func(args)
 
 # curl -H "Content-Type: application/json" -X POST http://10.140.24.57:9762/generate -d "@examples/cn_gen.json"
 # API_SECRET_KEY=69d9b38238d744bcace97ee2aa094f2a curl https://sensenova.sensetime.com/test/v1/nlp/chat/completions -w "Total time: %{time_total} seconds\n" -H "Content-Type: application/json" -H "Authorization: $API_SECRET_KEY" -d '{"messages": [{"role": "user", "content": "请问我生成一篇爱情小说的大纲，200字左右"}], "temperature": 0.8, "top_p": 0.7, "max_new_tokens": 2048, "repetition_penalty": 1, "user": "test" }'
+# python api.py client --model_name gpt4 --batch_size 1 --max_length 320000 --evaluation_tasks spider --inference_path resource/spider --dump_type incremental

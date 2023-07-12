@@ -14,9 +14,6 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s",
 )
 
-# load_8bit = sys.argv[3].lower().startswith("8") if len(sys.argv) > 3 else False
-# base_model = sys.argv[1]
-# adapter_model = None if sys.argv[2].lower() == "none" else sys.argv[2]
 tokenizer = load_tokenizer('/mnt/lustre/chenzhi/workspace/LLM/models/BaiChuan-ShortChat-7B')
 
 
@@ -220,9 +217,6 @@ def chat_with_api(url: str, port: int):
         user_input.submit(**transfer_input_args).then(**predict_args)
 
         submitBtn.click(**transfer_input_args).then(**predict_args)
-
-        # user_input.submit(**predict_args)
-        # submitBtn.click(**predict_args)
 
         emptyBtn.click(
             reset_state,

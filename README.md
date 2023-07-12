@@ -53,11 +53,11 @@ python analysis.py plot \
 -------
 ### Arena mode:
 ```shell
-python webui.py chat --url http://10.140.24.57:9762/generate
+python webui.py arena --port 8888
 ```
 ![image](assets/figures/trueskill_annotation.png)
 
 ### Chat mode:
 ```shell
-python webui.py chat --url http://10.140.24.57:9762/generate
+python webui.py chat --url http://10.140.24.23:7407/generate
 ```

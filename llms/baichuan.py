@@ -22,7 +22,7 @@ model_version_map = {
 version_nickname_map = {
     'default': 'baichuan',
     'chinese-vicuna': 'baichuan-vicuna',
-    'chinese-chat': 'baichuan-lima',
+    'chinese-chat': 'baichuan-chat',
     'sft': 'baichuan-sft',
 }
 

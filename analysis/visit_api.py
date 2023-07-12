@@ -130,6 +130,7 @@ def visit_llm_api(data_file: str, llm_url: Union[str, List[str]], llm_name: str,
         fw.flush()
         fw.close()
     elif dump_type == 'oncetime':
+        out_data_file = out_data_file.replace('.jsonl', '.json')
         with open(out_data_file, 'w') as fw:
             json.dump(prompts, fw, indent=4, ensure_ascii=False)
     else:
