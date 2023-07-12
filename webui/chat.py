@@ -238,5 +238,5 @@ def chat_with_api(url: str, port: int):
 
     reload_javascript()
     demo.queue(concurrency_count=CONCURRENT_COUNT).launch(
-        share=True, favicon_path="./assets/favicon.ico"
+        share=True, favicon_path="assets/favicon.ico", server_name="0.0.0.0"
     )

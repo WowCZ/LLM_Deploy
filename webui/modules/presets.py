@@ -13,6 +13,14 @@ description = """\
 The demo is built on <a href="https://github.com/GaiZhenbiao/ChuanhuChatGPT">ChuanhuChatGPT</a>.
 </div>
 """
+
+title_arena = """<h1 align="left" style="min-width:200px; margin-top:0;"> <img src="assets/webui/opendialog.svg" width="32px" style="display: inline"> Arena </h1>"""
+description_arena = """\
+<div align="left" style="margin:16px 0">
+This is arena evaluation system based on TrueSkill strategy.
+</div>
+"""
+
 CONCURRENT_COUNT = 100
 
 

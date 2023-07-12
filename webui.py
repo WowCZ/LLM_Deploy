@@ -18,7 +18,7 @@ arena_parser.add_argument('--port', type=int, default=8888, help='deploy port')
 arena_parser.set_defaults(func=arena)
 
 
-chat_parser = subparsers.add_parser(name='chat', help='chat WebUI')
+chat_parser = subparsers.add_parser(name='chat', help='Chat WebUI')
 
 chat_parser.add_argument('--url', type=str, default='http://10.140.24.57:9762/generate', help='language model api')
 chat_parser.add_argument('--port', type=int, default=8888, help='deploy port')

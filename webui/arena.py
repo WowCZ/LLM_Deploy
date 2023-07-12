@@ -2,6 +2,7 @@ import os
 import emoji
 import json
 import gradio as gr
+from webui.modules.presets import *
 from analysis import sample_trueskill
 from llms import ability_name_map, api_name_map, ability_en_zh_map
 
@@ -152,6 +153,10 @@ def _annotation_result(winner):
 
 def arena_two_model(port):
     with gr.Blocks(title=emoji.emojize('Arena :crossed_swords:')) as demo:
+        with gr.Row():
+            gr.HTML(title_arena)
+        gr.Markdown(description_arena)
+
         gr.Markdown('**Step 1**: Choose the ability for evaluation:')
         human_eval_abi = gr.Dropdown(choices=[ability_name_map[k] for k in abilities], 
                                      label=emoji.emojize(f'{len(abilities)} abilities for human evaluation :technologist:'))
@@ -206,4 +211,4 @@ def arena_two_model(port):
                        outputs=None, 
                        api_name='save')
 
-    demo.launch(share=True, server_port=port)
+    demo.launch(share=True, server_port=port, server_name='0.0.0.0')
