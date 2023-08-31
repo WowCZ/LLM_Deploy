@@ -163,7 +163,7 @@ def arena_two_model(port):
         
         gr.Markdown('**Step 2**: Choose the large language models for battle:')
         llm_pool = gr.CheckboxGroup(choices=llms,
-                                    label=emoji.emojize(f'{len(abilities)} large language models in the zoo :paw_prints:'))
+                                    label=emoji.emojize(f'{len(llms)} large language models in the zoo :paw_prints:'))
         
         gr.Markdown('**Step 3**: Load the battle matches:')
         with gr.Row():

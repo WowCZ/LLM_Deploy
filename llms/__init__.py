@@ -37,10 +37,11 @@ api_name_map = {
     'sensechat': 'SenseChat',
     'baichuan': 'BaiChuan-7B',
     'internlm': 'InternLM',
-    'claude': 'Claude',
+    'claude': 'Claude-1',
     'erniebot': 'ErnieBot',
     'glm': 'GLM-130B',
     'bloomz-175b': 'BLOOMZ-175B',
+    'chatglm2': 'ChatGLM2'
 }
 
 ability_name_map = {
@@ -71,7 +72,7 @@ ability_en_zh_map = {
     'overall2': '综合能力',
 }
 
-model_download_path = '/mnt/lustre/chenzhi/workspace/LLM/models'
+model_download_path = '/mnt/petrelfs/chenzhi/workspace/LLM/models'
 
 from . import base_api
 from .base_api import LLMAPI

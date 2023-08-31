@@ -117,7 +117,7 @@ code {
     border-radius: 6px;
     margin: 0 2px 0 2px;
     padding: .2em .4em .1em .4em;
-    background-color: rgba(175,184,193,0.2);
+    background-color: rgba(5, 5, 5, 0.2);
 }
 /* 代码块 */
 pre code {
@@ -128,12 +128,12 @@ pre code {
     border-radius: 10px;
     padding: 1.4em 1.2em 0em 1.4em;
     margin: 1.2em 2em 1.2em 0.5em;
-    color: #FFF;
-    box-shadow: 6px 6px 16px hsla(0, 0%, 0%, 0.2);
+    color: rgb(8, 8, 8);
+    /* box-shadow: 6px 6px 16px hsla(0, 0%, 0%, 0.2); */
 }
 /* 代码高亮样式 */
-.highlight .hll { background-color: #49483e }
-.highlight .c { color: #75715e } /* Comment */
+.highlight .hll { background-color: #080808 }
+.highlight .c { color: #64645f } /* Comment */
 .highlight .err { color: #960050; background-color: #1e0010 } /* Error */
 .highlight .k { color: #66d9ef } /* Keyword */
 .highlight .l { color: #ae81ff } /* Literal */

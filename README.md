@@ -4,7 +4,7 @@
 -------
 ### Deploy the large language model:
 ```shell
-python api.py server --api=T5API --version=default --wrapper=Flask
+python api.py server --api=T5API --api_version=default --wrapper=Flask
 ```
 
 ### Complete human evaluation tasks with the deployed large language model apis:
@@ -57,7 +57,7 @@ python webui.py arena --port 8888
 ```
 ![image](assets/figures/trueskill_annotation.png)
 
-### Chat mode:
+### Chat mode (proxy_off):
 ```shell
-python webui.py chat --url http://10.140.24.23:7407/generate
+python webui.py chat --url http://10.140.24.22:7660/generate
 ```

@@ -14,7 +14,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s",
 )
 
-tokenizer = load_tokenizer('/mnt/lustre/chenzhi/workspace/LLM/models/BaiChuan-ShortChat-7B')
+tokenizer = load_tokenizer('/mnt/petrelfs/chenzhi/workspace/LLM/models/BaiChuan-ShortChat-7B')
 
 
 def predict(
@@ -170,7 +170,7 @@ def chat_with_api(url: str, port: int):
                             interactive=True,
                             label="Max History Tokens",
                         )
-        gr.Markdown(description)
+        # gr.Markdown(description)
 
         predict_args = dict(
             fn=predict,
@@ -238,5 +238,9 @@ def chat_with_api(url: str, port: int):
 
     reload_javascript()
     demo.queue(concurrency_count=CONCURRENT_COUNT).launch(
-        share=True, favicon_path="assets/favicon.ico", server_name="0.0.0.0"
+        share=True, favicon_path="./assets/favicon.ico", server_name='0.0.0.0'
     )
+
+    # demo.queue(concurrency_count=CONCURRENT_COUNT).launch(
+    #     share=True, server_name='0.0.0.0'
+    # )

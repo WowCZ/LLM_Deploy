@@ -393,8 +393,8 @@ def plot_hotmap(file_path: str, save_fig_path: str, save_fig_name: str = None):
             ax = sns.heatmap(data=df, cmap="RdBu_r", center=50, fmt=".2f", annot=True, linewidths=0.6) 
 
             ax.xaxis.tick_top()
-            plt.xticks(rotation=50, fontsize=15)
-            plt.yticks(rotation=50, fontsize=15)
+            plt.xticks(rotation=60, fontsize=15)
+            plt.yticks(rotation=30, fontsize=15)
 
             # plt.xlabel('Defender', fontsize=25, fontweight='bold')
             # plt.ylabel('Offender', fontsize=25, fontweight='bold')

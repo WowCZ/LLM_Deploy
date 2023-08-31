@@ -300,7 +300,7 @@ def sample_decode(
 
 def generate_prompt_with_history(text, history, tokenizer, max_length=2048):
     prompt = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. "
-    history = ["\nUSER:\n{}\nASSITANT:\n{}\n".format(x[0], x[1]) for x in history]
+    history = ["\nUSER:\n{}\nASSITANT:\n{}".format(x[0], x[1]) for x in history]
     history.append("\nUSER:\n{}\nASSITANT:\n".format(text))
     history_text = ""
     flag = False

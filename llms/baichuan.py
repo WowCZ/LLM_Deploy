@@ -9,7 +9,7 @@ logger = get_logger(__name__, 'INFO') # DEBUG
 
 model_default_7b = 'BaiChuan-7B'
 model_chinese_vicuna_7b = 'BaiChuan-Chinese-Vicuna-7B'
-model_chinese_chat_7b = 'BaiChuan-ShortChat-7B'
+model_chinese_chat_7b = 'BaiChuan-Chat-7B'
 model_sft_7b = 'BaiChuan-SFT-7B'
 
 model_version_map = {

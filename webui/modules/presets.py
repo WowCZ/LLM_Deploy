@@ -2,10 +2,10 @@
 import gradio as gr
 
 
-title = """<h1 align="left" style="min-width:200px; margin-top:0;"> <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f432.svg" width="32px" style="display: inline"> ChatX </h1>"""
+title = """<h1 align="left" style="min-width:200px; margin-top:0;"> <img src="https://static-resource-1312929755.cos.ap-shanghai.myqcloud.com/pictures/dialog/knowchat.png" width="64px" style="display: inline"> ChatX </h1>"""
 description_top = """\
 <div align="left" style="margin:16px 0">
-Disclaimer: The BaiChuan model is a third-party version available on Hugging Face model hub. This demo should be used for research purposes only. The model output is not censored and the authors do not endorse the opinions in the generated content. Use at your own risk.
+Disclaimer: The ChatX model is a third-party version available on Hugging Face model hub. This demo should be used for research purposes only. The model output is not censored and the authors do not endorse the opinions in the generated content. Use at your own risk.
 </div>
 """
 description = """\
@@ -14,7 +14,7 @@ The demo is built on <a href="https://github.com/GaiZhenbiao/ChuanhuChatGPT">Chu
 </div>
 """
 
-title_arena = """<h1 align="left" style="min-width:200px; margin-top:0;"> <img src="assets/webui/opendialog.svg" width="32px" style="display: inline"> Arena </h1>"""
+title_arena = """<h1 align="left" style="min-width:200px; margin-top:0;"> <img src="https://static-resource-1312929755.cos.ap-shanghai.myqcloud.com/pictures/dialog/pic1.svg" width="128px" style="display: inline"> Arena </h1>"""
 description_arena = """\
 <div align="left" style="margin:16px 0">
 This is arena evaluation system based on TrueSkill strategy.

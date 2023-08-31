@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 
-openai_key = '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'
+openai_key = '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'
 
 class GPT4API(LLMAPI):
     def __init__(self, 
@@ -19,6 +19,7 @@ class GPT4API(LLMAPI):
         
     def generate(self, item: BaseModel) -> List[str]:
         openai.api_key = openai_key
+        openai.organization = 'org-Ocn8x8Go7Sh57REO2KrpCDpr'
 
         prompt = item.prompt
         if not prompt:
